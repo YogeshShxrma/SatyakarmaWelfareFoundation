@@ -1,0 +1,82 @@
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Leaf } from "lucide-react";
+
+const AdminLogin = () => {
+  const [credentials, setCredentials] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simple authentication - in production, this should be more secure
+    if (credentials.username === "admin" && credentials.password === "satyakarma2024") {
+      localStorage.setItem("adminAuth", "true");
+      navigate("/admin-panel");
+    } else {
+      setError("Invalid credentials");
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full mx-4">
+        <div className="text-center mb-8">
+          <Leaf className="h-12 w-12 text-green-600 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-gray-800">Admin Login</h1>
+          <p className="text-gray-600">SatyaKarma Foundation Admin Panel</p>
+        </div>
+
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Username
+            </label>
+            <input
+              type="text"
+              value={credentials.username}
+              onChange={(e) => setCredentials({...credentials, username: e.target.value})}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              value={credentials.password}
+              onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+              required
+            />
+          </div>
+
+          {error && (
+            <div className="text-red-600 text-sm text-center">
+              {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+          >
+            Login
+          </button>
+        </form>
+
+        <div className="mt-6 text-center text-sm text-gray-500">
+          <p>Demo credentials:</p>
+          <p>Username: admin</p>
+          <p>Password: satyakarma2024</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminLogin;
