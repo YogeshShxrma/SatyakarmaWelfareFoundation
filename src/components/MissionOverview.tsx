@@ -1,7 +1,5 @@
-
 const MissionOverview = () => {
-  return (
-    <section className="py-20 bg-white">
+  return <section className="py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
@@ -13,7 +11,7 @@ const MissionOverview = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2  items-center w-100">
           <div className="space-y-8">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -62,17 +60,11 @@ const MissionOverview = () => {
           </div>
 
           <div className="relative">
-            <img 
-              src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-              alt="Children planting trees together"
-              className="rounded-lg shadow-md"
-            />
+            <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Children planting trees together" className="rounded-lg shadow-md" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"></div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default MissionOverview;
