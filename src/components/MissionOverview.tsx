@@ -1,126 +1,73 @@
 
-import { Leaf, Users, TreeDeciduous, Zap, Target, Globe } from "lucide-react";
-
 const MissionOverview = () => {
-  const missions = [
-    {
-      icon: <Leaf className="h-16 w-16 text-teal-500" />,
-      title: "Plastic-Free Planet",
-      description: "Revolutionary compostable alternatives and community cleanup drives that transform how we think about packaging.",
-      image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      bgColor: "from-teal-100 to-green-100",
-      accent: "teal"
-    },
-    {
-      icon: <Users className="h-16 w-16 text-coral-500" />,
-      title: "Active Kids, Bright Futures",
-      description: "Fitness workshops and health awareness programs that empower children to build lifelong wellness habits.",
-      image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      bgColor: "from-coral-100 to-orange-100",
-      accent: "coral"
-    },
-    {
-      icon: <TreeDeciduous className="h-16 w-16 text-emerald-500" />,
-      title: "Green Communities",
-      description: "Tree plantation drives and environmental education that unite neighborhoods for sustainable development.",
-      image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      bgColor: "from-emerald-100 to-green-100",
-      accent: "emerald"
-    }
-  ];
-
-  const stats = [
-    { icon: <Target className="h-8 w-8" />, number: "50+", label: "Communities Reached", color: "text-teal-600" },
-    { icon: <Users className="h-8 w-8" />, number: "1000+", label: "Children Engaged", color: "text-coral-600" },
-    { icon: <TreeDeciduous className="h-8 w-8" />, number: "5000+", label: "Trees Planted", color: "text-emerald-600" },
-    { icon: <Globe className="h-8 w-8" />, number: "25+", label: "Active Partnerships", color: "text-violet-600" }
-  ];
-
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-teal-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Bold Header */}
-        <div className="text-center mb-20 animate-fade-in">
-          <div className="inline-flex items-center gap-4 mb-6">
-            <div className="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></div>
-            <span className="text-teal-600 font-bold text-lg uppercase tracking-wide">Our Mission</span>
-            <div className="w-2 h-2 bg-violet-500 rounded-full animate-pulse"></div>
-          </div>
-          
-          <h2 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 leading-tight font-montserrat">
-            Search for Truth
-            <span className="block text-gradient">Through Action</span>
+    <section className="py-20 bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
+            Our Mission
           </h2>
-          
-          <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium">
-            We're not just another NGO. We're a movement of young changemakers, 
-            parents, and communities creating tangible impact through bold environmental action.
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            SatyaKarma Welfare Foundation Society is dedicated to creating sustainable positive change 
+            through environmental protection, children's wellness, and community empowerment.
           </p>
         </div>
 
-        {/* Mission Cards */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-20">
-          {missions.map((mission, index) => (
-            <div 
-              key={index}
-              className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${mission.bgColor} p-8 hover:shadow-2xl transition-all duration-500 hover:transform hover:-translate-y-4 animate-fade-in border-2 border-white/50`}
-              style={{ animationDelay: `${index * 200}ms` }}
-            >
-              {/* Background Pattern */}
-              <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
-                <div className="w-full h-full rounded-full border-4 border-current animate-pulse"></div>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            <div className="flex items-start space-x-4">
+              <div className="w-12 h-12 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
               </div>
-              
-              <div className="relative z-10">
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg group-hover:shadow-xl transition-all group-hover:scale-110">
-                    {mission.icon}
-                  </div>
-                  <Zap className="h-8 w-8 text-yellow-500 opacity-60 group-hover:opacity-100 transition-opacity" />
-                </div>
-                
-                <h3 className="text-3xl font-black text-gray-900 mb-4 group-hover:text-gray-700 transition-colors">
-                  {mission.title}
-                </h3>
-                
-                <p className="text-gray-700 leading-relaxed font-medium mb-6">
-                  {mission.description}
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Environmental Action</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Reducing plastic pollution through compostable alternatives and promoting 
+                  tree plantation for a sustainable future.
                 </p>
-                
-                <div className="relative overflow-hidden rounded-xl">
-                  <img 
-                    src={mission.image} 
-                    alt={mission.title}
-                    className="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                </div>
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* Impact Stats */}
-        <div className="bg-gradient-primary rounded-3xl p-8 md:p-12 text-white animate-fade-in">
-          <div className="text-center mb-12">
-            <h3 className="text-4xl md:text-5xl font-black mb-4 font-montserrat">Our Impact So Far</h3>
-            <p className="text-xl opacity-90">Real numbers, real change, real hope for tomorrow</p>
-          </div>
-          
-          <div className="grid md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div 
-                key={index}
-                className="text-center group animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 group-hover:bg-white/30 transition-all group-hover:scale-110">
-                  <div className="text-white">{stat.icon}</div>
-                </div>
-                <div className="text-4xl md:text-5xl font-black mb-2">{stat.number}</div>
-                <div className="text-lg font-medium opacity-90">{stat.label}</div>
+            <div className="flex items-start space-x-4">
+              <div className="w-12 h-12 bg-ocean-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-ocean-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
-            ))}
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Children's Wellness</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Encouraging physical activity and health awareness among children 
+                  through engaging school and community programs.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-4">
+              <div className="w-12 h-12 bg-earth-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-earth-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m3 5.197V9a3 3 0 00-3-3v4.5" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">Community Partnership</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Building strong partnerships with schools, authorities, and communities 
+                  to create lasting environmental and social impact.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative">
+            <img 
+              src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Children planting trees together"
+              className="rounded-lg shadow-md"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"></div>
           </div>
         </div>
       </div>

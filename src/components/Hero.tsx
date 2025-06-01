@@ -1,91 +1,90 @@
 
-import { ArrowDown, Leaf, Heart, Users } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 const Hero = () => {
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-400 via-violet-500 to-orange-400"></div>
-      
-      {/* Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-20 h-20 bg-white/20 rounded-full animate-float"></div>
-        <div className="absolute top-40 right-20 w-16 h-16 bg-white/15 rounded-full animate-float delay-500"></div>
-        <div className="absolute bottom-40 left-20 w-12 h-12 bg-white/25 rounded-full animate-float delay-1000"></div>
-        <div className="absolute bottom-20 right-10 w-24 h-24 bg-white/10 rounded-full animate-float delay-700"></div>
+    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-sage-50 to-earth-50">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(0,0,0) 1px, transparent 0)`,
+          backgroundSize: '30px 30px'
+        }}></div>
       </div>
       
-      {/* Dotted Pattern Overlay */}
-      <div className="absolute inset-0 opacity-20" style={{
-        backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
-        backgroundSize: '30px 30px'
-      }}></div>
-      
-      <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Logo with Animation */}
-        <div className="mb-8 animate-scale-in">
-          <div className="relative inline-block">
-            <img 
-              src="/lovable-uploads/da4b2fb3-1e46-41c3-a9bd-6504bde7a5d0.png" 
-              alt="SatyaKarma Welfare Foundation Logo" 
-              className="w-32 h-32 mx-auto mb-6 rounded-full shadow-2xl animate-pulse-glow"
-            />
-            <div className="absolute -top-2 -right-2 w-8 h-8 bg-coral-400 rounded-full animate-bounce-slow"></div>
-            <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-teal-400 rounded-full animate-bounce-slow delay-500"></div>
-          </div>
+      <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Logo */}
+        <div className="mb-8 fade-in">
+          <img 
+            src="/lovable-uploads/da4b2fb3-1e46-41c3-a9bd-6504bde7a5d0.png" 
+            alt="SatyaKarma Welfare Foundation Logo" 
+            className="w-20 h-20 mx-auto mb-6 rounded-full shadow-md"
+          />
         </div>
 
-        {/* Main Headline - Girls Who Code Style */}
-        <h1 className="text-5xl md:text-8xl font-black text-white mb-8 leading-tight animate-fade-in font-montserrat">
-          <span className="block">Act for Earth.</span>
-          <span className="block text-yellow-300 animate-fade-in delay-300">Move for Health.</span>
-          <span className="block text-coral-300 animate-fade-in delay-500">Build the Future.</span>
+        {/* Main Headline */}
+        <h1 className="text-4xl md:text-6xl font-lato font-bold text-gray-800 mb-6 leading-tight slide-up">
+          Clean Earth.
+          <span className="block text-sage-600">Active Children.</span>
+          <span className="block text-ocean-600">Greener Future.</span>
         </h1>
         
-        {/* Tagline */}
-        <div className="mb-8 animate-fade-in delay-700">
-          <p className="text-2xl md:text-3xl text-white/90 mb-4 font-bold">
+        {/* Sanskrit Tagline */}
+        <div className="mb-8 fade-in" style={{ animationDelay: '0.3s' }}>
+          <p className="text-xl text-gray-600 mb-3 font-medium">
             कर्म में सत्य की खोज करें
           </p>
-          <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed font-medium">
-            Join thousands of young changemakers creating a sustainable future through 
-            environmental action, children's wellness, and community empowerment.
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            Searching for truth through action. Building sustainable communities 
+            through environmental awareness, children's wellness, and collaborative partnerships.
           </p>
         </div>
         
         {/* Action Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12 animate-fade-in delay-1000">
-          <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all hover-scale">
-            <Leaf className="h-12 w-12 text-green-300 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Plastic-Free Planet</h3>
-            <p className="text-white/80 text-sm">Compostable alternatives & cleanup drives</p>
+        <div className="grid md:grid-cols-3 gap-6 mb-12 fade-in" style={{ animationDelay: '0.6s' }}>
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-sm minimal-hover border border-gray-100">
+            <div className="w-12 h-12 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">Plastic-Free Planet</h3>
+            <p className="text-sm text-gray-600">Promoting compostable alternatives and environmental awareness</p>
           </div>
           
-          <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all hover-scale delay-200">
-            <Heart className="h-12 w-12 text-coral-300 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Active Kids, Bright Futures</h3>
-            <p className="text-white/80 text-sm">Fitness awareness in schools</p>
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-sm minimal-hover border border-gray-100">
+            <div className="w-12 h-12 bg-ocean-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-ocean-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">Active Children</h3>
+            <p className="text-sm text-gray-600">Physical wellness and health awareness programs for kids</p>
           </div>
           
-          <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all hover-scale delay-300">
-            <Users className="h-12 w-12 text-violet-300 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Green Communities</h3>
-            <p className="text-white/80 text-sm">Tree planting & grassroots action</p>
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-sm minimal-hover border border-gray-100">
+            <div className="w-12 h-12 bg-earth-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-earth-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">Green Communities</h3>
+            <p className="text-sm text-gray-600">Tree planting and community partnership initiatives</p>
           </div>
         </div>
         
-        {/* Bold CTAs */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in delay-1000">
-          <button className="bg-white text-violet-600 px-10 py-5 rounded-full text-xl font-black hover:bg-gray-100 transition-all transform hover:scale-105 shadow-2xl hover-scale border-4 border-white">
-            Volunteer Now
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in" style={{ animationDelay: '0.9s' }}>
+          <button className="bg-sage-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-sage-700 transition-colors shadow-sm">
+            Volunteer with Us
           </button>
-          <button className="bg-transparent border-4 border-white text-white px-10 py-5 rounded-full text-xl font-black hover:bg-white/20 backdrop-blur-sm transition-all transform hover:scale-105 shadow-2xl hover-scale">
-            Join Our Tree Drive
+          <button className="border border-sage-600 text-sage-600 px-8 py-3 rounded-lg font-medium hover:bg-sage-50 transition-colors">
+            Join Our Programs
           </button>
         </div>
         
-        <div className="mt-16 animate-bounce">
-          <ArrowDown className="h-12 w-12 text-white mx-auto opacity-80" />
+        <div className="mt-16 fade-in" style={{ animationDelay: '1.2s' }}>
+          <ArrowDown className="h-6 w-6 text-gray-400 mx-auto animate-bounce" />
         </div>
       </div>
     </div>

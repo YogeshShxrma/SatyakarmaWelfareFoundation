@@ -1,105 +1,62 @@
 
-import { ArrowRight, Zap, Users, Target } from "lucide-react";
-
 const CallToAction = () => {
-  const actions = [
-    {
-      title: "Volunteer Now",
-      description: "Join our next community action",
-      icon: <Users className="h-8 w-8" />,
-      bgColor: "bg-teal-500",
-      hoverColor: "hover:bg-teal-600"
-    },
-    {
-      title: "Join Our Tree Drive",
-      description: "Plant hope, grow futures",
-      icon: <Target className="h-8 w-8" />,
-      bgColor: "bg-emerald-500",
-      hoverColor: "hover:bg-emerald-600"
-    },
-    {
-      title: "Support Compostable Solutions",
-      description: "Fund plastic-free alternatives",
-      icon: <Zap className="h-8 w-8" />,
-      bgColor: "bg-violet-500",
-      hoverColor: "hover:bg-violet-600"
-    },
-    {
-      title: "Train Kids for Health",
-      description: "Sponsor fitness programs",
-      icon: <Users className="h-8 w-8" />,
-      bgColor: "bg-coral-500",
-      hoverColor: "hover:bg-coral-600"
-    }
-  ];
-
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-900 via-violet-900 to-teal-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-float delay-700"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-coral-500/10 rounded-full blur-3xl animate-float delay-300"></div>
-      </div>
-      
-      {/* Dotted Pattern */}
-      <div className="absolute inset-0 opacity-20" style={{
-        backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
-        backgroundSize: '40px 40px'
-      }}></div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-flex items-center gap-4 mb-6">
-            <Zap className="h-8 w-8 text-yellow-400 animate-pulse" />
-            <span className="text-yellow-400 font-bold text-lg uppercase tracking-wide">Take Action</span>
-            <Zap className="h-8 w-8 text-yellow-400 animate-pulse" />
+    <section className="py-20 bg-sage-50">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
+          Join Our Mission
+        </h2>
+        <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+          Be part of the change you want to see. Whether through volunteering, 
+          partnerships, or spreading awareness - every action counts towards a cleaner, 
+          healthier future for our children and communities.
+        </p>
+        
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="bg-white p-8 rounded-lg shadow-sm minimal-hover border border-gray-100">
+            <div className="w-16 h-16 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg className="w-8 h-8 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">Volunteer</h3>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Join our tree plantation drives, children's wellness programs, 
+              and community awareness campaigns.
+            </p>
+            <button className="w-full bg-sage-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-sage-700 transition-colors">
+              Become a Volunteer
+            </button>
           </div>
-          
-          <h2 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight font-montserrat animate-fade-in delay-300">
-            Ready to Inspire
-            <span className="block text-gradient">Change?</span>
-          </h2>
-          
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed max-w-4xl mx-auto font-medium animate-fade-in delay-500">
-            Join thousands of volunteers, educators, and changemakers creating a sustainable future. 
-            Every action counts. Every moment matters. Every choice shapes tomorrow.
+
+          <div className="bg-white p-8 rounded-lg shadow-sm minimal-hover border border-gray-100">
+            <div className="w-16 h-16 bg-ocean-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg className="w-8 h-8 text-ocean-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">Partner</h3>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Collaborate with us as a school, organization, or community group 
+              to amplify our environmental impact.
+            </p>
+            <button className="w-full bg-ocean-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-ocean-700 transition-colors">
+              Partner With Us
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            Ready to Make a Difference?
+          </h3>
+          <p className="text-gray-600 mb-6 leading-relaxed">
+            Contact us to learn more about our programs, volunteer opportunities, 
+            or partnership initiatives. Together, we can create a sustainable future.
           </p>
-        </div>
-        
-        {/* Action Buttons Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {actions.map((action, index) => (
-            <button 
-              key={index}
-              className={`group ${action.bgColor} ${action.hoverColor} text-white p-8 rounded-3xl transition-all transform hover:scale-105 hover:shadow-2xl animate-fade-in border-2 border-white/20 hover:border-white/40`}
-              style={{ animationDelay: `${index * 200}ms` }}
-            >
-              <div className="flex flex-col items-center text-center">
-                <div className="p-4 bg-white/20 backdrop-blur-sm rounded-2xl mb-4 group-hover:bg-white/30 transition-all group-hover:scale-110">
-                  {action.icon}
-                </div>
-                <h3 className="text-xl font-black mb-2 group-hover:scale-105 transition-transform">
-                  {action.title}
-                </h3>
-                <p className="text-sm opacity-90 font-medium mb-4">
-                  {action.description}
-                </p>
-                <ArrowRight className="h-6 w-6 opacity-60 group-hover:opacity-100 group-hover:translate-x-2 transition-all" />
-              </div>
-            </button>
-          ))}
-        </div>
-        
-        {/* Bottom CTA */}
-        <div className="text-center animate-fade-in delay-1000">
-          <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
-            <h3 className="text-3xl font-black text-white mb-4">Can't decide? Start here!</h3>
-            <p className="text-gray-300 mb-6 text-lg">Begin your journey with a simple action that creates lasting impact.</p>
-            <button className="bg-gradient-to-r from-teal-500 to-violet-500 text-white px-12 py-5 rounded-full text-xl font-black hover:shadow-2xl transition-all transform hover:scale-105 border-2 border-white/30">
-              Get Started Today
-            </button>
-          </div>
+          <button className="bg-earth-600 text-white py-3 px-8 rounded-lg font-medium hover:bg-earth-700 transition-colors">
+            Contact Us Today
+          </button>
         </div>
       </div>
     </section>
