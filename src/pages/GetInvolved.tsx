@@ -1,10 +1,7 @@
-
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-
 const GetInvolved = () => {
-  return (
-    <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white">
       <Navigation />
       
       {/* Hero Section */}
@@ -59,21 +56,7 @@ const GetInvolved = () => {
             </div>
 
             {/* Donate */}
-            <div className="bg-yellow-50 p-8 rounded-lg text-center">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Donate</h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Support our mission with financial contributions that directly fund our programs.
-              </p>
-              <ul className="text-left space-y-2 mb-6 text-gray-600">
-                <li>• Tree plantation materials</li>
-                <li>• Educational resources</li>
-                <li>• Health program supplies</li>
-                <li>• Community outreach</li>
-              </ul>
-              <button className="bg-yellow-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-yellow-700 transition-colors">
-                Support the Future
-              </button>
-            </div>
+            
           </div>
         </div>
       </section>
@@ -86,16 +69,8 @@ const GetInvolved = () => {
           </h2>
           <form className="bg-white p-8 rounded-lg shadow-lg">
             <div className="grid md:grid-cols-2 gap-6 mb-6">
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
+              <input type="text" placeholder="Your Name" className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500" />
+              <input type="email" placeholder="Your Email" className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500" />
             </div>
             <div className="mb-6">
               <select className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
@@ -107,11 +82,7 @@ const GetInvolved = () => {
               </select>
             </div>
             <div className="mb-6">
-              <textarea
-                rows={5}
-                placeholder="Tell us more about your interest in our mission..."
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-              ></textarea>
+              <textarea rows={5} placeholder="Tell us more about your interest in our mission..." className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
             </div>
             <button className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
               Send Message
@@ -160,8 +131,6 @@ const GetInvolved = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default GetInvolved;
