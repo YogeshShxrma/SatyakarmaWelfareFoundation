@@ -11,7 +11,7 @@ const Hero = () => {
       
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <div className="mb-8 fade-in mx-0 px-0 my-[35px]">
+        <div className="mb-8 fade-in mx-0 px-0 my-[35px] height-50px">
           <img src="/lovable-uploads/da4b2fb3-1e46-41c3-a9bd-6504bde7a5d0.png" alt="SatyaKarma Welfare Foundation Logo" className="w-20 h-20 mx-auto mb-6 rounded-full shadow-md object-cover" />
         </div>
 
