@@ -1,25 +1,18 @@
-
 import { ArrowDown } from "lucide-react";
-
 const Hero = () => {
-  return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-sage-50 to-earth-50">
+  return <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-sage-50 to-earth-50">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(0,0,0) 1px, transparent 0)`,
-          backgroundSize: '30px 30px'
-        }}></div>
+        backgroundImage: `radial-gradient(circle at 1px 1px, rgb(0,0,0) 1px, transparent 0)`,
+        backgroundSize: '30px 30px'
+      }}></div>
       </div>
       
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <div className="mb-8 fade-in">
-          <img 
-            src="/lovable-uploads/da4b2fb3-1e46-41c3-a9bd-6504bde7a5d0.png" 
-            alt="SatyaKarma Welfare Foundation Logo" 
-            className="w-20 h-20 mx-auto mb-6 rounded-full shadow-md"
-          />
+        <div className="mb-8 fade-in mx-0 px-0 my-[35px]">
+          <img src="/lovable-uploads/da4b2fb3-1e46-41c3-a9bd-6504bde7a5d0.png" alt="SatyaKarma Welfare Foundation Logo" className="w-20 h-20 mx-auto mb-6 rounded-full shadow-md object-cover" />
         </div>
 
         {/* Main Headline */}
@@ -30,7 +23,9 @@ const Hero = () => {
         </h1>
         
         {/* Sanskrit Tagline */}
-        <div className="mb-8 fade-in" style={{ animationDelay: '0.3s' }}>
+        <div className="mb-8 fade-in" style={{
+        animationDelay: '0.3s'
+      }}>
           <p className="text-xl text-gray-600 mb-3 font-medium">
             कर्म में सत्य की खोज करें
           </p>
@@ -41,7 +36,9 @@ const Hero = () => {
         </div>
         
         {/* Action Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12 fade-in" style={{ animationDelay: '0.6s' }}>
+        <div className="grid md:grid-cols-3 gap-6 mb-12 fade-in" style={{
+        animationDelay: '0.6s'
+      }}>
           <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-sm minimal-hover border border-gray-100">
             <div className="w-12 h-12 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,7 +71,9 @@ const Hero = () => {
         </div>
         
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in" style={{ animationDelay: '0.9s' }}>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in" style={{
+        animationDelay: '0.9s'
+      }}>
           <button className="bg-sage-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-sage-700 transition-colors shadow-sm">
             Volunteer with Us
           </button>
@@ -83,12 +82,12 @@ const Hero = () => {
           </button>
         </div>
         
-        <div className="mt-16 fade-in" style={{ animationDelay: '1.2s' }}>
+        <div className="mt-16 fade-in" style={{
+        animationDelay: '1.2s'
+      }}>
           <ArrowDown className="h-6 w-6 text-gray-400 mx-auto animate-bounce" />
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Hero;
