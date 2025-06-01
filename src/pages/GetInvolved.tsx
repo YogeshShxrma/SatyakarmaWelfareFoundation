@@ -19,7 +19,7 @@ const GetInvolved = () => {
       {/* Ways to Get Involved */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             
             {/* Volunteer */}
             <div className="bg-green-50 p-8 rounded-lg text-center">
