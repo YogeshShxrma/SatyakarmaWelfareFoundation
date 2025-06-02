@@ -9,6 +9,31 @@ import BlogForm from "@/components/admin/BlogForm";
 import NewsForm from "@/components/admin/NewsForm";
 import MediaForm from "@/components/admin/MediaForm";
 
+interface Blog {
+  id?: string;
+  title: string;
+  category: string;
+  content: string;
+  excerpt: string;
+  image_url?: string;
+}
+
+interface News {
+  id?: string;
+  title: string;
+  description: string;
+  date: string;
+  priority: string;
+}
+
+interface Media {
+  id?: string;
+  title: string;
+  description?: string;
+  file_url: string;
+  file_type: string;
+}
+
 const AdminPanel = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("blog");
@@ -20,9 +45,9 @@ const AdminPanel = () => {
   const [showMediaForm, setShowMediaForm] = useState(false);
   
   // Edit states
-  const [editingBlog, setEditingBlog] = useState(null);
-  const [editingNews, setEditingNews] = useState(null);
-  const [editingMedia, setEditingMedia] = useState(null);
+  const [editingBlog, setEditingBlog] = useState<Blog | null>(null);
+  const [editingNews, setEditingNews] = useState<News | null>(null);
+  const [editingMedia, setEditingMedia] = useState<Media | null>(null);
 
   useEffect(() => {
     // Check if user is authenticated
@@ -41,22 +66,44 @@ const AdminPanel = () => {
     setRefreshTrigger(prev => prev + 1);
   };
 
-  const handleBlogEdit = (blog: any) => {
+  const handleBlogEdit = (blog: Blog) => {
+    console.log('Editing blog:', blog);
     setEditingBlog(blog);
     setShowBlogForm(true);
   };
 
-  const handleNewsEdit = (news: any) => {
+  const handleBlogAdd = () => {
+    console.log('Adding new blog');
+    setEditingBlog(null);
+    setShowBlogForm(true);
+  };
+
+  const handleNewsEdit = (news: News) => {
+    console.log('Editing news:', news);
     setEditingNews(news);
     setShowNewsForm(true);
   };
 
-  const handleMediaEdit = (media: any) => {
+  const handleNewsAdd = () => {
+    console.log('Adding new news');
+    setEditingNews(null);
+    setShowNewsForm(true);
+  };
+
+  const handleMediaEdit = (media: Media) => {
+    console.log('Editing media:', media);
     setEditingMedia(media);
     setShowMediaForm(true);
   };
 
+  const handleMediaAdd = () => {
+    console.log('Adding new media');
+    setEditingMedia(null);
+    setShowMediaForm(true);
+  };
+
   const handleFormSave = () => {
+    console.log('Form saved, refreshing data');
     setShowBlogForm(false);
     setShowNewsForm(false);
     setShowMediaForm(false);
@@ -67,6 +114,7 @@ const AdminPanel = () => {
   };
 
   const handleFormCancel = () => {
+    console.log('Form cancelled');
     setShowBlogForm(false);
     setShowNewsForm(false);
     setShowMediaForm(false);
@@ -101,7 +149,10 @@ const AdminPanel = () => {
         <div className="mb-8">
           <nav className="flex space-x-8">
             <button
-              onClick={() => setActiveTab("blog")}
+              onClick={() => {
+                setActiveTab("blog");
+                handleFormCancel();
+              }}
               className={`pb-2 border-b-2 font-medium text-sm ${
                 activeTab === "blog"
                   ? "border-green-500 text-green-600"
@@ -112,7 +163,10 @@ const AdminPanel = () => {
               Blog Posts
             </button>
             <button
-              onClick={() => setActiveTab("news")}
+              onClick={() => {
+                setActiveTab("news");
+                handleFormCancel();
+              }}
               className={`pb-2 border-b-2 font-medium text-sm ${
                 activeTab === "news"
                   ? "border-green-500 text-green-600"
@@ -123,7 +177,10 @@ const AdminPanel = () => {
               News Updates
             </button>
             <button
-              onClick={() => setActiveTab("media")}
+              onClick={() => {
+                setActiveTab("media");
+                handleFormCancel();
+              }}
               className={`pb-2 border-b-2 font-medium text-sm ${
                 activeTab === "media"
                   ? "border-green-500 text-green-600"
@@ -150,7 +207,7 @@ const AdminPanel = () => {
               ) : (
                 <BlogTable
                   onEdit={handleBlogEdit}
-                  onAdd={() => setShowBlogForm(true)}
+                  onAdd={handleBlogAdd}
                   refreshTrigger={refreshTrigger}
                 />
               )}
@@ -169,7 +226,7 @@ const AdminPanel = () => {
               ) : (
                 <NewsTable
                   onEdit={handleNewsEdit}
-                  onAdd={() => setShowNewsForm(true)}
+                  onAdd={handleNewsAdd}
                   refreshTrigger={refreshTrigger}
                 />
               )}
@@ -188,7 +245,7 @@ const AdminPanel = () => {
               ) : (
                 <MediaTable
                   onEdit={handleMediaEdit}
-                  onAdd={() => setShowMediaForm(true)}
+                  onAdd={handleMediaAdd}
                   refreshTrigger={refreshTrigger}
                 />
               )}

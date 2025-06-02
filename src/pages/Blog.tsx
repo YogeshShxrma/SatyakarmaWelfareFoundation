@@ -1,66 +1,81 @@
 
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
+interface BlogPost {
+  id: string;
+  title: string;
+  category: string;
+  content: string;
+  excerpt: string;
+  image_url?: string;
+  created_at: string;
+}
+
 const Blog = () => {
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Community Tree Plantation Drive: 500+ Trees Planted in One Day",
-      excerpt: "Our recent community initiative brought together over 200 volunteers to plant native trees across three neighborhoods, contributing to urban forest restoration.",
-      date: "March 15, 2024",
-      category: "Tree Plantation",
-      image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      readTime: "5 min read"
-    },
-    {
-      id: 2,
-      title: "Children's Fitness Workshop: Building Healthy Habits Early",
-      excerpt: "Our recent fitness workshop engaged 150 children in fun physical activities, teaching them the importance of regular exercise and healthy living.",
-      date: "March 10, 2024",
-      category: "Children's Health",
-      image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      readTime: "4 min read"
-    },
-    {
-      id: 3,
-      title: "Plastic-Free Campaign: Introducing Compostable Alternatives",
-      excerpt: "Learn about our latest initiative to replace single-use plastics with eco-friendly compostable alternatives in local businesses and households.",
-      date: "March 5, 2024",
-      category: "Environmental",
-      image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      readTime: "6 min read"
-    },
-    {
-      id: 4,
-      title: "Partnership with Local Schools: Environmental Education Program",
-      excerpt: "We've partnered with 10 local schools to integrate environmental education into their curriculum, reaching over 2,000 students this semester.",
-      date: "February 28, 2024",
-      category: "Education",
-      image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      readTime: "7 min read"
-    },
-    {
-      id: 5,
-      title: "Wildlife Conservation Success: Protecting Local Habitats",
-      excerpt: "Our habitat restoration project has successfully created safe spaces for local wildlife, with documented increases in bird and small mammal populations.",
-      date: "February 20, 2024",
-      category: "Conservation",
-      image: "https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      readTime: "8 min read"
-    },
-    {
-      id: 6,
-      title: "Community Gardens: Growing Food and Relationships",
-      excerpt: "Our community garden project not only provides fresh produce but also strengthens neighborhood bonds and teaches sustainable farming practices.",
-      date: "February 15, 2024",
-      category: "Community",
-      image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      readTime: "5 min read"
-    }
-  ];
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [error, setError] = useState<string | null>(null);
 
   const categories = ["All", "Tree Plantation", "Children's Health", "Environmental", "Education", "Conservation", "Community"];
+
+  useEffect(() => {
+    fetchBlogPosts();
+  }, []);
+
+  const fetchBlogPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('blogs')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setBlogPosts(data || []);
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+      setError('Failed to load blog posts');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredPosts = selectedCategory === "All" 
+    ? blogPosts 
+    : blogPosts.filter(post => post.category === selectedCategory);
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        <div className="flex justify-center items-center h-64">
+          <div className="text-lg">Loading blog posts...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        <div className="flex justify-center items-center h-64">
+          <div className="text-lg text-red-600">{error}</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -85,8 +100,9 @@ const Blog = () => {
             {categories.map((category) => (
               <button
                 key={category}
+                onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  category === "All" 
+                  category === selectedCategory 
                     ? "bg-green-600 text-white" 
                     : "bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-600"
                 }`}
@@ -101,31 +117,39 @@ const Blog = () => {
       {/* Blog Posts */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post) => (
-              <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
-                <div className="h-48 bg-cover bg-center" style={{backgroundImage: `url(${post.image})`}}></div>
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm text-green-600 font-medium">{post.category}</span>
-                    <span className="text-sm text-gray-500">{post.readTime}</span>
+          {filteredPosts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-600 text-lg">No blog posts found for this category.</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredPosts.map((post) => (
+                <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                  {post.image_url && (
+                    <div className="h-48 bg-cover bg-center" style={{backgroundImage: `url(${post.image_url})`}}></div>
+                  )}
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm text-green-600 font-medium">{post.category}</span>
+                      <span className="text-sm text-gray-500">5 min read</span>
+                    </div>
+                    <h2 className="text-xl font-semibold text-gray-800 mb-3 leading-tight">
+                      {post.title}
+                    </h2>
+                    <p className="text-gray-600 mb-4 leading-relaxed">
+                      {post.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-500">{formatDate(post.created_at)}</span>
+                      <button className="text-green-600 hover:text-green-700 font-medium">
+                        Read More →
+                      </button>
+                    </div>
                   </div>
-                  <h2 className="text-xl font-semibold text-gray-800 mb-3 leading-tight">
-                    {post.title}
-                  </h2>
-                  <p className="text-gray-600 mb-4 leading-relaxed">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500">{post.date}</span>
-                    <button className="text-green-600 hover:text-green-700 font-medium">
-                      Read More →
-                    </button>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
