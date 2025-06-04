@@ -39,7 +39,7 @@ const Hero = () => {
         <div className="grid md:grid-cols-3 gap-6 mb-12 fade-in" style={{
         animationDelay: '0.6s'
       }}>
-          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-sm minimal-hover border border-gray-100">
+          <div className="bg-white/80 backdrop-blur-sm p-6 shadow-sm minimal-hover border border-gray-100 rounded-lg">
             <div className="w-12 h-12 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -74,10 +74,10 @@ const Hero = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in" style={{
         animationDelay: '0.9s'
       }}>
-          <button className="bg-sage-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-sage-700 transition-colors shadow-sm">
+          <button className="bg-sage-600 text-white px-8 py-3 font-medium hover:bg-sage-700 transition-colors shadow-sm rounded-2xl">
             Volunteer with Us
           </button>
-          <button className="border border-sage-600 text-sage-600 px-8 py-3 rounded-lg font-medium hover:bg-sage-50 transition-colors">
+          <button className="border border-sage-600 text-sage-600 px-8 py-3 font-medium hover:bg-sage-50 transition-colors rounded-2xl">
             Join Our Programs
           </button>
         </div>
