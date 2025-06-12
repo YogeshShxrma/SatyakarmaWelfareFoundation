@@ -1,6 +1,7 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import GlareCard from "@/components/ui/GlareCard";
 
 const About = () => {
   return (
@@ -73,53 +74,70 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Values Section */}
+      {/* Team Values Section with GlareCard effects */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Our Values</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">Integrity</h3>
-              <p className="text-gray-600">
-                We believe in transparent, honest action that aligns with our environmental 
-                and social commitments.
-              </p>
-            </div>
-            <div className="text-center p-6">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">Collaboration</h3>
-              <p className="text-gray-600">
-                Change happens when communities come together. We foster partnerships 
-                that amplify our collective impact.
-              </p>
-            </div>
-            <div className="text-center p-6">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">Innovation</h3>
-              <p className="text-gray-600">
-                We embrace creative solutions to environmental challenges, from compostable 
-                alternatives to engaging children's programs.
-              </p>
-            </div>
-            <div className="text-center p-6">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">Sustainability</h3>
-              <p className="text-gray-600">
-                Every initiative we undertake considers long-term environmental impact 
-                and community benefit.
-              </p>
-            </div>
-            <div className="text-center p-6">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">Empowerment</h3>
-              <p className="text-gray-600">
-                We believe in empowering individuals and communities with the knowledge 
-                and tools to create positive change.
-              </p>
-            </div>
-            <div className="text-center p-6">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">Compassion</h3>
-              <p className="text-gray-600">
-                Our work is driven by genuine care for our planet, our communities, 
-                and future generations.
-              </p>
-            </div>
+            <GlareCard>
+              <div className="text-center p-6">
+                <h3 className="text-xl font-semibold text-green-600 mb-4">Integrity</h3>
+                <p className="text-gray-600">
+                  We believe in transparent, honest action that aligns with our environmental 
+                  and social commitments.
+                </p>
+              </div>
+            </GlareCard>
+            
+            <GlareCard>
+              <div className="text-center p-6">
+                <h3 className="text-xl font-semibold text-green-600 mb-4">Collaboration</h3>
+                <p className="text-gray-600">
+                  Change happens when communities come together. We foster partnerships 
+                  that amplify our collective impact.
+                </p>
+              </div>
+            </GlareCard>
+            
+            <GlareCard>
+              <div className="text-center p-6">
+                <h3 className="text-xl font-semibold text-green-600 mb-4">Innovation</h3>
+                <p className="text-gray-600">
+                  We embrace creative solutions to environmental challenges, from compostable 
+                  alternatives to engaging children's programs.
+                </p>
+              </div>
+            </GlareCard>
+            
+            <GlareCard>
+              <div className="text-center p-6">
+                <h3 className="text-xl font-semibold text-green-600 mb-4">Sustainability</h3>
+                <p className="text-gray-600">
+                  Every initiative we undertake considers long-term environmental impact 
+                  and community benefit.
+                </p>
+              </div>
+            </GlareCard>
+            
+            <GlareCard>
+              <div className="text-center p-6">
+                <h3 className="text-xl font-semibold text-green-600 mb-4">Empowerment</h3>
+                <p className="text-gray-600">
+                  We believe in empowering individuals and communities with the knowledge 
+                  and tools to create positive change.
+                </p>
+              </div>
+            </GlareCard>
+            
+            <GlareCard>
+              <div className="text-center p-6">
+                <h3 className="text-xl font-semibold text-green-600 mb-4">Compassion</h3>
+                <p className="text-gray-600">
+                  Our work is driven by genuine care for our planet, our communities, 
+                  and future generations.
+                </p>
+              </div>
+            </GlareCard>
           </div>
         </div>
       </section>
