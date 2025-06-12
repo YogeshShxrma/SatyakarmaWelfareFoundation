@@ -67,42 +67,24 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Clean, minimal color palette
-				sage: {
-					50: '#f6f7f6',
-					100: '#e3e7e3',
-					200: '#c7d2c7',
-					300: '#a3b4a3',
-					400: '#7a917a',
-					500: '#5c745c',
-					600: '#475d47',
-					700: '#3a4a3a',
-					800: '#313d31',
-					900: '#2a342a',
-				},
-				earth: {
-					50: '#faf9f7',
-					100: '#f2f0ec',
-					200: '#e3ddd4',
-					300: '#d2c6b5',
-					400: '#bfa890',
-					500: '#a68b6b',
-					600: '#8f7355',
-					700: '#785e47',
-					800: '#634e3d',
-					900: '#524135',
-				},
-				ocean: {
-					50: '#f0f9ff',
-					100: '#e0f2fe',
-					200: '#bae6fd',
-					300: '#7dd3fc',
-					400: '#38bdf8',
-					500: '#0ea5e9',
-					600: '#0284c7',
-					700: '#0369a1',
-					800: '#075985',
-					900: '#0c4a6e',
+				// New color palette based on ColorHunt
+				dark: '#1B262C',
+				deepblue: '#0F4C75',
+				blue: '#3282B8',
+				lightblue: '#BBE1FA',
+				// Additional shades for better design flexibility
+				brand: {
+					50: '#F0F8FF',
+					100: '#BBE1FA',
+					200: '#A3D5F7',
+					300: '#8BC8F4',
+					400: '#73BBF1',
+					500: '#3282B8',
+					600: '#2A6FA3',
+					700: '#225C8E',
+					800: '#1A4979',
+					900: '#0F4C75',
+					950: '#1B262C'
 				}
 			},
 			borderRadius: {

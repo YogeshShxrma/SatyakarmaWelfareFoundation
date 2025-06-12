@@ -38,12 +38,12 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="py-20 bg-yellow-50">
+    <section className="py-20 bg-blue">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
+        <h2 className="text-3xl md:text-4xl font-lato font-bold text-white mb-6">
           Stay Updated
         </h2>
-        <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+        <p className="text-lg text-lightblue mb-8 max-w-2xl mx-auto">
           Subscribe to our newsletter for the latest updates on our environmental initiatives, 
           success stories, and ways you can make a difference in your community.
         </p>
@@ -55,18 +55,18 @@ const NewsletterSection = () => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email address"
             required
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-gray-700"
+            className="flex-1 px-4 py-3 border border-lightblue rounded-lg focus:outline-none focus:ring-2 focus:ring-lightblue text-dark bg-white"
           />
           <button 
             type="submit"
             disabled={isSubscribing}
-            className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors disabled:opacity-50"
+            className="bg-lightblue text-dark px-8 py-3 rounded-lg font-semibold hover:bg-white transition-colors disabled:opacity-50"
           >
             {isSubscribing ? "Subscribing..." : "Subscribe"}
           </button>
         </form>
         
-        <p className="text-sm text-gray-500 mt-4">
+        <p className="text-sm text-lightblue mt-4 opacity-80">
           We respect your privacy. Unsubscribe at any time.
         </p>
       </div>

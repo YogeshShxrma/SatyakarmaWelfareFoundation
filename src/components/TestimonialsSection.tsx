@@ -22,7 +22,7 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-green-50 relative">
+    <section className="py-20 bg-lightblue relative">
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-10"
         style={{
@@ -31,10 +31,10 @@ const TestimonialsSection = () => {
       />
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
+          <h2 className="text-3xl md:text-4xl font-lato font-bold text-dark mb-6">
             Our Impact in Their Words
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-deepblue max-w-2xl mx-auto">
             Hear from the communities and families who have experienced positive change through our programs
           </p>
         </div>
@@ -46,7 +46,7 @@ const TestimonialsSection = () => {
               className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <div className="mb-6">
-                <p className="text-gray-700 italic leading-relaxed mb-4">
+                <p className="text-deepblue italic leading-relaxed mb-4">
                   "{testimonial.quote}"
                 </p>
               </div>
@@ -57,8 +57,8 @@ const TestimonialsSection = () => {
                   className="w-12 h-12 rounded-full object-cover mr-4"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-800">{testimonial.author}</h4>
-                  <p className="text-sm text-gray-600">{testimonial.role}</p>
+                  <h4 className="font-semibold text-dark">{testimonial.author}</h4>
+                  <p className="text-sm text-deepblue">{testimonial.role}</p>
                 </div>
               </div>
             </div>

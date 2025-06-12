@@ -25,10 +25,10 @@ const CampaignSection = () => {
     <section className="py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
+          <h2 className="text-3xl md:text-4xl font-lato font-bold text-dark mb-6">
             Success Stories & Campaigns
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-deepblue max-w-2xl mx-auto">
             Discover how communities are creating positive change through our programs and initiatives
           </p>
         </div>
@@ -36,18 +36,18 @@ const CampaignSection = () => {
         <div className="grid md:grid-cols-3 gap-8">
           {campaigns.map((campaign, index) => (
             <GlareCard key={index} className="h-full">
-              <div className="overflow-hidden h-full flex flex-col">
+              <div className="overflow-hidden h-full flex flex-col bg-white rounded-lg">
                 <div className="h-48 bg-cover bg-center" style={{backgroundImage: `url(${campaign.image})`}}></div>
                 <div className="p-6 flex-grow flex flex-col">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                  <h3 className="text-xl font-semibold text-dark mb-3">
                     {campaign.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed flex-grow mb-4">
+                  <p className="text-deepblue leading-relaxed flex-grow mb-4">
                     {campaign.description}
                   </p>
                   <Link 
                     to="/blog" 
-                    className="text-green-600 hover:text-green-700 font-medium inline-flex items-center"
+                    className="text-blue hover:text-deepblue font-medium inline-flex items-center"
                   >
                     Read More →
                   </Link>
