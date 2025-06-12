@@ -1,9 +1,6 @@
-
 import { Link } from "react-router-dom";
-
 const CallToAction = () => {
-  return (
-    <section className="py-20 bg-sage-50">
+  return <section className="py-20 bg-sage-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
           Join Our Mission
@@ -18,24 +15,14 @@ const CallToAction = () => {
           {/* Content can be added here later */}
         </div>
 
-        <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
-            Ready to Make a Difference?
-          </h3>
-          <p className="text-gray-600 mb-6 leading-relaxed">
-            Contact us to learn more about our programs, volunteer opportunities, 
-            or partnership initiatives. Together, we can create a sustainable future.
-          </p>
-          <Link 
-            to="/contact"
-            className="bg-earth-600 text-white py-3 px-8 rounded-lg font-medium hover:bg-earth-700 transition-colors inline-block"
-          >
+        <div className="p-8 shadow-sm border border-gray-100 mx-[240px] my-0 px-[86px] py-[20px] bg-zinc-50 rounded-xl">
+          
+          
+          <Link to="/contact" className="bg-earth-600 text-white py-3 px-8 rounded-lg font-medium hover:bg-earth-700 transition-colors inline-block">
             Contact Us Today
           </Link>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default CallToAction;
