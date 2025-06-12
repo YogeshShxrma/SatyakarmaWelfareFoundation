@@ -13,7 +13,7 @@ const MissionOverview = () => {
 
         <div className="grid lg:grid-cols-2  items-center w-100">
           <div className="space-y-8">
-            <div className="flex items-start space-x-4 ">
+            <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg className="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -60,8 +60,8 @@ const MissionOverview = () => {
           </div>
 
           <div className="relative">
-            
-            
+            <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Children planting trees together" className="rounded-lg shadow-md" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"></div>
           </div>
         </div>
       </div>
