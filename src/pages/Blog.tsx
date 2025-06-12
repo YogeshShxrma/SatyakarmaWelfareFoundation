@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
@@ -53,18 +52,11 @@ const Blog = () => {
 
     setIsSubscribing(true);
     try {
-      const response = await fetch(`${supabase.supabaseUrl}/functions/v1/newsletter-subscription`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabase.supabaseKey}`,
-        },
-        body: JSON.stringify({ email }),
+      const { data, error } = await supabase.functions.invoke('newsletter-subscription', {
+        body: { email },
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to subscribe');
-      }
+      if (error) throw error;
 
       toast({
         title: "Success!",
@@ -72,6 +64,7 @@ const Blog = () => {
       });
       setEmail("");
     } catch (error) {
+      console.error('Newsletter subscription error:', error);
       toast({
         title: "Error",
         description: "Failed to subscribe. Please try again.",

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -38,18 +37,11 @@ const Contact = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch(`${supabase.supabaseUrl}/functions/v1/contact-form`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabase.supabaseKey}`,
-        },
-        body: JSON.stringify(formData),
+      const { data, error } = await supabase.functions.invoke('contact-form', {
+        body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
+      if (error) throw error;
 
       toast({
         title: "Success!",
@@ -66,6 +58,7 @@ const Contact = () => {
         message: ""
       });
     } catch (error) {
+      console.error('Contact form error:', error);
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
