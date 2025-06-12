@@ -67,24 +67,20 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// New color palette based on ColorHunt
-				dark: '#1B262C',
-				deepblue: '#0F4C75',
-				blue: '#3282B8',
-				lightblue: '#BBE1FA',
-				// Additional shades for better design flexibility
-				brand: {
-					50: '#F0F8FF',
-					100: '#BBE1FA',
-					200: '#A3D5F7',
-					300: '#8BC8F4',
-					400: '#73BBF1',
-					500: '#3282B8',
-					600: '#2A6FA3',
-					700: '#225C8E',
-					800: '#1A4979',
-					900: '#0F4C75',
-					950: '#1B262C'
+				// Custom color palette
+				sunshine: '#FFD700',
+				charcoal: '#000000',
+				warmgray: {
+					50: '#FAFAFA',
+					100: '#F5F5F5',
+					200: '#E5E5E5',
+					300: '#D4D4D4',
+					400: '#A3A3A3',
+					500: '#737373',
+					600: '#525252',
+					700: '#404040',
+					800: '#262626',
+					900: '#171717',
 				}
 			},
 			borderRadius: {

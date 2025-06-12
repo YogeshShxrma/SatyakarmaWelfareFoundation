@@ -22,17 +22,17 @@ const GlareCard: React.FC<GlareCardProps> = ({ children, className = '' }) => {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     
-    const rotateX = (y - centerY) / 10;
-    const rotateY = (centerX - x) / 10;
+    const rotateX = (y - centerY) / 15;
+    const rotateY = (centerX - x) / 15;
     
-    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`);
+    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`);
     
-    // Glare effect
+    // Enhanced glare effect
     const glareX = (x / rect.width) * 100;
     const glareY = (y / rect.height) * 100;
     
     setGlareStyle({
-      background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.3) 0%, transparent 50%)`,
+      background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.1) 30%, transparent 70%)`,
       opacity: 1,
     });
   };
@@ -56,13 +56,17 @@ const GlareCard: React.FC<GlareCardProps> = ({ children, className = '' }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="relative overflow-hidden rounded-lg border border-gray-100 bg-white/80 backdrop-blur-sm shadow-sm">
+      <div className="relative overflow-hidden rounded-xl border border-border bg-card backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow duration-300">
         {children}
-        {/* Glare overlay */}
+        {/* Enhanced glare overlay */}
         <div
-          className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+          className="absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-xl"
           style={glareStyle}
         />
+        {/* Subtle border glow on hover */}
+        {isHovered && (
+          <div className="absolute inset-0 rounded-xl border-2 border-primary/20 pointer-events-none transition-opacity duration-300" />
+        )}
       </div>
     </div>
   );

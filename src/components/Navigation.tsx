@@ -33,7 +33,7 @@ const Navigation = () => {
                 <span className="font-lato font-bold text-xl text-foreground">
                   SatyaKarma
                 </span>
-                <p className="text-xs text-muted-foreground -mt-1">Welfare Foundation</p>
+                <p className="text-xs text-muted-foreground -mt-1">Earth Rise</p>
               </div>
             </Link>
           </div>
@@ -63,7 +63,7 @@ const Navigation = () => {
                 variant="outline"
                 size="icon"
                 onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                className="ml-2"
+                className="ml-2 border-border hover:bg-accent"
               >
                 <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -78,6 +78,7 @@ const Navigation = () => {
               variant="outline"
               size="icon"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              className="border-border hover:bg-accent"
             >
               <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

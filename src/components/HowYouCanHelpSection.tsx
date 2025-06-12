@@ -1,63 +1,63 @@
 
 import { Link } from "react-router-dom";
-import { HandHeart, Users, Share2 } from "lucide-react";
+import { HandHeart, DollarSign, Users } from "lucide-react";
+import GlareCard from "./ui/GlareCard";
 
 const HowYouCanHelpSection = () => {
   const helpOptions = [
     {
       icon: HandHeart,
       title: "Volunteer",
-      description: "Join our community initiatives and make a direct impact through hands-on environmental and social work.",
+      description: "Get involved in fieldwork and awareness campaigns. Join our community initiatives and make a direct impact.",
       cta: "Start Volunteering"
     },
     {
-      icon: Users,
-      title: "Join Program",
-      description: "Participate in our structured programs for children's health, environmental awareness, and community building.",
-      cta: "Explore Programs"
+      icon: DollarSign,
+      title: "Donate",
+      description: "Support our eco-education drives and community programs. Help us reach more children and families.",
+      cta: "Support Our Cause"
     },
     {
-      icon: Share2,
-      title: "Spread Awareness",
-      description: "Help us reach more people by sharing our mission and encouraging others to join our cause.",
-      cta: "Share Mission"
+      icon: Users,
+      title: "Sponsor a Child",
+      description: "Help children grow into eco-conscious leaders. Sponsor their environmental education and development.",
+      cta: "Sponsor Now"
     }
   ];
 
   return (
-    <section className="py-20 bg-brand-50">
+    <section className="py-20 bg-secondary/30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-lato font-bold text-dark mb-6">
-            How You Can Help
+        <div className="text-center mb-16 scroll-reveal">
+          <h2 className="text-3xl md:text-4xl font-lato font-bold text-foreground mb-6">
+            Your Role in a Kinder World
           </h2>
-          <p className="text-lg text-deepblue max-w-2xl mx-auto">
-            Every action counts. Choose how you want to contribute to creating a better world for children and the environment.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Every action counts in creating a sustainable future. Choose how you want to contribute to positive change.
           </p>
         </div>
         
         <div className="grid md:grid-cols-3 gap-8">
           {helpOptions.map((option, index) => (
-            <div 
-              key={index}
-              className="bg-white p-8 rounded-lg shadow-lg text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
-            >
-              <div className="mb-6">
-                <option.icon className="h-16 w-16 text-blue mx-auto mb-4" />
-                <h3 className="text-2xl font-lato font-bold text-dark mb-4">
-                  {option.title}
-                </h3>
+            <GlareCard key={index} className="h-full scroll-reveal">
+              <div className="p-8 text-center h-full flex flex-col">
+                <div className="mb-6">
+                  <option.icon className="h-16 w-16 text-primary mx-auto mb-4" />
+                  <h3 className="text-2xl font-lato font-bold text-foreground mb-4">
+                    {option.title}
+                  </h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">
+                  {option.description}
+                </p>
+                <Link 
+                  to="/get-involved" 
+                  className="bg-primary text-primary-foreground py-3 px-6 rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 inline-block"
+                >
+                  {option.cta}
+                </Link>
               </div>
-              <p className="text-deepblue leading-relaxed mb-6">
-                {option.description}
-              </p>
-              <Link 
-                to="/get-involved" 
-                className="bg-lightblue text-dark py-3 px-6 rounded-lg font-semibold hover:bg-blue hover:text-white transition-colors inline-block"
-              >
-                {option.cta}
-              </Link>
-            </div>
+            </GlareCard>
           ))}
         </div>
       </div>
