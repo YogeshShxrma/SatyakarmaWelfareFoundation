@@ -1,13 +1,10 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Settings, Sun, Moon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
+import { Menu, X, Settings } from "lucide-react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { setTheme, theme } = useTheme();
   
   const navItems = [
     { name: "Home", href: "/" },
@@ -19,7 +16,7 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="bg-background/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-border">
+    <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -30,10 +27,10 @@ const Navigation = () => {
                 className="h-10 w-10 rounded-full object-cover" 
               />
               <div>
-                <span className="font-lato font-bold text-xl text-foreground">
+                <span className="font-lato font-bold text-xl text-gray-800">
                   SatyaKarma
                 </span>
-                <p className="text-xs text-muted-foreground -mt-1">Earth Rise</p>
+                <p className="text-xs text-gray-600 -mt-1">Welfare Foundation</p>
               </div>
             </Link>
           </div>
@@ -45,48 +42,28 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-foreground hover:text-primary px-4 py-2 text-sm font-medium transition-colors duration-200 relative group"
+                  className="text-gray-700 hover:text-sage-600 px-4 py-2 text-sm font-medium transition-colors duration-200 relative group"
                 >
                   {item.name}
-                  <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
+                  <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-sage-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
                 </Link>
               ))}
               <Link
                 to="/admin-login"
-                className="text-foreground hover:text-primary px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center space-x-1"
+                className="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center space-x-1"
                 title="Admin Panel"
               >
                 <Settings className="h-4 w-4" />
                 <span>Admin</span>
               </Link>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                className="ml-2 border-border hover:bg-accent"
-              >
-                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Toggle theme</span>
-              </Button>
             </div>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              className="border-border hover:bg-accent"
-            >
-              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Toggle theme</span>
-            </Button>
+          <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground hover:text-primary transition-colors p-2"
+              className="text-gray-700 hover:text-sage-600 transition-colors p-2"
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -96,12 +73,12 @@ const Navigation = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden fade-in">
-            <div className="px-2 pt-2 pb-4 space-y-1 bg-background border-t border-border">
+            <div className="px-2 pt-2 pb-4 space-y-1 bg-white border-t border-gray-100">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-foreground hover:text-primary block px-3 py-2 text-base font-medium transition-colors"
+                  className="text-gray-700 hover:text-sage-600 block px-3 py-2 text-base font-medium transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
@@ -109,7 +86,7 @@ const Navigation = () => {
               ))}
               <Link
                 to="/admin-login"
-                className="text-foreground hover:text-primary block px-3 py-2 text-base font-medium transition-colors flex items-center space-x-2"
+                className="text-gray-700 hover:text-green-600 block px-3 py-2 text-base font-medium transition-colors flex items-center space-x-2"
                 onClick={() => setIsOpen(false)}
               >
                 <Settings className="h-4 w-4" />
