@@ -17,49 +17,7 @@ const GetInvolved = () => {
       </section>
 
       {/* Ways to Get Involved */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            
-            {/* Volunteer */}
-            <div className="bg-green-50 p-8 rounded-lg text-center">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Volunteer</h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Join our passionate team of volunteers and make a direct impact in your community.
-              </p>
-              <ul className="text-left space-y-2 mb-6 text-gray-600">
-                <li>• Tree plantation drives</li>
-                <li>• Educational workshops</li>
-                <li>• Children's fitness programs</li>
-                <li>• Community outreach</li>
-              </ul>
-              <button className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
-                Become a Volunteer
-              </button>
-            </div>
-
-            {/* Partner */}
-            <div className="bg-blue-50 p-8 rounded-lg text-center">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Partner</h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Collaborate with us to amplify your organization's environmental and social impact.
-              </p>
-              <ul className="text-left space-y-2 mb-6 text-gray-600">
-                <li>• Corporate partnerships</li>
-                <li>• Educational institutions</li>
-                <li>• Government collaboration</li>
-                <li>• NGO networks</li>
-              </ul>
-              <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                Partner With Us
-              </button>
-            </div>
-
-            {/* Donate */}
-            
-          </div>
-        </div>
-      </section>
+      
 
       {/* Contact Form */}
       <section className="py-20 bg-gray-50">
