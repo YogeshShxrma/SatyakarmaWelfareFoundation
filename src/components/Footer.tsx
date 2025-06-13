@@ -1,19 +1,12 @@
-
 import { Mail, Instagram, Facebook, Twitter } from "lucide-react";
-
 const Footer = () => {
-  return (
-    <footer className="bg-gray-800 text-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  return <footer className="bg-gray-800 text-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-zinc-900">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Organization Info */}
           <div className="md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <img 
-                src="/lovable-uploads/da4b2fb3-1e46-41c3-a9bd-6504bde7a5d0.png" 
-                alt="SatyaKarma Logo" 
-                className="h-10 w-10 rounded-full"
-              />
+              <img src="/lovable-uploads/da4b2fb3-1e46-41c3-a9bd-6504bde7a5d0.png" alt="SatyaKarma Logo" className="h-10 w-10 rounded-full object-cover" />
               <div>
                 <h3 className="font-lato font-bold text-lg">SatyaKarma</h3>
                 <p className="text-sm text-gray-400">Welfare Foundation Society</p>
@@ -69,8 +62,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
