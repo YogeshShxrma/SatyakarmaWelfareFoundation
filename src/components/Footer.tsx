@@ -1,7 +1,7 @@
 import { Mail, Instagram, Facebook, Twitter } from "lucide-react";
 const Footer = () => {
   return <footer className="bg-gray-800 text-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-zinc-900">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-zinc-900">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Organization Info */}
           <div className="md:col-span-2">
