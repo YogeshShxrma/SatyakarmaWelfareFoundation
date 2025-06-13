@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface MinimalHeroProps {
   mediaType?: 'image';
@@ -20,98 +20,80 @@ const MinimalHero: React.FC<MinimalHeroProps> = ({
 }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [scrollLocked, setScrollLocked] = useState(true);
   const heroRef = useRef<HTMLDivElement>(null);
-  const logoControls = useAnimation();
-  const textControls = useAnimation();
 
   useEffect(() => {
-    // Prevent initial scroll
-    document.body.style.overflow = 'hidden';
-    
-    const handleScroll = (e: Event) => {
-      if (scrollLocked && !isExpanded) {
-        e.preventDefault();
-        
-        // Calculate scroll progress (0 to 1)
-        const scrollAmount = Math.min(scrollProgress + 0.02, 1);
-        setScrollProgress(scrollAmount);
-        
-        if (scrollAmount >= 1) {
-          setIsExpanded(true);
-          setScrollLocked(false);
-          document.body.style.overflow = 'auto';
-        }
-      }
-    };
+    let accumulatedScroll = 0;
+    const scrollThreshold = 300; // Amount of scroll needed to complete expansion
 
     const handleWheel = (e: WheelEvent) => {
-      if (scrollLocked && !isExpanded && e.deltaY > 0) {
+      if (!isExpanded && e.deltaY > 0) {
         e.preventDefault();
-        const scrollAmount = Math.min(scrollProgress + 0.05, 1);
-        setScrollProgress(scrollAmount);
+        accumulatedScroll += Math.abs(e.deltaY);
+        const progress = Math.min(accumulatedScroll / scrollThreshold, 1);
+        setScrollProgress(progress);
         
-        if (scrollAmount >= 1) {
+        if (progress >= 1) {
           setIsExpanded(true);
-          setScrollLocked(false);
+          // Allow normal scrolling after expansion
           document.body.style.overflow = 'auto';
         }
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (scrollLocked && !isExpanded) {
-        e.preventDefault();
       }
     };
 
     const handleTouchStart = (e: TouchEvent) => {
-      if (scrollLocked && !isExpanded) {
-        const touch = e.touches[0];
-        const startY = touch.clientY;
+      if (!isExpanded) {
+        const startY = e.touches[0].clientY;
         
-        const handleTouchMoveWithStart = (moveEvent: TouchEvent) => {
-          const currentTouch = moveEvent.touches[0];
-          const deltaY = startY - currentTouch.clientY;
+        const handleTouchMove = (moveEvent: TouchEvent) => {
+          const currentY = moveEvent.touches[0].clientY;
+          const deltaY = startY - currentY;
           
           if (deltaY > 0) {
-            const scrollAmount = Math.min(scrollProgress + 0.03, 1);
-            setScrollProgress(scrollAmount);
+            moveEvent.preventDefault();
+            accumulatedScroll += Math.abs(deltaY) * 2; // Make touch more sensitive
+            const progress = Math.min(accumulatedScroll / scrollThreshold, 1);
+            setScrollProgress(progress);
             
-            if (scrollAmount >= 1) {
+            if (progress >= 1) {
               setIsExpanded(true);
-              setScrollLocked(false);
               document.body.style.overflow = 'auto';
-              document.removeEventListener('touchmove', handleTouchMoveWithStart);
+              document.removeEventListener('touchmove', handleTouchMove);
             }
           }
         };
         
-        document.addEventListener('touchmove', handleTouchMoveWithStart, { passive: false });
+        document.addEventListener('touchmove', handleTouchMove, { passive: false });
+        
+        const handleTouchEnd = () => {
+          document.removeEventListener('touchmove', handleTouchMove);
+          document.removeEventListener('touchend', handleTouchEnd);
+        };
+        
+        document.addEventListener('touchend', handleTouchEnd);
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: false });
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    // Prevent scrolling initially
+    if (!isExpanded) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('wheel', handleWheel, { passive: false });
+      document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    }
 
-    // Cleanup on unmount
     return () => {
       document.body.style.overflow = 'auto';
-      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('wheel', handleWheel);
-      document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchstart', handleTouchStart);
     };
-  }, [scrollProgress, isExpanded, scrollLocked]);
+  }, [isExpanded]);
 
-  // Animation effects based on scroll progress
-  const logoScale = 0.6 + (scrollProgress * 0.8); // Scale from 0.6 to 1.4
-  const logoOpacity = 0.7 + (scrollProgress * 0.3); // Opacity from 0.7 to 1
-  const textOpacity = scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 : 0;
-  const textTranslateY = 30 - (scrollProgress * 30);
-  const glowIntensity = scrollProgress * 20;
+  // Animation values based on scroll progress
+  const logoScale = 0.8 + (scrollProgress * 0.6); // Scale from 0.8 to 1.4
+  const logoOpacity = 0.8 + (scrollProgress * 0.2); // Opacity from 0.8 to 1
+  const textOpacity = scrollProgress > 0.6 ? (scrollProgress - 0.6) * 2.5 : 0;
+  const textTranslateY = 20 - (scrollProgress * 20);
+  const glowIntensity = scrollProgress * 15;
 
   return (
     <div 
@@ -139,31 +121,41 @@ const MinimalHero: React.FC<MinimalHeroProps> = ({
             opacity: logoOpacity,
             filter: `drop-shadow(0 0 ${glowIntensity}px rgba(92, 116, 92, 0.4))`
           }}
+          animate={{
+            scale: logoScale,
+            opacity: logoOpacity
+          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <img 
             src={mediaSrc}
             alt={`${title} Logo`}
-            className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl transition-all duration-300"
+            className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
           />
         </motion.div>
 
         {/* Title */}
         <motion.h1 
           className="text-4xl md:text-6xl font-lato font-bold text-gray-800 dark:text-white mb-4"
-          style={{
-            opacity: logoOpacity
-          }}
+          initial={{ opacity: 0.8 }}
+          animate={{ opacity: logoOpacity }}
+          transition={{ duration: 0.3 }}
         >
           {title}
         </motion.h1>
 
         {/* Punchline with scroll-triggered animation */}
         <motion.div
+          className="mb-8"
           style={{
             opacity: textOpacity,
             transform: `translateY(${textTranslateY}px)`
           }}
-          className="mb-8"
+          animate={{
+            opacity: textOpacity,
+            y: textTranslateY
+          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <p className="text-xl md:text-2xl text-sage-700 dark:text-sage-300 font-medium leading-relaxed">
             {punchline}
@@ -209,9 +201,9 @@ const MinimalHero: React.FC<MinimalHeroProps> = ({
           <div className="w-32 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-sage-600 dark:bg-sage-400 rounded-full"
-              style={{
-                width: `${scrollProgress * 100}%`
-              }}
+              style={{ width: `${scrollProgress * 100}%` }}
+              animate={{ width: `${scrollProgress * 100}%` }}
+              transition={{ duration: 0.2 }}
             />
           </div>
         </div>
