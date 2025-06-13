@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lato:wght@300;400;700&display=swap');
 
 @tailwind base;
@@ -124,6 +123,19 @@
   .hover\\:glow:hover {
     box-shadow: 0 0 20px rgba(92, 116, 92, 0.4);
   }
+
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  .logo-glow {
+    filter: drop-shadow(0 0 15px rgba(92, 116, 92, 0.3));
+    transition: filter 0.3s ease;
+  }
+
+  .logo-glow:hover {
+    filter: drop-shadow(0 0 25px rgba(92, 116, 92, 0.5));
+  }
 }
 
 @keyframes fadeIn {
@@ -184,4 +196,35 @@
 
 .animate-float {
   animation: float 4s ease-in-out infinite;
+}
+
+@keyframes logoExpand {
+  from {
+    transform: scale(0.6);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
+
+@keyframes textReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-logo-expand {
+  animation: logoExpand 1.5s ease-out forwards;
+}
+
+.animate-text-reveal {
+  animation: textReveal 1s ease-out forwards;
+  animation-delay: 0.8s;
 }
