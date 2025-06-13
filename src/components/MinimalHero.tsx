@@ -108,7 +108,7 @@ const MinimalHero: React.FC<MinimalHeroProps> = ({
         <div style={{
         backgroundImage: `radial-gradient(circle at 2px 2px, rgba(92, 116, 92, 0.15) 1px, transparent 0)`,
         backgroundSize: '40px 40px'
-      }} className="absolute inset-0 " />
+      }} className="absolute inset-0 bg-zinc-950" />
       </div>
 
       {/* Main content container */}
