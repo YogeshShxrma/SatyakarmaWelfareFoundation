@@ -105,10 +105,10 @@ const MinimalHero: React.FC<MinimalHeroProps> = ({
   return <div ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-sage-50 via-white to-sage-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
+        <div style={{
         backgroundImage: `radial-gradient(circle at 2px 2px, rgba(92, 116, 92, 0.15) 1px, transparent 0)`,
         backgroundSize: '40px 40px'
-      }} />
+      }} className="absolute inset-0 " />
       </div>
 
       {/* Main content container */}
