@@ -15,7 +15,7 @@ const CallToAction = () => {
           {/* Content can be added here later */}
         </div>
 
-        <div className="p-8 shadow-sidebar-border border border-gray-100 rounded-xl mx-[240px] my-[5px] py-[10px] px-0 bg-cyan-50">
+        <div className="p-8 shadow-sidebar-border border border-gray-100 rounded-xl mx-[240px] my-[5px] py-[10px] px-0 ">
           
           
           <Link to="/contact" className="bg-earth-600 text-white py-3 px-8 rounded-lg font-semibold hover: bg-green-500 inline-block">
