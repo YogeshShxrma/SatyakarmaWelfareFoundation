@@ -1,5 +1,6 @@
 
 import Hero from "@/components/Hero";
+import ParallaxHero from "@/components/ParallaxHero";
 import MissionOverview from "@/components/MissionOverview";
 import FocusAreas from "@/components/FocusAreas";
 import News from "@/components/News";
@@ -12,7 +13,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <Hero />
+      <ParallaxHero />
       <MissionOverview />
       <FocusAreas />
       <News />

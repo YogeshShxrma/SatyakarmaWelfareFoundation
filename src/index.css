@@ -100,8 +100,29 @@
     animation: slideUp 0.8s ease-out forwards;
   }
   
+  .hero-fade-in {
+    animation: heroFadeIn 1s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .hero-slide-up {
+    animation: heroSlideUp 1.2s ease-out forwards;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  
+  .hero-fade-in-delayed {
+    animation: heroFadeIn 1s ease-out forwards;
+    opacity: 0;
+    animation-delay: 0.5s;
+  }
+  
   .minimal-hover {
     @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .hover\\:glow:hover {
+    box-shadow: 0 0 20px rgba(92, 116, 92, 0.4);
   }
 }
 
@@ -125,4 +146,42 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(-3deg);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
