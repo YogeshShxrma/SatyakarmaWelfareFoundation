@@ -1,6 +1,6 @@
 import React from 'react';
 const MissionOverview = () => {
-  return <section className="bg bg-earth-100 py-[32px]">
+  return <section className="bg py-[32px] bg-green-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 dark:text-white mb-6">

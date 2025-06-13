@@ -55,7 +55,7 @@ const News = () => {
         </div>
       </section>;
   }
-  return <section className="bg-earth-100 py-[32px]">
+  return <section className="py-[32px] bg-green-100">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Latest News</h2>
         

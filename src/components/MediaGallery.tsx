@@ -42,7 +42,7 @@ const MediaGallery = () => {
       </section>;
   }
   return <section className="py-16 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 bg-earth-100 py-[32px]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-[32px] bg-green-100">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Media Gallery</h2>
         
         {/* Filter Buttons */}
