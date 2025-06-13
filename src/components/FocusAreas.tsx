@@ -21,7 +21,7 @@ const FocusAreas = () => {
     stats: "25+ Active Partnerships"
   }];
   return <section className="py-20 bg-white">
-      <div className="max-w-max mx-auto px-4 sm:px-6 lg:px-8 py-[32px] bg-green-100">
+      <div className="max-w-max mx-auto px-4 sm:px-6 lg:px-8 py-[32px] bg-green-50">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
             Our Focus Areas
