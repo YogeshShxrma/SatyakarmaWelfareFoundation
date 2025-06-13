@@ -129,13 +129,13 @@ const MinimalHero: React.FC<MinimalHeroProps> = ({
         </motion.div>
 
         {/* Title */}
-        <motion.h1 initial={{
+        <motion.h1 className="text-4xl md:text-6xl font-lato font-bold text-gray-800 dark:text-white mb-4" initial={{
         opacity: 0.8
       }} animate={{
         opacity: logoOpacity
       }} transition={{
         duration: 0.3
-      }} className="text-4xl font-lato font-bold text mb-4 md:text-6xl text-sky-700">
+      }}>
           {title}
         </motion.h1>
 
