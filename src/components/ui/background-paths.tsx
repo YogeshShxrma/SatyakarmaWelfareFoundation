@@ -41,56 +41,48 @@ export function BackgroundPaths({
   subtitle?: string;
 }) {
   const words = title.split(" ");
-  return <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-950">
-      <div className="absolute inset-0">
+  return (
+    <div className="relative flex flex-col items-center justify-center w-full select-none">
+      {/* Animated background paths */}
+      <div className="absolute inset-0 w-full h-full">
         <FloatingPaths position={1} />
         <FloatingPaths position={-1} />
       </div>
-
-      <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
-        <motion.div initial={{
-        opacity: 0
-      }} animate={{
-        opacity: 1
-      }} transition={{
-        duration: 2
-      }} className="max-w-4xl mx-auto">
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold mb-8 tracking-tighter">
-            {words.map((word, wordIndex) => <span key={wordIndex} className="inline-block mr-4 last:mr-0">
-                {word.split("").map((letter, letterIndex) => <motion.span key={`${wordIndex}-${letterIndex}`} initial={{
-              y: 100,
-              opacity: 0
-            }} animate={{
-              y: 0,
-              opacity: 1
-            }} transition={{
-              delay: wordIndex * 0.1 + letterIndex * 0.03,
-              type: "spring",
-              stiffness: 150,
-              damping: 25
-            }} className="inline-block bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-700/80 dark:from-white dark:to-white/80 text-sky-900 mx-px px-[3px] my-[25px] py-0">
-                    {letter}
-                  </motion.span>)}
-              </span>)}
-          </h1>
-          {subtitle && <motion.div initial={{
-          opacity: 0,
-          y: 24
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          delay: 0.8,
-          duration: 0.8
-        }} className="text-lg sm:text-2xl md:text-3xl font-medium text-gray-700 dark:text-neutral-300 mb-3">
-              {subtitle}
-            </motion.div>}
-          <div className="inline-block group relative bg-gradient-to-b from-black/10 to-white/10 
-            dark:from-white/10 dark:to-black/10 p-px rounded-2xl backdrop-blur-lg 
-            overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-            
+      <div className="relative z-10 px-4 md:px-6 text-center">
+        <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold mb-8 tracking-tighter mt-0">
+          {words.map((word, wordIndex) => (
+            <span key={wordIndex} className="inline-block mr-4 last:mr-0">
+              {word.split("").map((letter, letterIndex) => (
+                <span
+                  key={`${wordIndex}-${letterIndex}`}
+                  className="inline-block bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-700/80 dark:from-white dark:to-white/80 text-sky-900 mx-px px-[3px] my-[25px] py-0"
+                  initial={{
+                    y: 100,
+                    opacity: 0
+                  }}
+                  animate={{
+                    y: 0,
+                    opacity: 1
+                  }}
+                  transition={{
+                    delay: wordIndex * 0.1 + letterIndex * 0.03,
+                    type: "spring",
+                    stiffness: 150,
+                    damping: 25
+                  }}
+                >
+                  {letter}
+                </span>
+              ))}
+            </span>
+          ))}
+        </h1>
+        {subtitle && (
+          <div className="text-lg sm:text-2xl md:text-3xl font-medium text-gray-700 dark:text-neutral-300 mb-3">
+            {subtitle}
           </div>
-        </motion.div>
+        )}
       </div>
-    </div>;
+    </div>
+  );
 }

@@ -1,4 +1,3 @@
-
 import { motion, useSpring } from "framer-motion";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 
@@ -20,20 +19,16 @@ export function ExpandingLogo() {
   });
 
   return (
-    <motion.div
-      style={{
-        scale: scale,
-        filter: "drop-shadow(0 8px 32px rgba(90,120,90,0.21))",
-      }}
-      className="mx-auto mb-8 flex items-center justify-center"
+    <div // remove absolute to keep logo in flow above text
+      className="mx-auto mb-4 sm:mb-8 flex items-center justify-center"
       aria-label="SatyaKarma Logo"
     >
       <img
         src={LOGO_SRC}
         alt="SatyaKarma Welfare Foundation Logo"
-        className="w-36 h-36 sm:w-48 sm:h-48 rounded-full object-cover bg-white shadow-xl transition-all duration-300"
+        className="w-44 h-44 sm:w-60 sm:h-60 md:w-72 md:h-72 rounded-full object-cover bg-white shadow-xl transition-all duration-300"
         draggable={false}
       />
-    </motion.div>
+    </div>
   );
 }
