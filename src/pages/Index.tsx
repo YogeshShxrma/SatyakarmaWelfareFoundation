@@ -13,20 +13,13 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       {/* Hero Section with animated logo and background paths */}
-      <section
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-950 transition-colors duration-500"
-        aria-label="SatyaKarma Home Hero"
-      >
-        <div className="relative flex flex-col items-center justify-center w-full z-20 py-16 sm:py-24 md:py-36">
-          {/* Animated, scroll-reactive logo */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-950 transition-colors duration-500" aria-label="SatyaKarma Home Hero">
+        {/* Animated, scroll-reactive logo */}
+        <div className="absolute top-12 left-0 w-full flex justify-center z-30 pointer-events-none">
           <ExpandingLogo />
-          {/* Title beneath logo and punchline */}
-          <div className="w-full mt-6 sm:mt-10 flex flex-col items-center">
-            <BackgroundPaths title="SATYAKARMA" subtitle="Doing Good, Together." />
-          </div>
         </div>
-        {/* Optionally keep background SVG or effects here */}
-        {/* No more absolute positioning for logo to ensure no overlap */}
+        {/* Animated BackgroundPaths with title beneath logo */}
+        <BackgroundPaths title="SATYAKARMA" />
       </section>
       <MissionOverview />
       <FocusAreas />
