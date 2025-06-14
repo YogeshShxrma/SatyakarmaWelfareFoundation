@@ -1,5 +1,5 @@
 
-import MinimalHero from "@/components/MinimalHero";
+import AnimatedHero from "@/components/AnimatedHero";
 import MissionOverview from "@/components/MissionOverview";
 import FocusAreas from "@/components/FocusAreas";
 import News from "@/components/News";
@@ -12,7 +12,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <MinimalHero />
+      <AnimatedHero />
       <MissionOverview />
       <FocusAreas />
       <News />
