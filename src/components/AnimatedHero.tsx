@@ -1,59 +1,64 @@
-import React from 'react';
-import { motion, Variants } from 'framer-motion';
+
+import React from "react";
+import { motion, Variants, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { useScrollProgress } from "@/hooks/useScrollProgress";
 
 interface FloatingPathsProps {
-  position: 1 | -1;
+  scroll: number;
 }
 
-const FloatingPaths: React.FC<FloatingPathsProps> = ({ position }) => {
-  // Generate 36 unique path elements with different properties
-  const paths = Array.from({ length: 36 }, (_, i) => ({
-    id: i,
-    d: `M${10 + i * 5},${20 + i * 3} Q${30 + i * 7},${10 + i * 4} ${50 + i * 6},${25 + i * 2} T${80 + i * 4},${15 + i * 5}`,
-    strokeWidth: 0.5 + (i % 3) * 0.3,
-    opacity: 0.1 + (i % 4) * 0.05,
-    animationDelay: i * 0.1,
-    x: (i % 6) * 100,
-    y: (i % 6) * 80,
-    scale: 0.8 + (i % 3) * 0.4,
-  }));
+/**
+ * Generates and animates a grid of SVG paths based on scroll.
+ */
+const FloatingPaths: React.FC<FloatingPathsProps> = ({ scroll }) => {
+  const n = 36;
 
+  // Animate vertical scale and opacity with scroll progress
   return (
-    <div className={`absolute inset-0 overflow-hidden ${position === -1 ? 'transform scale-x-[-1]' : ''}`}>
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <svg
         className="absolute inset-0 w-full h-full"
         viewBox="0 0 800 600"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
       >
-        {paths.map((path) => (
-          <motion.path
-            key={path.id}
-            d={path.d}
-            stroke="currentColor"
-            strokeWidth={path.strokeWidth}
-            fill="none"
-            className="text-sage-300 dark:text-sage-700"
-            initial={{ 
-              opacity: 0,
-              x: path.x,
-              y: path.y,
-              scale: path.scale
-            }}
-            animate={{
-              opacity: [path.opacity, path.opacity * 1.5, path.opacity],
-              x: [path.x, path.x + 20, path.x - 15, path.x],
-              y: [path.y, path.y - 10, path.y + 5, path.y],
-              scale: [path.scale, path.scale * 1.1, path.scale * 0.9, path.scale],
-            }}
-            transition={{
-              duration: 8 + (path.id % 3) * 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: path.animationDelay,
-            }}
-          />
-        ))}
+        {Array.from({ length: n }).map((_, i) => {
+          // Each path is spaced differently, expands as scroll increases
+          const baseY = 40 + (i % 6) * 80;
+          const yAmp = 80 + (i % 4) * 10;
+          // 'height' grows as scroll increases
+          const yMiddle = baseY + useTransform(scroll, [0, 1], [0, yAmp]);
+          // Opacity and strokeWidth animate subtly on scroll
+          const opacity = 0.12 + (i % 5) * 0.03 + scroll * 0.18;
+          const strokeW = 0.6 + (i % 3) * 0.3 + scroll * 0.5;
+          // Animate the second endpoint to "stretch"
+          const x1 = 60 + (i * 17) % 760;
+          const x2 = 350 + ((i * 37) % 350) + scroll * 140 * (i % 2 ? 1 : -1);
+
+          // We'll morph a simple quadratic or cubic
+          const d = `
+            M${x1},${baseY}
+            Q${x1 + 85},${baseY - 50 + scroll * (i % 2 === 0 ? 95 : -55)}
+              ${x2},${baseY + (i % 3 ? 60 : 100) + scroll * 120}
+          `;
+
+          return (
+            <motion.path
+              key={i}
+              d={d}
+              stroke="currentColor"
+              strokeWidth={strokeW}
+              fill="none"
+              initial={false}
+              className="text-sage-300 dark:text-sage-700"
+              style={{
+                opacity,
+                transition: "opacity 0.4s, stroke-width 0.2s",
+              }}
+            />
+          );
+        })}
       </svg>
     </div>
   );
@@ -61,15 +66,16 @@ const FloatingPaths: React.FC<FloatingPathsProps> = ({ position }) => {
 
 const AnimatedHero: React.FC = () => {
   const title = "SATYAKARMA";
-  const subtitle = "Nurturing Earth, Empowering Change";
+  const punchline = "Nurturing Earth, Empowering Change";
+  const scroll = useScrollProgress();
 
-  // Letter animation variants
+  // Letter animation (stagger, spring)
   const letterVariants: Variants = {
     hidden: { 
-      y: 50, 
+      y: 48, 
       opacity: 0,
       scale: 0.8,
-      rotate: -10
+      rotate: -9
     },
     visible: (i: number) => ({
       y: 0,
@@ -77,95 +83,87 @@ const AnimatedHero: React.FC = () => {
       scale: 1,
       rotate: 0,
       transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 200,
-        delay: i * 0.08,
+        type: "spring" as const,
+        damping: 14,
+        stiffness: 210,
+        delay: i * 0.075,
       }
     })
   };
 
-  // Subtitle animation variants
-  const subtitleVariants: Variants = {
-    hidden: { 
-      opacity: 0, 
-      y: 20 
-    },
-    visible: {
+  // Word-by-word fade-in for title (used for punchline if composed of words)
+  const wordVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        delay: title.length * 0.08 + 0.5,
-        ease: "easeOut"
+        delay: 0.5 + i * 0.14,
+        duration: 0.72,
+        ease: [0.19, 1, 0.22, 1] as any, // easeOutExpo
       }
-    }
+    })
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-950 transition-colors duration-500">
-      {/* Floating Background Paths - Left Side */}
-      <FloatingPaths position={1} />
-      
-      {/* Floating Background Paths - Right Side (Mirrored) */}
-      <FloatingPaths position={-1} />
-      
-      {/* Main Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        {/* Animated NGO Name */}
-        <div className="mb-6 sm:mb-8 lg:mb-12">
-          <motion.div
-            className="flex flex-wrap justify-center items-center gap-1 sm:gap-2"
-            initial="hidden"
-            animate="visible"
-          >
-            {title.split("").map((letter, index) => (
-              <motion.span
-                key={index}
-                custom={index}
-                variants={letterVariants}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sage-600 via-earth-600 to-ocean-600 dark:from-sage-400 dark:via-earth-400 dark:to-ocean-400 font-lato"
-                style={{
-                  textShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                }}
-              >
-                {letter}
-              </motion.span>
-            ))}
-          </motion.div>
-        </div>
+    <section
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-950 transition-colors duration-500"
+      aria-label="SatyaKarma Welfare Foundation Hero"
+    >
+      {/* Scroll-Reactive SVG paths */}
+      <FloatingPaths scroll={scroll} />
 
-        {/* Animated Punchline */}
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-center flex flex-col items-center justify-center">
+        {/* Animated Title */}
         <motion.div
-          variants={subtitleVariants}
+          className="mb-6 sm:mb-10 flex flex-wrap justify-center items-center gap-1 sm:gap-2"
           initial="hidden"
           animate="visible"
+        >
+          {title.split("").map((letter, index) => (
+            <motion.span
+              key={index}
+              custom={index}
+              variants={letterVariants}
+              className="text-6xl sm:text-7xl md:text-8xl xl:text-9xl font-bold bg-gradient-to-r from-sage-600 via-earth-600 to-ocean-600 dark:from-sage-400 dark:via-earth-400 dark:to-ocean-400 bg-clip-text text-transparent font-lato"
+              aria-label={letter}
+              style={{
+                textShadow: "0 4px 8px rgba(0,0,0,0.06)",
+              }}
+            >
+              {letter}
+            </motion.span>
+          ))}
+        </motion.div>
+        {/* Punchline */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={wordVariants}
+          custom={0}
           className="max-w-2xl mx-auto"
         >
           <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-sage-700 dark:text-sage-300 font-medium leading-relaxed font-inter">
-            {subtitle}
+            {punchline}
           </p>
         </motion.div>
-
-        {/* Subtle decorative element */}
+        {/* Decorative line */}
         <motion.div
-          initial={{ opacity: 0, scale: 0 }}
+          initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ 
-            delay: title.length * 0.08 + 1.2,
-            duration: 0.6,
+          transition={{
+            delay: title.length * 0.08 + 1.5,
+            duration: 0.5,
             ease: "easeOut"
           }}
           className="mt-8 sm:mt-12 flex justify-center"
         >
-          <div className="w-16 h-1 bg-gradient-to-r from-sage-400 via-earth-400 to-ocean-400 rounded-full"></div>
+          <div className="w-16 h-1 bg-gradient-to-r from-sage-400 via-earth-400 to-ocean-400 rounded-full" />
         </motion.div>
       </div>
-
-      {/* Ambient light effect */}
-      <div className="absolute inset-0 bg-gradient-radial from-sage-50/30 via-transparent to-transparent dark:from-sage-900/20 pointer-events-none"></div>
+      {/* Ambient gradient */}
+      <div className="absolute inset-0 bg-gradient-radial from-sage-50/25 via-transparent to-transparent dark:from-sage-950/15 pointer-events-none" />
     </section>
   );
 };
-
 export default AnimatedHero;
