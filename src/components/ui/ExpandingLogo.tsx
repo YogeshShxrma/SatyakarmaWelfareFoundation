@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { motion, useSpring, useTransform, useMotionValue } from "framer-motion";
+import { motion, useSpring, useTransform } from "framer-motion";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 
 /**
@@ -27,6 +27,13 @@ export function ExpandingLogo() {
 
   // Logo shadow intensity (smooth glow as it expands)
   const shadowStrength = useSpring(0.17 + localProgress * 0.35, { stiffness: 120, damping: 20 });
+
+  // Create a derived boxShadow value using useTransform
+  const boxShadow = useTransform(
+    shadowStrength,
+    (s) =>
+      `0 0 0.5vw ${1.5 + s * 8.5}vw rgba(100,180,120,${s * 0.23 + 0.07}), 0 0.6vw 2vw 0 rgba(130,150,110,${s * 0.17 + 0.08}), 0 2vw 6vw 0 rgba(20,70,70,${s * 0.10})`
+  );
 
   // Punchline effect: fade in & slide from below as logo expands
   const punchlineOpacity = useSpring(localProgress, { stiffness: 120, damping: 20 });
@@ -67,10 +74,7 @@ export function ExpandingLogo() {
         layout
         style={{
           scale,
-          boxShadow: shadowStrength.to(
-            (s) =>
-              `0 0 0.5vw ${1.5 + s * 8.5}vw rgba(100,180,120,${s * 0.23 + 0.07}), 0 0.6vw 2vw 0 rgba(130,150,110,${s * 0.17 + 0.08}), 0 2vw 6vw 0 rgba(20,70,70,${s * 0.10})`
-          ),
+          boxShadow, // use derived motion value
           filter:
             "drop-shadow(0 4px 36px rgba(80,120,80,0.10)) drop-shadow(0 0 0.5vw rgba(100,180,120,0.07))",
         }}
