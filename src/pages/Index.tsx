@@ -1,3 +1,4 @@
+
 import MissionOverview from "@/components/MissionOverview";
 import FocusAreas from "@/components/FocusAreas";
 import News from "@/components/News";
@@ -18,8 +19,8 @@ const Index = () => {
         <div className="absolute top-12 left-0 w-full flex justify-center z-30 pointer-events-none">
           <ExpandingLogo />
         </div>
-        {/* Animated BackgroundPaths with title beneath logo */}
-        <BackgroundPaths title="SATYAKARMA" />
+        {/* Animated BackgroundPaths with title beneath logo and punchline */}
+        <BackgroundPaths title="SATYAKARMA" subtitle="Doing Good, Together." />
       </section>
       <MissionOverview />
       <FocusAreas />
