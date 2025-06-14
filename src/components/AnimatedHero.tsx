@@ -1,19 +1,17 @@
 
 import React from "react";
-import { motion, Variants, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { motion, Variants, useTransform, useMotionValue } from "framer-motion";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
-
-interface FloatingPathsProps {
-  scroll: number;
-}
 
 /**
  * Generates and animates a grid of SVG paths based on scroll.
  */
-const FloatingPaths: React.FC<FloatingPathsProps> = ({ scroll }) => {
+const FloatingPaths: React.FC<{ scroll: number }> = ({ scroll }) => {
   const n = 36;
 
-  // Animate vertical scale and opacity with scroll progress
+  // All scroll-based computations are done imperatively (not reactively with MotionValues),
+  // because scroll is now a number from the hook—not a MotionValue!
+
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <svg
@@ -27,16 +25,14 @@ const FloatingPaths: React.FC<FloatingPathsProps> = ({ scroll }) => {
           // Each path is spaced differently, expands as scroll increases
           const baseY = 40 + (i % 6) * 80;
           const yAmp = 80 + (i % 4) * 10;
-          // 'height' grows as scroll increases
-          const yMiddle = baseY + useTransform(scroll, [0, 1], [0, yAmp]);
+          const yMiddle = baseY + scroll * yAmp;
           // Opacity and strokeWidth animate subtly on scroll
-          const opacity = 0.12 + (i % 5) * 0.03 + scroll * 0.18;
+          const opacity = Math.min(0.12 + (i % 5) * 0.03 + scroll * 0.18, 1);
           const strokeW = 0.6 + (i % 3) * 0.3 + scroll * 0.5;
           // Animate the second endpoint to "stretch"
           const x1 = 60 + (i * 17) % 760;
           const x2 = 350 + ((i * 37) % 350) + scroll * 140 * (i % 2 ? 1 : -1);
 
-          // We'll morph a simple quadratic or cubic
           const d = `
             M${x1},${baseY}
             Q${x1 + 85},${baseY - 50 + scroll * (i % 2 === 0 ? 95 : -55)}
@@ -71,11 +67,11 @@ const AnimatedHero: React.FC = () => {
 
   // Letter animation (stagger, spring)
   const letterVariants: Variants = {
-    hidden: { 
-      y: 48, 
+    hidden: {
+      y: 48,
       opacity: 0,
       scale: 0.8,
-      rotate: -9
+      rotate: -9,
     },
     visible: (i: number) => ({
       y: 0,
@@ -83,12 +79,12 @@ const AnimatedHero: React.FC = () => {
       scale: 1,
       rotate: 0,
       transition: {
-        type: "spring" as const,
+        type: "spring",
         damping: 14,
         stiffness: 210,
         delay: i * 0.075,
-      }
-    })
+      },
+    }),
   };
 
   // Word-by-word fade-in for title (used for punchline if composed of words)
@@ -100,9 +96,9 @@ const AnimatedHero: React.FC = () => {
       transition: {
         delay: 0.5 + i * 0.14,
         duration: 0.72,
-        ease: [0.19, 1, 0.22, 1] as any, // easeOutExpo
-      }
-    })
+        ease: [0.19, 1, 0.22, 1], // easeOutExpo
+      },
+    }),
   };
 
   return (
@@ -154,7 +150,7 @@ const AnimatedHero: React.FC = () => {
           transition={{
             delay: title.length * 0.08 + 1.5,
             duration: 0.5,
-            ease: "easeOut"
+            ease: "easeOut",
           }}
           className="mt-8 sm:mt-12 flex justify-center"
         >
@@ -166,4 +162,5 @@ const AnimatedHero: React.FC = () => {
     </section>
   );
 };
+
 export default AnimatedHero;
