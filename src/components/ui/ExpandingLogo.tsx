@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
@@ -47,24 +46,22 @@ export function ExpandingLogo() {
   // We grow base size with breakpoints, but always animate scale
   const logoBaseClasses = "w-20 h-20 xs:w-24 xs:h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 transition-all duration-300 rounded-full object-cover bg-white";
 
-  // Prevent scrolling until revealEnd reached (for focus on hero)
+  // Prevent scrolling only initially; unlock as soon as any scroll occurs
   useEffect(() => {
-    const shouldLock = scrollY < revealEnd;
     const html = document.documentElement;
-    if (shouldLock) {
+    // Only lock scroll if user is at the VERY TOP of the page (no scroll attempted yet)
+    if (scrollY === 0) {
       html.style.overflow = "hidden";
-      // For iOS Safari, also set body
       document.body.style.overflow = "hidden";
     } else {
       html.style.overflow = "";
       document.body.style.overflow = "";
     }
-    // On unmount, always unlock scroll
     return () => {
       html.style.overflow = "";
       document.body.style.overflow = "";
     };
-  }, [scrollY, revealEnd]);
+  }, [scrollY]);
 
   return (
     <div
@@ -115,4 +112,3 @@ export function ExpandingLogo() {
     </div>
   );
 }
-
