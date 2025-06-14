@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
 interface FloatingPathsProps {
   position: 1 | -1;
@@ -65,7 +64,7 @@ const AnimatedHero: React.FC = () => {
   const subtitle = "Nurturing Earth, Empowering Change";
 
   // Letter animation variants
-  const letterVariants = {
+  const letterVariants: Variants = {
     hidden: { 
       y: 50, 
       opacity: 0,
@@ -87,7 +86,7 @@ const AnimatedHero: React.FC = () => {
   };
 
   // Subtitle animation variants
-  const subtitleVariants = {
+  const subtitleVariants: Variants = {
     hidden: { 
       opacity: 0, 
       y: 20 
