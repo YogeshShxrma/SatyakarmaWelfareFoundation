@@ -12,7 +12,7 @@ const AnimatedLogo: React.FC = () => {
     scrollY,
     [0, 300],
     [1, 0.7],
-    easeInOut
+    { ease: easeInOut } // <-- Pass as an options object
   );
   const opacity = useTransform(
     scrollY,
