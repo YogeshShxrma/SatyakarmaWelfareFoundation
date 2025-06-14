@@ -1,6 +1,6 @@
 
 import React from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, easeInOut } from "framer-motion";
 
 /**
  * Animated SatyaKarma logo (zooms out on scroll)
@@ -12,7 +12,7 @@ const AnimatedLogo: React.FC = () => {
     scrollY,
     [0, 300],
     [1, 0.7],
-    { ease: "easeInOut" }
+    easeInOut
   );
   const opacity = useTransform(
     scrollY,
@@ -40,4 +40,3 @@ const AnimatedLogo: React.FC = () => {
 };
 
 export default AnimatedLogo;
-
