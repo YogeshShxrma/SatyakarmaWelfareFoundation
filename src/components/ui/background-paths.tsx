@@ -1,13 +1,7 @@
-
 "use client";
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { useLanguage } from "@/context/LanguageContext";
-
-// Add Lucide React for icons (Leaf, Trees)
-import { Leaf, TreePine } from "lucide-react";
-
 function FloatingPaths({
   position
 }: {
@@ -40,31 +34,16 @@ function FloatingPaths({
         </div>;
 }
 
-// NEW: Minimal leaves and trees in background
-const BgDecor = () => (
-  <div className="pointer-events-none absolute inset-0 z-0">
-    <Leaf className="absolute top-8 left-10 text-green-200 opacity-40 w-8 h-8 rotate-[-12deg]" />
-    <TreePine className="absolute bottom-16 left-24 text-green-300 opacity-30 w-12 h-12" />
-    <Leaf className="absolute bottom-16 right-10 text-emerald-200 opacity-30 w-10 h-10 rotate-6" />
-    <TreePine className="absolute top-20 right-24 text-emerald-300 opacity-40 w-10 h-10" />
-    {/* Add more if desired */}
-  </div>
-);
-
 import AnimatedLogo from "./AnimatedLogo"; // Add import for animated logo
 
-// Accept punchline prop for translation
 export function BackgroundPaths({
-  title = "Background Paths",
-  punchline = "Doing Good, Together.",
+  title = "Background Paths"
 }: {
   title?: string;
-  punchline?: string;
 }) {
   const words = title.split(" ");
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-950">
-      <BgDecor />
       <div className="absolute inset-0">
         <FloatingPaths position={1} />
         <FloatingPaths position={-1} />
@@ -106,7 +85,7 @@ export function BackgroundPaths({
 
           {/* Punchline below the SATYAKARMA text */}
           <p className="text-lg md:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-10 animate-fade-in">
-            {punchline}
+            Doing Good, Together.
           </p>
           <div
             className="inline-block group relative bg-gradient-to-b from-black/10 to-white/10 
