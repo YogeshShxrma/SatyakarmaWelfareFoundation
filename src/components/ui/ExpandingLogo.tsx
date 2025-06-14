@@ -21,6 +21,9 @@ export function ExpandingLogo() {
   // Clamp progress for the expansion phase
   const localProgress = Math.max(0, Math.min(1, (scrollY - revealStart) / (revealEnd - revealStart)));
 
+  // DEBUG: Log scroll and progress to identify stuck values
+  console.log("scrollY:", scrollY, "localProgress:", localProgress);
+
   // Motion values and transforms for animation
   // Logo scale: from 0.77 --> 1.34 as page is scrolled 0 -> revealEnd
   const scale = useSpring(0.77 + localProgress * 0.57, { stiffness: 120, damping: 22 });
@@ -112,3 +115,4 @@ export function ExpandingLogo() {
     </div>
   );
 }
+
