@@ -1,6 +1,6 @@
 
 import React from "react";
-import { motion, Variants, useTransform, useMotionValue } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 
 /**
@@ -8,9 +8,6 @@ import { useScrollProgress } from "@/hooks/useScrollProgress";
  */
 const FloatingPaths: React.FC<{ scroll: number }> = ({ scroll }) => {
   const n = 36;
-
-  // All scroll-based computations are done imperatively (not reactively with MotionValues),
-  // because scroll is now a number from the hook—not a MotionValue!
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -22,35 +19,57 @@ const FloatingPaths: React.FC<{ scroll: number }> = ({ scroll }) => {
         aria-hidden="true"
       >
         {Array.from({ length: n }).map((_, i) => {
-          // Each path is spaced differently, expands as scroll increases
+          // Create varied starting positions and paths
           const baseY = 40 + (i % 6) * 80;
-          const yAmp = 80 + (i % 4) * 10;
-          const yMiddle = baseY + scroll * yAmp;
-          // Opacity and strokeWidth animate subtly on scroll
-          const opacity = Math.min(0.12 + (i % 5) * 0.03 + scroll * 0.18, 1);
-          const strokeW = 0.6 + (i % 3) * 0.3 + scroll * 0.5;
-          // Animate the second endpoint to "stretch"
           const x1 = 60 + (i * 17) % 760;
-          const x2 = 350 + ((i * 37) % 350) + scroll * 140 * (i % 2 ? 1 : -1);
-
-          const d = `
-            M${x1},${baseY}
-            Q${x1 + 85},${baseY - 50 + scroll * (i % 2 === 0 ? 95 : -55)}
-              ${x2},${baseY + (i % 3 ? 60 : 100) + scroll * 120}
-          `;
+          const x2Base = 350 + ((i * 37) % 350);
+          
+          // Create animated path data
+          const pathVariants = {
+            initial: {
+              d: `M${x1},${baseY} Q${x1 + 85},${baseY - 30} ${x2Base},${baseY + 40}`,
+              opacity: 0.08 + (i % 5) * 0.02,
+              strokeWidth: 0.5 + (i % 3) * 0.2,
+            },
+            animate: {
+              d: [
+                `M${x1},${baseY} Q${x1 + 85},${baseY - 30} ${x2Base},${baseY + 40}`,
+                `M${x1},${baseY + 20} Q${x1 + 120},${baseY - 60} ${x2Base + 100},${baseY + 80}`,
+                `M${x1},${baseY - 10} Q${x1 + 50},${baseY + 40} ${x2Base - 50},${baseY + 120}`,
+                `M${x1},${baseY} Q${x1 + 85},${baseY - 30} ${x2Base},${baseY + 40}`,
+              ],
+              opacity: [
+                0.08 + (i % 5) * 0.02,
+                0.15 + (i % 4) * 0.03 + scroll * 0.1,
+                0.12 + (i % 3) * 0.04,
+                0.08 + (i % 5) * 0.02,
+              ],
+              strokeWidth: [
+                0.5 + (i % 3) * 0.2,
+                0.8 + (i % 4) * 0.3 + scroll * 0.3,
+                0.6 + (i % 2) * 0.4,
+                0.5 + (i % 3) * 0.2,
+              ],
+              transition: {
+                duration: 8 + (i % 5) * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.2,
+              },
+            },
+          };
 
           return (
             <motion.path
               key={i}
-              d={d}
               stroke="currentColor"
-              strokeWidth={strokeW}
               fill="none"
-              initial={false}
-              className="text-sage-300 dark:text-sage-700"
+              initial="initial"
+              animate="animate"
+              variants={pathVariants}
+              className="text-sage-300/60 dark:text-sage-700/40"
               style={{
-                opacity,
-                transition: "opacity 0.4s, stroke-width 0.2s",
+                filter: `blur(${0.5 + (i % 3) * 0.2}px)`,
               }}
             />
           );
