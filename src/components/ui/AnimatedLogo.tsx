@@ -8,8 +8,17 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const AnimatedLogo: React.FC = () => {
   // Use scroll position to animate scale from 1 to 0.7 between 0 and 300px scroll
   const { scrollY } = useScroll();
-  const scale = useTransform(scrollY, [0, 300], [1, 0.7], { ease: [0.42, 0.0, 0.58, 1.0] });
-  const opacity = useTransform(scrollY, [0, 300], [1, 0.82]); // Slight fade for extra smoothness
+  const scale = useTransform(
+    scrollY,
+    [0, 300],
+    [1, 0.7],
+    { ease: "easeInOut" }
+  );
+  const opacity = useTransform(
+    scrollY,
+    [0, 300],
+    [1, 0.82] // Slight fade for extra smoothness
+  );
 
   return (
     <motion.div
@@ -31,3 +40,4 @@ const AnimatedLogo: React.FC = () => {
 };
 
 export default AnimatedLogo;
+
