@@ -66,9 +66,7 @@ export function BackgroundPaths({
               type: "spring",
               stiffness: 150,
               damping: 25
-            }} className="inline-block text-transparent bg-clip-text 
-                                        bg-gradient-to-r from-neutral-900 to-neutral-700/80 
-                                        dark:from-white dark:to-white/80">
+            }} className="inline-block bg-clip-text bg-gradient-to-r from-neutral-900 to-neutral-700/80 dark:from-white dark:to-white/80 my-0 px-[5px] mx-0 text-sky-900">
                                         {letter}
                                     </motion.span>)}
                             </span>)}
