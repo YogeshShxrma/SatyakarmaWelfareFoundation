@@ -1,0 +1,31 @@
+
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "whatWeDo": "What We Do",
+    "getInvolved": "Get Involved",
+    "blog": "Blog",
+    "contact": "Contact",
+    "admin": "Admin",
+    "adminPanel": "Admin Panel"
+  },
+  "footer": {
+    "org": "SatyaKarma",
+    "society": "Welfare Foundation Society",
+    "desc": "Searching for truth through action. Creating sustainable positive change through environmental protection, children's wellness, and community empowerment.",
+    "motto": "Seek the truth in action",
+    "quickLinks": "Quick Links",
+    "connect": "Connect",
+    "email": "info@satyakarma.org",
+    "copyright": "© 2024 SatyaKarma Welfare Foundation Society. All rights reserved."
+  },
+  "actions": {
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "index": {
+    "hero_title": "SATYAKARMA",
+    "hero_sub": "Doing Good, Together."
+  }
+}

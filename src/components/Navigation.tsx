@@ -1,28 +1,25 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Settings } from "lucide-react";
+import LanguageSwitcher from "./ui/LanguageSwitcher";
+import { useTranslation } from "@/hooks/useTranslation";
+
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navItems = [{
-    name: "Home",
-    href: "/"
-  }, {
-    name: "About Us",
-    href: "/about"
-  }, {
-    name: "What We Do",
-    href: "/what-we-do"
-  }, {
-    name: "Get Involved",
-    href: "/get-involved"
-  }, {
-    name: "Blog",
-    href: "/blog"
-  }, {
-    name: "Contact",
-    href: "/contact"
-  }];
-  return <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+  const { t } = useTranslation();
+
+  const navItems = [
+    { name: t("nav.home"), href: "/" },
+    { name: t("nav.about"), href: "/about" },
+    { name: t("nav.whatWeDo"), href: "/what-we-do" },
+    { name: t("nav.getInvolved"), href: "/get-involved" },
+    { name: t("nav.blog"), href: "/blog" },
+    { name: t("nav.contact"), href: "/contact" },
+  ];
+
+  return (
+    <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -32,7 +29,7 @@ const Navigation = () => {
                 <span className="font-lato font-bold text-xl text-gray-800">
                   SatyaKarma
                 </span>
-                <p className="text-xs text-gray-600 -mt-1">Welfare Foundation</p>
+                <p className="text-xs text-gray-600 -mt-1">{t("footer.society")}</p>
               </div>
             </Link>
           </div>
@@ -40,14 +37,19 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="flex items-center space-x-1">
-              {navItems.map(item => <Link key={item.name} to={item.href} className="text-gray-700 hover:text-sage-600 px-4 py-2 text-sm font-medium transition-colors duration-200 relative group">
+              {navItems.map(item => (
+                <Link key={item.name} to={item.href} className="text-gray-700 hover:text-sage-600 px-4 py-2 text-sm font-medium transition-colors duration-200 relative group">
                   {item.name}
                   <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-sage-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
-                </Link>)}
-              <Link to="/admin-login" className="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center space-x-1" title="Admin Panel">
+                </Link>
+              ))}
+              <Link to="/admin-login" className="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center space-x-1" title={t("nav.adminPanel")}>
                 <Settings className="h-4 w-4" />
-                <span>Admin</span>
+                <span>{t("nav.admin")}</span>
               </Link>
+              <div className="ml-4">
+                <LanguageSwitcher />
+              </div>
             </div>
           </div>
 
@@ -60,18 +62,26 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && <div className="md:hidden fade-in">
+        {isOpen && (
+          <div className="md:hidden fade-in">
             <div className="px-2 pt-2 pb-4 space-y-1 bg-white border-t border-gray-100">
-              {navItems.map(item => <Link key={item.name} to={item.href} className="text-gray-700 hover:text-sage-600 block px-3 py-2 text-base font-medium transition-colors" onClick={() => setIsOpen(false)}>
+              {navItems.map(item => (
+                <Link key={item.name} to={item.href} className="text-gray-700 hover:text-sage-600 block px-3 py-2 text-base font-medium transition-colors" onClick={() => setIsOpen(false)}>
                   {item.name}
-                </Link>)}
+                </Link>
+              ))}
               <Link to="/admin-login" className="text-gray-700 hover:text-green-600 block px-3 py-2 text-base font-medium transition-colors flex items-center space-x-2" onClick={() => setIsOpen(false)}>
                 <Settings className="h-4 w-4" />
-                <span>Admin Panel</span>
+                <span>{t("nav.adminPanel")}</span>
               </Link>
+              <div className="mt-4">
+                <LanguageSwitcher />
+              </div>
             </div>
-          </div>}
+          </div>
+        )}
       </div>
-    </nav>;
+    </nav>
+  );
 };
 export default Navigation;
