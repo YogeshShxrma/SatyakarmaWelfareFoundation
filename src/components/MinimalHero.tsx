@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import FallingLeaves from "./ui/FallingLeaves";
 interface MinimalHeroProps {
   mediaType?: 'image';
   mediaSrc?: string;
@@ -103,58 +102,54 @@ const MinimalHero: React.FC<MinimalHeroProps> = ({
   const textOpacity = scrollProgress > 0.6 ? (scrollProgress - 0.6) * 2.5 : 0;
   const textTranslateY = 20 - scrollProgress * 20;
   const glowIntensity = scrollProgress * 15;
-  return (
-    <div ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-sage-50 via-white to-sage-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      {/* Animated Leaf Background */}
-      <FallingLeaves />
-
+  return <div ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-sage-50 via-white to-sage-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(92, 116, 92, 0.15) 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }} className="absolute inset-0 " />
+        backgroundImage: `radial-gradient(circle at 2px 2px, rgba(92, 116, 92, 0.15) 1px, transparent 0)`,
+        backgroundSize: '40px 40px'
+      }} className="absolute inset-0 " />
       </div>
 
       {/* Main content container */}
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
         {/* Logo with scroll-triggered expansion */}
         <motion.div className="mb-8 flex justify-center" style={{
-          transform: `scale(${logoScale})`,
-          opacity: logoOpacity,
-          filter: `drop-shadow(0 0 ${glowIntensity}px rgba(92, 116, 92, 0.4))`
-        }} animate={{
-          scale: logoScale,
-          opacity: logoOpacity
-        }} transition={{
-          duration: 0.3,
-          ease: "easeOut"
-        }}>
+        transform: `scale(${logoScale})`,
+        opacity: logoOpacity,
+        filter: `drop-shadow(0 0 ${glowIntensity}px rgba(92, 116, 92, 0.4))`
+      }} animate={{
+        scale: logoScale,
+        opacity: logoOpacity
+      }} transition={{
+        duration: 0.3,
+        ease: "easeOut"
+      }}>
           <img src={mediaSrc} alt={`${title} Logo`} className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl" />
         </motion.div>
 
         {/* Title */}
         <motion.h1 initial={{
-          opacity: 0.8
-        }} animate={{
-          opacity: logoOpacity
-        }} transition={{
-          duration: 0.3
-        }} className="text-4xl md:text-6xl font-lato font-bold text-gray-800 dark:text-white mb-4 my-0 mx-0 py-[17px]">
+        opacity: 0.8
+      }} animate={{
+        opacity: logoOpacity
+      }} transition={{
+        duration: 0.3
+      }} className="text-4xl md:text-6xl font-lato font-bold text-gray-800 dark:text-white mb-4 my-0 mx-0 py-[17px]">
           {title}
         </motion.h1>
 
         {/* Punchline with scroll-triggered animation */}
         <motion.div className="mb-8" style={{
-          opacity: textOpacity,
-          transform: `translateY(${textTranslateY}px)`
-        }} animate={{
-          opacity: textOpacity,
-          y: textTranslateY
-        }} transition={{
-          duration: 0.3,
-          ease: "easeOut"
-        }}>
+        opacity: textOpacity,
+        transform: `translateY(${textTranslateY}px)`
+      }} animate={{
+        opacity: textOpacity,
+        y: textTranslateY
+      }} transition={{
+        duration: 0.3,
+        ease: "easeOut"
+      }}>
           <p className="text-xl md:text-2xl text-sage-700 dark:text-sage-300 font-medium leading-relaxed">
             {punchline}
           </p>
@@ -162,12 +157,12 @@ const MinimalHero: React.FC<MinimalHeroProps> = ({
 
         {/* Scroll prompt - centered and responsive */}
         {!isExpanded && <motion.div animate={{
-          y: [0, -10, 0]
-        }} transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }} className="absolute left-1 transform -translate-x-1/2 w-full px-4 ">
+        y: [0, -10, 0]
+      }} transition={{
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }} className="absolute left-1 transform -translate-x-1/2 w-full px-4 ">
             <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 mb-2 mx-auto max-w-xs">
               {scrollToExpand}
             </p>
@@ -183,7 +178,6 @@ const MinimalHero: React.FC<MinimalHeroProps> = ({
           {/* Progress bar could be added here if needed */}
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
 export default MinimalHero;
