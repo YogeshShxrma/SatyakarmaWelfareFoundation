@@ -2,44 +2,47 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Leaf, TreeDeciduous, Users } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const WhatWeDo = () => {
+  const { t, lang } = useTranslation();
+  
   const programs = [
     {
       icon: <Leaf className="h-16 w-16 text-green-600" />,
-      title: "Plastic Pollution Awareness",
-      description: "Educational campaigns and workshops to raise awareness about plastic's environmental impact while promoting compostable alternatives.",
+      title: t("whatWeDo.program1Title"),
+      description: t("whatWeDo.program1Desc"),
       initiatives: [
-        "Community awareness workshops",
-        "School education programs", 
-        "Compostable product distribution",
-        "Plastic-free lifestyle campaigns"
+        t("whatWeDo.program1Init1"),
+        t("whatWeDo.program1Init2"),
+        t("whatWeDo.program1Init3"),
+        t("whatWeDo.program1Init4")
       ],
-      impact: "50+ communities reached, 2000+ families educated"
+      impact: t("whatWeDo.program1Impact")
     },
     {
       icon: <Users className="h-16 w-16 text-green-600" />,
-      title: "Children's Physical Health Programs",
-      description: "Comprehensive health and fitness initiatives designed to promote physical activity and wellness among children.",
+      title: t("whatWeDo.program2Title"),
+      description: t("whatWeDo.program2Desc"),
       initiatives: [
-        "Fitness workshops for kids",
-        "Outdoor sports activities",
-        "Health awareness sessions",
-        "Nutrition education programs"
+        t("whatWeDo.program2Init1"),
+        t("whatWeDo.program2Init2"),
+        t("whatWeDo.program2Init3"),
+        t("whatWeDo.program2Init4")
       ],
-      impact: "1000+ children engaged, 25+ schools partnered"
+      impact: t("whatWeDo.program2Impact")
     },
     {
       icon: <TreeDeciduous className="h-16 w-16 text-green-600" />,
-      title: "Tree Plantation & Environmental Restoration",
-      description: "Large-scale tree plantation drives and forest conservation efforts to combat climate change and restore natural habitats.",
+      title: t("whatWeDo.program3Title"),
+      description: t("whatWeDo.program3Desc"),
       initiatives: [
-        "Community tree planting drives",
-        "Forest restoration projects",
-        "Urban greening initiatives",
-        "Environmental education campaigns"
+        t("whatWeDo.program3Init1"),
+        t("whatWeDo.program3Init2"),
+        t("whatWeDo.program3Init3"),
+        t("whatWeDo.program3Init4")
       ],
-      impact: "5000+ trees planted, 15+ restoration sites"
+      impact: t("whatWeDo.program3Impact")
     }
   ];
 
@@ -51,10 +54,10 @@ const WhatWeDo = () => {
       <section className="py-20 bg-gradient-to-br from-green-50 to-emerald-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            What We Do
+            {t("nav.whatWeDo")}
           </h1>
-          <p className="text-xl text-gray-600 leading-relaxed">
-            Our comprehensive approach to environmental protection and community empowerment
+          <p className="text-xl text-gray-600 leading-relaxed" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+            {t("whatWeDo.subtitle")}
           </p>
         </div>
       </section>
@@ -71,21 +74,21 @@ const WhatWeDo = () => {
                     {program.title}
                   </h2>
                 </div>
-                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
                   {program.description}
                 </p>
                 <div className="bg-green-50 p-6 rounded-lg">
-                  <h3 className="font-semibold text-gray-800 mb-4">Key Initiatives:</h3>
+                  <h3 className="font-semibold text-gray-800 mb-4">{t("whatWeDo.keyInitiatives")}</h3>
                   <ul className="space-y-2">
                     {program.initiatives.map((initiative, idx) => (
                       <li key={idx} className="flex items-start">
                         <span className="text-green-600 mr-2">•</span>
-                        <span className="text-gray-600">{initiative}</span>
+                        <span className="text-gray-600" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>{initiative}</span>
                       </li>
                     ))}
                   </ul>
                   <div className="mt-4 p-4 bg-green-100 rounded">
-                    <p className="text-green-800 font-semibold">Impact: {program.impact}</p>
+                    <p className="text-green-800 font-semibold" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>{t("whatWeDo.impact")}: {program.impact}</p>
                   </div>
                 </div>
               </div>
@@ -112,41 +115,35 @@ const WhatWeDo = () => {
       <section className="py-20 bg-green-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-gray-800 mb-8">
-            Community Partnerships & Sustainable Development
+            {t("whatWeDo.partnershipsTitle")}
           </h2>
-          <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-            We believe that lasting change happens through collaboration. Our partnership approach 
-            brings together local communities, educational institutions, government bodies, and 
-            environmental organizations to create sustainable solutions.
+          <p className="text-lg text-gray-600 mb-8 leading-relaxed" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+            {t("whatWeDo.partnershipsDesc")}
           </p>
           
           <div className="grid md:grid-cols-2 gap-8 mt-12">
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">Educational Partnerships</h3>
-              <p className="text-gray-600">
-                Working with schools and universities to integrate environmental education 
-                and health awareness into curricula.
+              <h3 className="text-xl font-semibold text-green-600 mb-4">{t("whatWeDo.partnership1Title")}</h3>
+              <p className="text-gray-600" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+                {t("whatWeDo.partnership1Desc")}
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">Government Collaboration</h3>
-              <p className="text-gray-600">
-                Partnering with local authorities to implement large-scale environmental 
-                protection and public health initiatives.
+              <h3 className="text-xl font-semibold text-green-600 mb-4">{t("whatWeDo.partnership2Title")}</h3>
+              <p className="text-gray-600" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+                {t("whatWeDo.partnership2Desc")}
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">Corporate Partnerships</h3>
-              <p className="text-gray-600">
-                Engaging businesses in sustainable practices and corporate social 
-                responsibility programs.
+              <h3 className="text-xl font-semibold text-green-600 mb-4">{t("whatWeDo.partnership3Title")}</h3>
+              <p className="text-gray-600" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+                {t("whatWeDo.partnership3Desc")}
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold text-green-600 mb-4">Community Networks</h3>
-              <p className="text-gray-600">
-                Building grassroots networks that empower local communities to lead 
-                environmental and health initiatives.
+              <h3 className="text-xl font-semibold text-green-600 mb-4">{t("whatWeDo.partnership4Title")}</h3>
+              <p className="text-gray-600" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+                {t("whatWeDo.partnership4Desc")}
               </p>
             </div>
           </div>
