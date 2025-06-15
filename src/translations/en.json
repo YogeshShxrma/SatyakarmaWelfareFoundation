@@ -1,4 +1,3 @@
-
 {
   "nav": {
     "home": "Home",
@@ -214,5 +213,21 @@
     "noPosts": "No blog posts found for this category.",
     "readMore": "Read More →",
     "minRead": "min read"
+  },
+  "news": {
+    "latestNews": "Latest News",
+    "loading": "Loading news...",
+    "noUpdates": "No news updates available.",
+    "priorityUrgent": "URGENT",
+    "priorityHigh": "HIGH",
+    "priorityNormal": "NORMAL"
+  },
+  "mediaGallery": {
+    "title": "Media Gallery",
+    "loading": "Loading media...",
+    "allMedia": "All Media",
+    "images": "Images",
+    "videos": "Videos",
+    "noItems": "No media items found."
   }
 }
