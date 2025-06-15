@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,9 +22,6 @@ export default {
 			fontFamily: {
 				'inter': ['Inter', 'sans-serif'],
 				'lato': ['Lato', 'sans-serif'],
-			},
-			backgroundImage: {
-				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 			},
 			colors: {
 				border: 'hsl(var(--border))',

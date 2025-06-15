@@ -1,4 +1,5 @@
 
+import MinimalHero from "@/components/MinimalHero";
 import MissionOverview from "@/components/MissionOverview";
 import FocusAreas from "@/components/FocusAreas";
 import News from "@/components/News";
@@ -6,13 +7,12 @@ import MediaGallery from "@/components/MediaGallery";
 import CallToAction from "@/components/CallToAction";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { BackgroundPaths } from "@/components/ui/background-paths";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <BackgroundPaths title="SATYAKARMA" />
+      <MinimalHero />
       <MissionOverview />
       <FocusAreas />
       <News />
