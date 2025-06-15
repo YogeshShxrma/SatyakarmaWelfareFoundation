@@ -8,6 +8,19 @@ const CallToAction = () => {
   return (
     <section className="px-0 py-[48px] bg-green-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
+          {t("callToAction.title")}
+        </h2>
+        <p
+          className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
+          style={
+            lang === "hi"
+              ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" }
+              : {}
+          }
+        >
+          {t("callToAction.desc")}
+        </p>
         <div className="flex flex-col items-center w-full mb-2">
           <Typewriter
             text={[
@@ -22,19 +35,6 @@ const CallToAction = () => {
             cursorChar="_"
           />
         </div>
-        <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
-          {t("callToAction.title")}
-        </h2>
-        <p
-          className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
-          style={
-            lang === "hi"
-              ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" }
-              : {}
-          }
-        >
-          {t("callToAction.desc")}
-        </p>
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* Content can be added here later */}
         </div>
