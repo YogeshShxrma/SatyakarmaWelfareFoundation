@@ -21,7 +21,7 @@ const BlogPostGrid: React.FC<BlogPostGridProps> = ({
     return (
       <div className="text-center py-12">
         <p
-          className="text-gray-600 text-lg"
+          className="text-gray-600 dark:text-gray-400 text-lg"
           style={
             lang === "hi"
               ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" }
