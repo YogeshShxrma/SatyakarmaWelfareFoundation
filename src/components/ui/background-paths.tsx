@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -109,7 +108,7 @@ export function BackgroundPaths({
           transition={{ duration: 2 }}
           className="max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold mb-6 tracking-tighter">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold mb-6 tracking-tighter font-inter">
             {words.map((word, wordIndex) => (
               <span key={wordIndex} className="inline-block mr-4 last:mr-0">
                 {word.split("").map((letter, letterIndex) => (
@@ -123,9 +122,7 @@ export function BackgroundPaths({
                       stiffness: 150,
                       damping: 25
                     }}
-                    className="inline-block text-transparent bg-clip-text 
-                      bg-gradient-to-r from-neutral-900 to-neutral-700/80 
-                      dark:from-white dark:to-white/80"
+                    className="inline-block font-inter text-neutral-900 dark:text-white"
                   >
                     {letter}
                   </motion.span>
