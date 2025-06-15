@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Typewriter } from "@/components/ui/typewriter";
@@ -21,8 +20,8 @@ const CallToAction = () => {
         >
           {t("callToAction.desc")}
         </p>
-        <div className="flex items-center justify-center w-full mb-2 gap-1">
-          <span className="md:text-2xl text-lg font-semibold text-black">
+        <div className="flex flex-col items-center justify-center w-full mb-2 gap-0">
+          <span className="md:text-2xl text-lg font-semibold text-black mb-1">
             We are here to
           </span>
           <Typewriter
@@ -54,4 +53,3 @@ const CallToAction = () => {
   );
 };
 export default CallToAction;
-
