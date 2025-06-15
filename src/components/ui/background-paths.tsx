@@ -2,75 +2,77 @@
 "use client";
 
 import { motion } from "framer-motion";
-// Removed: import { Button } from "@/components/ui/button";
-import { Leaf, TreeDeciduous, TreePine, Trees } from "lucide-react";
-import AnimatedLogo from "./AnimatedLogo"; // Existing animated logo
+import { Leaf } from "lucide-react";
+import AnimatedLogo from "./AnimatedLogo";
 
-// Helper: environmental icons list for random selection & subtlety
-const NATURE_ICONS = [
-  { Component: Leaf, color: "#7a917a" },       // sage-400
-  { Component: Leaf, color: "#bfa890" },       // earth-400
-  { Component: TreeDeciduous, color: "#5c745c" }, // sage-500
-  { Component: TreePine, color: "#0ea5e9" },   // ocean-500
-  { Component: Trees, color: "#a68b6b" },      // earth-500
-];
-
-type NatureIconProps = {
-  idx: number,
-  icon: typeof NATURE_ICONS[number],
-  position: number,
-  total: number
+type LeafProps = {
+  idx: number;
+  total: number;
 };
 
-function NatureIcon({ idx, icon, position, total }: NatureIconProps) {
-  // Random but deterministic scatter and float for each icon
-  // Different positions, scales, and rotations for a natural feel
-  const angle = (idx * 360) / total;
-  const radius = 160 + (idx % 4) * 80 + position * 24;
-  const baseX = Math.cos(angle * Math.PI / 180) * radius + 350; // center around middle of "696"
-  const baseY = Math.sin(angle * Math.PI / 180) * radius + 220; // center around "316"
-  const scale = 0.8 + ((idx % 3) * 0.4);
-  const rotation = ((idx * 13) % 360) * (position === 1 ? 1 : -1);
-  const opacity = 0.10 + (idx % 6) * 0.07;
-  const floatD = 22 + (idx % 5) * 6;
+function FallingLeaf({ idx, total }: LeafProps) {
+  // Deterministic random seed based on idx (for fallback SSR/CSR)
+  const random = (seed: number) => {
+    // xmur3 hash + mulberry32 for enough variety
+    let t = seed;
+    t ^= t << 13; t ^= t >> 17; t ^= t << 5;
+    return () => ((t = Math.imul(t, 0x85ebca6b)) >>> 0) / 4294967296;
+  };
 
-  const { Component, color } = icon;
+  const rand = random(idx + 42);
+  const startX = rand() * 92 + 4; // vw units
+  const sway = 24 + rand() * 24; // px. How much it sways horizontally
+  const swayDuration = 3.6 + rand() * 3.4; // seconds, per oscillation
+  const scale = 0.8 + rand() * 0.8;
+  const rotateStart = rand() * 60 - 30;
+  const rotateEnd = rotateStart + rand() * 60 - 30;
+  const fallDuration = 11 + rand() * 10; // seconds
+  const delay = rand() * 7;
+
+  // Colors in nature palette
+  const colors = [
+    "#7a917a", // sage-400
+    "#87a055", // green-500
+    "#bfa890", // earth-400
+    "#e9cfa3", // gentle yellow
+    "#a0b7a0", // gray-green
+  ];
+  const color = colors[idx % colors.length];
+
   return (
     <motion.div
       style={{
-        position: 'absolute',
-        left: `${baseX}px`,
-        top: `${baseY}px`,
-        pointerEvents: 'none',
+        position: "absolute",
+        left: `${startX}vw`,
         zIndex: 0,
-        opacity,
+        pointerEvents: "none",
+        opacity: 0.42 + ((idx % 5) * 0.09),
+        filter: "blur(0.5px)",
       }}
-      initial={{
-        y: 0,
-        rotate: rotation,
-      }}
+      initial={{ y: -80 }}
       animate={{
-        y: [0, -floatD, 0, floatD/2, 0],
-        rotate: [rotation, rotation + 7, rotation - 5, rotation],
+        y: ["-80px", "105vh"], // from just above to far below
+        x: [
+          0, sway, -sway, sway / 2, 0
+        ],
+        rotate: [rotateStart, rotateEnd, rotateStart],
+        opacity: [0, 1, 1, 0.8, 0],
       }}
       transition={{
-        duration: 16 + (idx % 7) * 2 + Math.abs(position) * 6,
+        duration: fallDuration,
+        delay,
         repeat: Infinity,
         repeatType: "loop",
-        delay: idx * 0.4,
-        ease: "easeInOut"
+        ease: "linear",
+        times: [0, 0.25, 0.7, 0.96, 1],
       }}
       aria-hidden
     >
-      <Component
-        size={34 * scale}
+      <Leaf
+        size={30 * scale}
         color={color}
-        strokeWidth={1.1 + ((idx % 2) * 0.3)}
-        className="drop-shadow-[0_1px_4px_rgba(92,116,92,0.12)]"
-        style={{
-          filter: 'blur(0.4px)', // subtle softness
-          opacity: opacity, // ensure further subtlety
-        }}
+        strokeWidth={1 + scale * 0.5}
+        className="drop-shadow-[0_1px_4px_rgba(106,121,95,0.13)]"
         aria-label=""
         focusable="false"
       />
@@ -78,30 +80,13 @@ function NatureIcon({ idx, icon, position, total }: NatureIconProps) {
   );
 }
 
-function FloatingNature({ position }: { position: number }) {
-  const total = 14; // Number of floating icons
+function FallingLeavesBG() {
+  const total = 22;
   return (
-    <div className="absolute inset-0 pointer-events-none">
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          minHeight: 320,
-          minWidth: 700,
-          maxWidth: "100vw",
-        }}
-      >
-        {Array.from({ length: total }).map((_, idx) => (
-          <NatureIcon
-            key={idx}
-            idx={idx}
-            icon={NATURE_ICONS[idx % NATURE_ICONS.length]}
-            position={position}
-            total={total}
-          />
-        ))}
-      </div>
+    <div className="absolute inset-0 pointer-events-none w-full h-full">
+      {Array.from({ length: total }).map((_, idx) => (
+        <FallingLeaf key={idx} idx={idx} total={total} />
+      ))}
     </div>
   );
 }
@@ -114,11 +99,7 @@ export function BackgroundPaths({
   const words = title.split(" ");
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-950">
-      <div className="absolute inset-0">
-        {/* Replaced FloatingPaths with FloatingNature */}
-        <FloatingNature position={1} />
-        <FloatingNature position={-1} />
-      </div>
+      <FallingLeavesBG />
       <div className="relative z-10 container mx-auto px-4 md:px-6 text-center flex flex-col items-center">
         {/* Animated Logo placed above the headline */}
         <AnimatedLogo />
@@ -152,7 +133,6 @@ export function BackgroundPaths({
               </span>
             ))}
           </h1>
-
           {/* Punchline below the SATYAKARMA text */}
           <p className="text-lg md:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-10 animate-fade-in">
             Doing Good, Together.
