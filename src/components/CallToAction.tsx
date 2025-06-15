@@ -1,55 +1,39 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Typewriter } from "@/components/ui/typewriter";
-
 const CallToAction = () => {
-  const { t, lang } = useTranslation();
-  return (
-    <section className="px-0 py-[48px] bg-green-50">
+  const {
+    t,
+    lang
+  } = useTranslation();
+  return <section className="px-0 py-[48px] bg-green-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl md:text-4xl font-lato font-bold text-gray-800 mb-6">
           {t("callToAction.title")}
         </h2>
-        <p
-          className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
-          style={
-            lang === "hi"
-              ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" }
-              : {}
-          }
-        >
+        <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed" style={lang === "hi" ? {
+        fontFamily: "'Noto Sans Devanagari', Arial, sans-serif"
+      } : {}}>
           {t("callToAction.desc")}
         </p>
         <div className="flex flex-col items-center justify-center w-full mb-2 gap-0">
-          <span className="md:text-2xl text-lg font-semibold text-black mb-1">
+          <span className="text-lg mb-1 font-semibold text-zinc-700 md:text-2xl">
             We are here to
           </span>
-          <Typewriter
-            text={[
-              t("cta.typewriter1"),
-              t("cta.typewriter2"),
-              t("cta.typewriter3")
-            ]}
-            speed={72}          // 20% slower than original 60 (original was 60, now 72)
-            waitTime={1440}      // original 1200, now 1440
-            deleteSpeed={42}     // original 35, now 42
-            className="text-green-700 font-semibold md:text-2xl text-lg min-h-[2.5em]"
-            cursorChar="_"
-          />
+          <Typewriter text={[t("cta.typewriter1"), t("cta.typewriter2"), t("cta.typewriter3")]} speed={72} // 20% slower than original 60 (original was 60, now 72)
+        waitTime={1440} // original 1200, now 1440
+        deleteSpeed={42} // original 35, now 42
+        className="text-green-700 font-semibold md:text-2xl text-lg min-h-[2.5em]" cursorChar="_" />
         </div>
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* Content can be added here later */}
         </div>
         <div className="p-8 shadow-sidebar-border border border-gray-100 rounded-xl px-0 my-0 mx-[240px] py-[9px]">
-          <Link
-            to="/contact"
-            className="bg-earth-600 text-white py-3 px-8 rounded-lg font-semibold hover:bg-green-500 inline-block"
-          >
+          <Link to="/contact" className="bg-earth-600 text-white py-3 px-8 rounded-lg font-semibold hover:bg-green-500 inline-block">
             {t("cta.contactUsToday")}
           </Link>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
 export default CallToAction;
