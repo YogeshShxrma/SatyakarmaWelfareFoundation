@@ -8,16 +8,13 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 interface BlogPost {
   id: string;
-  title_en: string;
-  title_hi: string;
+  title: string;
   category: string;
-  category_hi?: string;
-  content_en: string;
-  content_hi: string;
-  excerpt_en: string;
-  excerpt_hi: string;
-  image_url?: string;
+  content: string;
+  excerpt: string;
+  image_url?: string | null;
   created_at: string;
+  updated_at: string;
 }
 
 const Blog = () => {
@@ -30,7 +27,7 @@ const Blog = () => {
   const { toast } = useToast();
   const { t, lang } = useTranslation();
 
-  // Categories in both languages
+  // Categories in both languages (these are the only ones that can be translated)
   const categories = [
     t("blog.categoryAll"),
     t("focusAreas.tree.title"),
@@ -66,7 +63,7 @@ const Blog = () => {
 
     setIsSubscribing(true);
     try {
-      const { data, error } = await supabase.functions.invoke('newsletter-subscription', {
+      const { error } = await supabase.functions.invoke('newsletter-subscription', {
         body: { email },
       });
 
@@ -89,12 +86,19 @@ const Blog = () => {
     }
   };
 
-  // Translation-aware filter:
-  const resolveCategory = (post: BlogPost) =>
-    lang === "hi"
-      ? post.category_hi || post.category
-      : post.category;
+  // Helper to resolve category for display purposes
+  const resolveCategory = (post: BlogPost) => {
+    // Show translated (UI) label for the blog's category value
+    // Map DB 'category' to translation key:
+    // For example, if post.category === 'Plastic', get t('focusAreas.plastic.title')
+    if (post.category.toLowerCase() === "tree") return t("focusAreas.tree.title");
+    if (post.category.toLowerCase() === "children") return t("focusAreas.children.title");
+    if (post.category.toLowerCase() === "plastic") return t("focusAreas.plastic.title");
+    if (post.category.toLowerCase() === "community") return t("focusAreas.community.title");
+    return post.category; // fallback
+  };
 
+  // Filtering by selected UI-translated category:
   const filteredPosts =
     selectedCategory === t("blog.categoryAll")
       ? blogPosts
@@ -189,17 +193,18 @@ const Blog = () => {
                       <span className="text-sm text-green-600 font-medium">
                         {resolveCategory(post)}
                       </span>
-                      <span className="text-sm text-gray-500">{/* min read can be calculated based on content length, for now static */}
+                      <span className="text-sm text-gray-500">
                         5 {t("blog.minRead")}
                       </span>
                     </div>
+                    {/* Since blog title/excerpt/content are not localized, use the same for both languages */}
                     <h2 className="text-xl font-semibold text-gray-800 mb-3 leading-tight"
                         style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
-                      {lang === "hi" ? post.title_hi || post.title_en : post.title_en}
+                      {post.title}
                     </h2>
                     <p className="text-gray-600 mb-4 leading-relaxed"
                         style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
-                      {lang === "hi" ? post.excerpt_hi || post.excerpt_en : post.excerpt_en}
+                      {post.excerpt}
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-500">{formatDate(post.created_at)}</span>
@@ -249,5 +254,4 @@ const Blog = () => {
     </div>
   );
 };
-
 export default Blog;
