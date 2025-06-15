@@ -10,12 +10,15 @@ interface MediaItem {
   file_url: string;
   file_type: string;
   created_at: string;
+  // If you add localized fields in future, add here: e.g.
+  // title_hi?: string;
+  // description_hi?: string;
 }
 const MediaGallery = () => {
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedType, setSelectedType] = useState<string>("all");
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   useEffect(() => {
     fetchMedia();
   }, []);
@@ -36,6 +39,29 @@ const MediaGallery = () => {
     }
   };
   const filteredMedia = selectedType === "all" ? media : media.filter(item => item.file_type === selectedType);
+
+  // Helper for translated media type label (for card badges, etc)
+  const getFileTypeLabel = (type: string) => {
+    switch (type) {
+      case "image":
+        return t("mediaGallery.images");
+      case "video":
+        return t("mediaGallery.videos");
+      default:
+        return t("mediaGallery.allMedia");
+    }
+  };
+
+  // Helper for localized title/desc if you add more fields in future
+  const getTitle = (item: MediaItem) => {
+    // If you add title_hi to db, use: if (lang==="hi" && item.title_hi) return item.title_hi;
+    return item.title;
+  };
+  const getDescription = (item: MediaItem) => {
+    // If you add description_hi to db, use: if (lang==="hi" && item.description_hi) return item.description_hi;
+    return item.description;
+  };
+
   if (loading) {
     return <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,14 +92,20 @@ const MediaGallery = () => {
         {filteredMedia.length === 0 ? <div className="text-center text-gray-600">{t("mediaGallery.noItems")}</div> : <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredMedia.map(item => <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="aspect-video bg-gray-100 relative">
-                  {item.file_type === 'image' ? <img src={item.file_url} alt={item.title} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                  {item.file_type === 'image' ? <img src={item.file_url} alt={getTitle(item)} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center bg-gray-200">
                       <Play className="h-12 w-12 text-gray-400" />
                       <video src={item.file_url} className="absolute inset-0 w-full h-full object-cover" poster="" />
                     </div>}
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-gray-800 mb-2">{item.title}</h3>
-                  {item.description && <p className="text-gray-600 text-sm">{item.description}</p>}
+                  <h3 className="font-semibold text-gray-800 mb-2">{getTitle(item)}</h3>
+                  {getDescription(item) && <p className="text-gray-600 text-sm">{getDescription(item)}</p>}
+                  {/* Example of translated type label */}
+                  <div className="mt-2">
+                    <span className="inline-block px-2 py-1 rounded-full text-xs bg-green-200 text-green-800 font-medium">
+                      {getFileTypeLabel(item.file_type)}
+                    </span>
+                  </div>
                 </div>
               </div>)}
           </div>}
@@ -81,3 +113,4 @@ const MediaGallery = () => {
     </section>;
 };
 export default MediaGallery;
+
