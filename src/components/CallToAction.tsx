@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Typewriter } from "@/components/ui/typewriter";
@@ -18,7 +19,7 @@ const CallToAction = () => {
         </p>
         <div className="flex flex-col items-center justify-center w-full mb-2 gap-0">
           <span className="text-lg mb-1 font-semibold text-zinc-700 md:text-2xl">
-            We are here to
+            {t("cta.weAreHereTo")}
           </span>
           <Typewriter text={[t("cta.typewriter1"), t("cta.typewriter2"), t("cta.typewriter3")]} speed={72} // 20% slower than original 60 (original was 60, now 72)
         waitTime={1440} // original 1200, now 1440
