@@ -1,29 +1,54 @@
 
 import React from "react";
 import { useTranslationContext } from "@/context/TranslationContext";
+import { Switch } from "./switch";
 
 const LanguageSwitcher = () => {
   const { lang, setLang } = useTranslationContext();
 
+  // Toggle language on switch
+  const handleToggle = () => {
+    setLang(lang === "en" ? "hi" : "en");
+  };
+
   return (
-    <div className="flex items-center space-x-2">
-      <button
-        aria-label="English"
-        onClick={() => setLang("en")}
-        className={`px-2 py-1 rounded ${lang === "en" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-700"}`}
+    <div className="flex items-center space-x-2 select-none">
+      {/* English label */}
+      <span
+        className={
+          "px-1 text-sm font-medium transition-colors" +
+          (lang === "en"
+            ? " text-green-700 font-semibold"
+            : " text-gray-500")
+        }
       >
         EN
-      </button>
-      <button
-        aria-label="Hindi"
-        onClick={() => setLang("hi")}
-        className={`px-2 py-1 rounded font-devanagari ${lang === "hi" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-700"}`}
-        style={{ fontFamily: `'Noto Sans Devanagari', 'Arial', sans-serif` }}
+      </span>
+      {/* Switch control */}
+      <Switch
+        checked={lang === "hi"}
+        onCheckedChange={handleToggle}
+        aria-label={
+          lang === "en" ? "Switch to Hindi" : "Switch to English"
+        }
+        className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-300"
+      />
+      {/* Hindi label */}
+      <span
+        className={
+          "px-1 text-sm font-medium font-devanagari transition-colors"
+          +
+          (lang === "hi"
+            ? " text-green-700 font-semibold"
+            : " text-gray-500")
+        }
+        style={{ fontFamily: `'Noto Sans Devanagari', Arial, sans-serif` }}
       >
         हिंदी
-      </button>
+      </span>
     </div>
   );
 };
 
 export default LanguageSwitcher;
+
