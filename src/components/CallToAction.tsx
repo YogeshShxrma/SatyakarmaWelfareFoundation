@@ -21,19 +21,19 @@ const CallToAction = () => {
         >
           {t("callToAction.desc")}
         </p>
-        <div className="flex flex-col items-center w-full mb-2">
-          <span className="md:text-2xl text-lg text-green-700 font-semibold mb-1">
-            We are here to{" "}
+        <div className="flex items-center justify-center w-full mb-2 gap-1">
+          <span className="md:text-2xl text-lg font-semibold text-black">
+            We are here to
           </span>
           <Typewriter
             text={[
-              t("cta.typewriter1") || "Get involved.",
-              t("cta.typewriter2") || "Help us create change.",
-              t("cta.typewriter3") || "Every action counts!"
+              t("cta.typewriter1"),
+              t("cta.typewriter2"),
+              t("cta.typewriter3")
             ]}
-            speed={60}
-            waitTime={1200}
-            deleteSpeed={35}
+            speed={72}          // 20% slower than original 60 (original was 60, now 72)
+            waitTime={1440}      // original 1200, now 1440
+            deleteSpeed={42}     // original 35, now 42
             className="text-green-700 font-semibold md:text-2xl text-lg min-h-[2.5em]"
             cursorChar="_"
           />
