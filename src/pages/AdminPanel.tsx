@@ -7,7 +7,7 @@ import MediaTable from "@/components/admin/MediaTable";
 import BlogForm from "@/components/admin/BlogForm";
 import NewsForm from "@/components/admin/NewsForm";
 import MediaForm from "@/components/admin/MediaForm";
-import Button from "@/components/Button";
+import Button from "@/components/ui/button";
 
 interface Blog {
   id?: string;
