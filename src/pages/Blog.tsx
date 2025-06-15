@@ -1,6 +1,4 @@
-
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
@@ -42,12 +40,9 @@ const Blog = () => {
 
   const fetchBlogPosts = async () => {
     try {
-      const { data, error } = await supabase
-        .from('blogs')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
+      const response = await fetch("/api/blogs");
+      if (!response.ok) throw new Error(await response.text());
+      const data = await response.json();
       setBlogPosts(data || []);
     } catch (error) {
       console.error('Error fetching blog posts:', error);
