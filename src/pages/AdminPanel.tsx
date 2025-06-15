@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Leaf, FileText, Upload, Image, LogOut } from "lucide-react";
@@ -8,6 +7,7 @@ import MediaTable from "@/components/admin/MediaTable";
 import BlogForm from "@/components/admin/BlogForm";
 import NewsForm from "@/components/admin/NewsForm";
 import MediaForm from "@/components/admin/MediaForm";
+import Button from "@/components/Button";
 
 interface Blog {
   id?: string;
@@ -133,13 +133,18 @@ const AdminPanel = () => {
               <Leaf className="h-8 w-8 text-green-600" />
               <span className="font-bold text-xl text-gray-800">SatyaKarma Admin</span>
             </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center space-x-2 text-gray-600 hover:text-red-600 transition-colors"
-            >
-              <LogOut className="h-5 w-5" />
-              <span>Logout</span>
-            </button>
+            <div className="flex items-center space-x-2">
+              <Button variant="outline" onClick={() => navigate("/")}>
+                Go to Home
+              </Button>
+              <button
+                onClick={handleLogout}
+                className="flex items-center space-x-2 text-gray-600 hover:text-red-600 transition-colors"
+              >
+                <LogOut className="h-5 w-5" />
+                <span>Logout</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>

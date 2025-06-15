@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Leaf } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const AdminLogin = () => {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
@@ -36,7 +37,7 @@ const AdminLogin = () => {
             <input
               type="text"
               value={credentials.username}
-              onChange={(e) => setCredentials({...credentials, username: e.target.value})}
+              onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
               required
             />
@@ -49,7 +50,7 @@ const AdminLogin = () => {
             <input
               type="password"
               value={credentials.password}
-              onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+              onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
               className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"
               required
             />
@@ -68,6 +69,13 @@ const AdminLogin = () => {
             Login
           </button>
         </form>
+
+        {/* Go to Home Button */}
+        <div className="mt-4 flex justify-center">
+          <Button type="button" variant="outline" onClick={() => navigate("/")}>
+            Go to Home
+          </Button>
+        </div>
 
         <div className="mt-6 text-center text-sm text-gray-500">
           <p>Demo credentials:</p>
