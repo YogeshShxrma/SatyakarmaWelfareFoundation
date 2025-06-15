@@ -22,6 +22,9 @@ const CallToAction = () => {
           {t("callToAction.desc")}
         </p>
         <div className="flex flex-col items-center w-full mb-2">
+          <span className="md:text-2xl text-lg text-green-700 font-semibold mb-1">
+            We are here to{" "}
+          </span>
           <Typewriter
             text={[
               t("cta.typewriter1") || "Get involved.",
