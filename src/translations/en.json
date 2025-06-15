@@ -22,10 +22,107 @@
   },
   "actions": {
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "sendMessage": "Send Message",
+    "subscribe": "Subscribe",
+    "subscribing": "Subscribing...",
+    "sending": "Sending...",
+    "contactUs": "Contact Us Today",
+    "volunteer": "Volunteer with Us",
+    "joinPrograms": "Join Our Programs"
   },
   "index": {
     "hero_title": "SATYAKARMA",
-    "hero_sub": "Doing Good, Together."
+    "hero_sub": "Doing Good, Together.",
+    "plasticFree": "Plastic-Free Planet",
+    "activeChildren": "Active Children",
+    "greenCommunities": "Green Communities"
+  },
+  "callToAction": {
+    "title": "Join Our Mission",
+    "desc": "Be part of the change you want to see. Whether through volunteering, partnerships, or spreading awareness - every action counts towards a cleaner, healthier future for our children and communities."
+  },
+  "missionOverview": {
+    "title": "Our Mission",
+    "desc": "Searching for truth through action. We're dedicated to building sustainable communities through environmental awareness, children's wellness, and collaborative partnerships.",
+    "plasticFree": "Plastic-Free Planet",
+    "plasticDesc": "Promoting compostable alternatives and environmental awareness in communities",
+    "activeChildren": "Active Children",
+    "activeDesc": "Physical wellness and health awareness programs for the next generation",
+    "greenCommunities": "Green Communities",
+    "greenDesc": "Tree planting and sustainable community partnership initiatives"
+  },
+  "focusAreas": {
+    "title": "Our Focus Areas",
+    "desc": "We work across multiple areas to create sustainable positive change in our communities, focusing on environmental protection and children's wellness.",
+    "plastic": {
+      "title": "Plastic Pollution Awareness",
+      "desc": "Educational campaigns and compostable product promotion to reduce plastic waste in communities.",
+      "stats": "50+ Communities Reached"
+    },
+    "children": {
+      "title": "Children's Physical Health",
+      "desc": "Fitness workshops, outdoor activities, and health awareness programs for young minds and bodies.",
+      "stats": "1000+ Children Engaged"
+    },
+    "tree": {
+      "title": "Tree Plantation Drives",
+      "desc": "Community-driven environmental restoration through organized tree planting and forest conservation.",
+      "stats": "5000+ Trees Planted"
+    },
+    "community": {
+      "title": "Community Partnerships",
+      "desc": "Collaborative sustainable development through education, empowerment, and local engagement.",
+      "stats": "25+ Active Partnerships"
+    }
+  },
+  "cta": {
+    "contactUsToday": "Contact Us Today"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "infoTitle": "Information Collection",
+    "infoContent": "SatyaKarma Welfare Foundation Society collects personal information only when voluntarily provided by individuals who wish to support our mission. This may include contact information for volunteers, donors, and partners.",
+    "useTitle": "Use of Information",
+    "useContent": "We use collected information solely for the purpose of advancing our environmental and community initiatives. This includes communication about programs, events, and opportunities to get involved.",
+    "protectionTitle": "Data Protection",
+    "protectionContent": "We implement appropriate security measures to protect personal information against unauthorized access, alteration, disclosure, or destruction. We do not sell, trade, or otherwise transfer personal information to outside parties.",
+    "contactTitle": "Contact",
+    "contactContent": "For questions about this privacy policy or our data practices, please contact us at privacy@satyakarma.org or through our contact form.",
+    "lastUpdated": "Last updated: "
+  },
+  "contactForm": {
+    "firstName": "First Name *",
+    "lastName": "Last Name *",
+    "email": "Email Address *",
+    "phone": "Phone Number",
+    "subject": "Subject *",
+    "message": "Your Message *",
+    "subjectOptions": {
+      "volunteer": "Volunteer Inquiry",
+      "partner": "Partnership Opportunity",
+      "donate": "Donation Information",
+      "media": "Media Inquiry",
+      "general": "General Question"
+    },
+    "send": "Send Message"
+  },
+  "newsletter": {
+    "title": "Stay Updated",
+    "desc": "Subscribe to our newsletter for the latest updates on our environmental initiatives and community programs.",
+    "emailPlaceholder": "Enter your email",
+    "success": "You've been subscribed to our newsletter.",
+    "error": "Failed to subscribe. Please try again."
+  },
+  "validation": {
+    "required": "Please fill in all required fields."
+  },
+  "blog": {
+    "title": "Blog & Updates",
+    "desc": "Stay updated with our latest initiatives, success stories, and environmental insights",
+    "categoryAll": "All",
+    "noPosts": "No blog posts found for this category.",
+    "readMore": "Read More →",
+    "minRead": "min read"
   }
 }

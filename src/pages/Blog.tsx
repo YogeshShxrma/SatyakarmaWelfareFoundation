@@ -1,15 +1,21 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface BlogPost {
   id: string;
-  title: string;
+  title_en: string;
+  title_hi: string;
   category: string;
-  content: string;
-  excerpt: string;
+  category_hi?: string;
+  content_en: string;
+  content_hi: string;
+  excerpt_en: string;
+  excerpt_hi: string;
   image_url?: string;
   created_at: string;
 }
@@ -22,8 +28,16 @@ const Blog = () => {
   const [email, setEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
   const { toast } = useToast();
+  const { t, lang } = useTranslation();
 
-  const categories = ["All", "Tree Plantation", "Children's Health", "Environmental", "Education", "Conservation", "Community"];
+  // Categories in both languages
+  const categories = [
+    t("blog.categoryAll"),
+    t("focusAreas.tree.title"),
+    t("focusAreas.children.title"),
+    t("focusAreas.plastic.title"),
+    t("focusAreas.community.title")
+  ];
 
   useEffect(() => {
     fetchBlogPosts();
@@ -59,15 +73,15 @@ const Blog = () => {
       if (error) throw error;
 
       toast({
-        title: "Success!",
-        description: "You've been subscribed to our newsletter.",
+        title: t("newsletter.success"),
+        description: "",
       });
       setEmail("");
     } catch (error) {
       console.error('Newsletter subscription error:', error);
       toast({
-        title: "Error",
-        description: "Failed to subscribe. Please try again.",
+        title: t("newsletter.error"),
+        description: "",
         variant: "destructive",
       });
     } finally {
@@ -75,12 +89,19 @@ const Blog = () => {
     }
   };
 
-  const filteredPosts = selectedCategory === "All" 
-    ? blogPosts 
-    : blogPosts.filter(post => post.category === selectedCategory);
+  // Translation-aware filter:
+  const resolveCategory = (post: BlogPost) =>
+    lang === "hi"
+      ? post.category_hi || post.category
+      : post.category;
+
+  const filteredPosts =
+    selectedCategory === t("blog.categoryAll")
+      ? blogPosts
+      : blogPosts.filter(post => resolveCategory(post) === selectedCategory);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    return new Date(dateString).toLocaleDateString(lang === "hi" ? "hi-IN" : "en-US", {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -92,7 +113,7 @@ const Blog = () => {
       <div className="min-h-screen bg-white">
         <Navigation />
         <div className="flex justify-center items-center h-64">
-          <div className="text-lg">Loading blog posts...</div>
+          <div className="text-lg">{t("actions.sending")}</div>
         </div>
       </div>
     );
@@ -112,15 +133,15 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      
+
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-green-50 to-emerald-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            Blog & Updates
+            {t("blog.title")}
           </h1>
-          <p className="text-xl text-gray-600 leading-relaxed">
-            Stay updated with our latest initiatives, success stories, and environmental insights
+          <p className="text-xl text-gray-600 leading-relaxed" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+            {t("blog.desc")}
           </p>
         </div>
       </section>
@@ -134,10 +155,11 @@ const Blog = () => {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  category === selectedCategory 
-                    ? "bg-green-600 text-white" 
+                  category === selectedCategory
+                    ? "bg-green-600 text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-600"
                 }`}
+                style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}
               >
                 {category}
               </button>
@@ -151,30 +173,38 @@ const Blog = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredPosts.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-600 text-lg">No blog posts found for this category.</p>
+              <p className="text-gray-600 text-lg" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+                {t("blog.noPosts")}
+              </p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPosts.map((post) => (
+              {filteredPosts.map(post => (
                 <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
                   {post.image_url && (
-                    <div className="h-48 bg-cover bg-center" style={{backgroundImage: `url(${post.image_url})`}}></div>
+                    <div className="h-48 bg-cover bg-center" style={{ backgroundImage: `url(${post.image_url})` }}></div>
                   )}
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm text-green-600 font-medium">{post.category}</span>
-                      <span className="text-sm text-gray-500">5 min read</span>
+                      <span className="text-sm text-green-600 font-medium">
+                        {resolveCategory(post)}
+                      </span>
+                      <span className="text-sm text-gray-500">{/* min read can be calculated based on content length, for now static */}
+                        5 {t("blog.minRead")}
+                      </span>
                     </div>
-                    <h2 className="text-xl font-semibold text-gray-800 mb-3 leading-tight">
-                      {post.title}
+                    <h2 className="text-xl font-semibold text-gray-800 mb-3 leading-tight"
+                        style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+                      {lang === "hi" ? post.title_hi || post.title_en : post.title_en}
                     </h2>
-                    <p className="text-gray-600 mb-4 leading-relaxed">
-                      {post.excerpt}
+                    <p className="text-gray-600 mb-4 leading-relaxed"
+                        style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+                      {lang === "hi" ? post.excerpt_hi || post.excerpt_en : post.excerpt_en}
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-500">{formatDate(post.created_at)}</span>
-                      <button className="text-green-600 hover:text-green-700 font-medium">
-                        Read More →
+                      <button className="text-green-600 hover:text-green-700 font-medium" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+                        {t("blog.readMore")}
                       </button>
                     </div>
                   </div>
@@ -189,26 +219,27 @@ const Blog = () => {
       <section className="py-16 bg-green-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            Stay Updated
+            {t("newsletter.title")}
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
-            Subscribe to our newsletter for the latest updates on our environmental initiatives and community programs.
+          <p className="text-lg text-gray-600 mb-8" style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}>
+            {t("newsletter.desc")}
           </p>
           <form onSubmit={handleNewsletterSubscription} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
+              placeholder={t("newsletter.emailPlaceholder")}
               required
               className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              style={lang === "hi" ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" } : {}}
             />
-            <button 
+            <button
               type="submit"
               disabled={isSubscribing}
               className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:opacity-50"
             >
-              {isSubscribing ? "Subscribing..." : "Subscribe"}
+              {isSubscribing ? t("actions.subscribing") : t("actions.subscribe")}
             </button>
           </form>
         </div>
