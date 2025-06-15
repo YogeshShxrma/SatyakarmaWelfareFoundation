@@ -35,27 +35,25 @@ const AdminPanel = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <AdminPanelLayout onLogout={handleLogout}>
-        <AdminTabs
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          onTabSwitch={handleTabSwitch}
-        />
+    <AdminPanelLayout onLogout={handleLogout}>
+      <AdminTabs
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onTabSwitch={handleTabSwitch}
+      />
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 transition-colors duration-300">
-          {activeTab === "blog" && (
-            <AdminBlogManager refreshTrigger={refreshTrigger} onRefresh={refreshData} />
-          )}
-          {activeTab === "news" && (
-            <AdminNewsManager refreshTrigger={refreshTrigger} onRefresh={refreshData} />
-          )}
-          {activeTab === "media" && (
-            <AdminMediaManager refreshTrigger={refreshTrigger} onRefresh={refreshData} />
-          )}
-        </div>
-      </AdminPanelLayout>
-    </div>
+      <div className="bg-white rounded-lg shadow p-6">
+        {activeTab === "blog" && (
+          <AdminBlogManager refreshTrigger={refreshTrigger} onRefresh={refreshData} />
+        )}
+        {activeTab === "news" && (
+          <AdminNewsManager refreshTrigger={refreshTrigger} onRefresh={refreshData} />
+        )}
+        {activeTab === "media" && (
+          <AdminMediaManager refreshTrigger={refreshTrigger} onRefresh={refreshData} />
+        )}
+      </div>
+    </AdminPanelLayout>
   );
 };
 
