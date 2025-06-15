@@ -107,7 +107,7 @@ export function BackgroundPaths({
               type: "spring",
               stiffness: 150,
               damping: 25
-            }} className="inline-block font-inter text-blue-950 text-8xl font-medium">
+            }} className="inline-block font-inter text-blue-950 text-8xl font-medium max-w-max ">
                     {letter}
                   </motion.span>)}
               </span>)}
