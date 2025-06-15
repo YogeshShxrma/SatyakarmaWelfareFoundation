@@ -24,7 +24,12 @@ const AdminLogin = () => {
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full mx-4">
         <div className="text-center mb-8">
-          <Leaf className="h-12 w-12 text-green-600 mx-auto mb-4" />
+          <img
+            src="/lovable-uploads/da4b2fb3-1e46-41c3-a9bd-6504bde7a5d0.png"
+            alt="SatyaKarma Logo"
+            className="h-12 w-12 mx-auto mb-4 rounded-full object-cover shadow-xl"
+            draggable={false}
+          />
           <h1 className="text-2xl font-bold text-gray-800">Admin Login</h1>
           <p className="text-gray-600">SatyaKarma Foundation Admin Panel</p>
         </div>
