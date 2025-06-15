@@ -94,23 +94,44 @@ export function BackgroundPaths({
       }} transition={{
         duration: 2
       }} className="max-w-4xl mx-auto">
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold mb-6 tracking-tighter font-inter">
-            {words.map((word, wordIndex) => <span key={wordIndex} className="inline-block mr-4 last:mr-0">
-                {word.split("").map((letter, letterIndex) => <motion.span key={`${wordIndex}-${letterIndex}`} initial={{
-              y: 100,
-              opacity: 0
-            }} animate={{
-              y: 0,
-              opacity: 1
-            }} transition={{
-              delay: wordIndex * 0.1 + letterIndex * 0.03,
-              type: "spring",
-              stiffness: 150,
-              damping: 25
-            }} className="inline-block font-inter text-blue-950 text-8xl font-medium max-w-max ">
+          <h1
+            className="font-bold mb-6 tracking-tighter font-inter"
+            style={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              // clamps between 2.2rem and 7rem, scales with viewport width
+              fontSize: "clamp(2.2rem, 11vw, 7rem)"
+            }}
+          >
+            {words.map((word, wordIndex) => (
+              <span key={wordIndex} className="inline-block mr-4 last:mr-0">
+                {word.split("").map((letter, letterIndex) => (
+                  <motion.span
+                    key={`${wordIndex}-${letterIndex}`}
+                    initial={{
+                      y: 100,
+                      opacity: 0
+                    }}
+                    animate={{
+                      y: 0,
+                      opacity: 1
+                    }}
+                    transition={{
+                      delay: wordIndex * 0.1 + letterIndex * 0.03,
+                      type: "spring",
+                      stiffness: 150,
+                      damping: 25
+                    }}
+                    className="inline-block font-inter text-blue-950 font-medium max-w-max"
+                    style={{
+                      // Remove conflicting text size classes and let h1's style handle sizing
+                    }}
+                  >
                     {letter}
-                  </motion.span>)}
-              </span>)}
+                  </motion.span>
+                ))}
+              </span>
+            ))}
           </h1>
           {/* Punchline below the SATYAKARMA text */}
           <p className="text-lg md:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-10 animate-fade-in">
