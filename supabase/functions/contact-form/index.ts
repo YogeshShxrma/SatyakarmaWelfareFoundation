@@ -38,7 +38,36 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Send email to NGO
+    // Insert into public.contact_submissions table
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    if (!supabaseUrl || !serviceRoleKey) {
+      console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
+    } else {
+      const insertRes = await fetch(`${supabaseUrl}/rest/v1/contact_submissions`, {
+        method: "POST",
+        headers: {
+          apikey: serviceRoleKey,
+          Authorization: `Bearer ${serviceRoleKey}`,
+          "Content-Type": "application/json",
+          Prefer: "return=representation",
+        },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          phone,
+          subject,
+          message,
+        }),
+      });
+      const insertData = await insertRes.json();
+      if (!insertRes.ok) {
+        console.error("Failed to insert contact submission", insertData);
+      }
+    }
+
+    // Send email to NGO as before
     const emailResponse = await resend.emails.send({
       from: "Contact Form <contact@satyakarma.org>",
       to: ["info@satyakarma.org"], // NGO's email
@@ -63,7 +92,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    // Send confirmation email to user
+    // Send confirmation email to user as before
     await resend.emails.send({
       from: "SatyaKarma <noreply@satyakarma.org>",
       to: [email],
@@ -112,3 +141,4 @@ const handler = async (req: Request): Promise<Response> => {
 };
 
 serve(handler);
+
