@@ -83,23 +83,41 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
       const filePath = `${fileName}`;
 
-      const { error: uploadError } = await supabase.storage
-        .from('blog-images')
-        .upload(filePath, file);
+      // First, check if the bucket exists and is accessible
+      const { data: buckets, error: bucketError } = await supabase.storage.listBuckets();
+      console.log('Available buckets:', buckets);
+      
+      if (bucketError) {
+        console.error('Error listing buckets:', bucketError);
+      }
 
-      if (uploadError) throw uploadError;
+      // Try to upload with upsert option
+      const { data, error: uploadError } = await supabase.storage
+        .from('blog-images')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        throw uploadError;
+      }
+
+      console.log('Upload successful:', data);
 
       // Get the public URL
-      const { data } = supabase.storage
+      const { data: urlData } = supabase.storage
         .from('blog-images')
         .getPublicUrl(filePath);
 
-      return data.publicUrl;
+      console.log('Public URL:', urlData.publicUrl);
+      return urlData.publicUrl;
     } catch (error) {
       console.error('Error uploading image:', error);
       toast({
         title: "Error",
-        description: "Failed to upload image",
+        description: `Failed to upload image: ${error.message || 'Unknown error'}`,
         variant: "destructive",
       });
       return null;
@@ -125,7 +143,7 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
     setLoading(true);
 
     try {
-      let finalImageUrl = formData.image_url;
+      let finalImageUrl = formData.image_url || "";
 
       // Upload image if a file is selected
       if (selectedFile) {
@@ -143,8 +161,10 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
         category: formData.category,
         content: formData.content,
         excerpt: formData.excerpt,
-        image_url: finalImageUrl,
+        image_url: finalImageUrl || null,
       };
+
+      console.log('Saving blog data:', blogData);
 
       if (blog?.id) {
         // Update existing blog
@@ -179,7 +199,7 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
       console.error('Error saving blog:', error);
       toast({
         title: "Error",
-        description: "Failed to save blog post",
+        description: `Failed to save blog post: ${error.message || 'Unknown error'}`,
         variant: "destructive",
       });
     } finally {
@@ -275,9 +295,11 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
             value={formData.image_url || ""}
             onChange={(e) => {
               setFormData({...formData, image_url: e.target.value});
-              if (e.target.value) {
+              if (e.target.value && e.target.value.trim()) {
                 setSelectedFile(null);
-                setPreviewUrl(e.target.value);
+                setPreviewUrl(e.target.value.trim());
+              } else if (!e.target.value) {
+                setPreviewUrl("");
               }
             }}
             disabled={!!selectedFile}
@@ -292,12 +314,16 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
                   src={previewUrl}
                   alt="Preview"
                   className="w-full h-48 object-cover rounded-lg border"
-                  onError={() => {
+                  onError={(e) => {
+                    console.error('Image preview failed to load:', previewUrl);
                     toast({
-                      title: "Error",
-                      description: "Failed to load image preview",
+                      title: "Warning",
+                      description: "Image preview failed to load. Please check the URL or try a different image.",
                       variant: "destructive",
                     });
+                  }}
+                  onLoad={() => {
+                    console.log('Image preview loaded successfully:', previewUrl);
                   }}
                 />
               </div>
