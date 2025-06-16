@@ -27,13 +27,25 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   formatDate,
 }) => {
   const { t } = useTranslation();
+  
   return (
     <article className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
       {post.image_url && (
-        <div
-          className="h-48 bg-cover bg-center"
-          style={{ backgroundImage: `url(${post.image_url})` }}
-        ></div>
+        <div className="h-48 overflow-hidden">
+          <img
+            src={post.image_url}
+            alt={post.title}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              // Hide the image container if the image fails to load
+              const target = e.target as HTMLImageElement;
+              const container = target.parentElement;
+              if (container) {
+                container.style.display = 'none';
+              }
+            }}
+          />
+        </div>
       )}
       <div className="p-6">
         <div className="flex items-center justify-between mb-3">
