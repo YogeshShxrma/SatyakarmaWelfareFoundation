@@ -83,15 +83,8 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
       const filePath = `${fileName}`;
 
-      // First, check if the bucket exists and is accessible
-      const { data: buckets, error: bucketError } = await supabase.storage.listBuckets();
-      console.log('Available buckets:', buckets);
-      
-      if (bucketError) {
-        console.error('Error listing buckets:', bucketError);
-      }
+      console.log('Starting upload for file:', fileName);
 
-      // Try to upload with upsert option
       const { data, error: uploadError } = await supabase.storage
         .from('blog-images')
         .upload(filePath, file, {
@@ -111,12 +104,12 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
         .from('blog-images')
         .getPublicUrl(filePath);
 
-      console.log('Public URL:', urlData.publicUrl);
+      console.log('Public URL generated:', urlData.publicUrl);
       return urlData.publicUrl;
     } catch (error) {
       console.error('Error uploading image:', error);
       toast({
-        title: "Error",
+        title: "Upload Failed",
         description: `Failed to upload image: ${error.message || 'Unknown error'}`,
         variant: "destructive",
       });
