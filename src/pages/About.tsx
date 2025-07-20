@@ -2,6 +2,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import GlareCard from "@/components/ui/GlareCard";
+import MembersSection from "@/components/about/MembersSection";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const About = () => {
@@ -132,6 +133,9 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* Members Section */}
+      <MembersSection />
 
       <Footer />
     </div>

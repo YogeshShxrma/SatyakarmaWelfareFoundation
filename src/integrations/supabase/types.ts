@@ -95,6 +95,42 @@ export type Database = {
         }
         Relationships: []
       }
+      members: {
+        Row: {
+          achievements: string
+          created_at: string
+          designation: string
+          display_order: number | null
+          id: string
+          introduction: string
+          name: string
+          photo_url: string
+          updated_at: string
+        }
+        Insert: {
+          achievements: string
+          created_at?: string
+          designation: string
+          display_order?: number | null
+          id?: string
+          introduction: string
+          name: string
+          photo_url: string
+          updated_at?: string
+        }
+        Update: {
+          achievements?: string
+          created_at?: string
+          designation?: string
+          display_order?: number | null
+          id?: string
+          introduction?: string
+          name?: string
+          photo_url?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       news: {
         Row: {
           created_at: string

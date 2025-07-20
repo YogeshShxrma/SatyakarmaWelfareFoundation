@@ -6,6 +6,7 @@ import AdminTabs from "@/components/admin/AdminTabs";
 import AdminBlogManager from "@/components/admin/AdminBlogManager";
 import AdminNewsManager from "@/components/admin/AdminNewsManager";
 import AdminMediaManager from "@/components/admin/AdminMediaManager";
+import AdminMembersManager from "@/components/admin/AdminMembersManager";
 
 const AdminPanel = () => {
   const navigate = useNavigate();
@@ -51,6 +52,9 @@ const AdminPanel = () => {
         )}
         {activeTab === "media" && (
           <AdminMediaManager refreshTrigger={refreshTrigger} onRefresh={refreshData} />
+        )}
+        {activeTab === "members" && (
+          <AdminMembersManager refreshTrigger={refreshTrigger} onRefresh={refreshData} />
         )}
       </div>
     </AdminPanelLayout>
