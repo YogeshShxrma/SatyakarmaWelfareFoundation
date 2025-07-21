@@ -1,8 +1,8 @@
 
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "@/hooks/useTranslation";
+import { createGmailUrl } from "@/lib/emailUtils";
 
 const GetInvolvedForm = () => {
   const { t, lang } = useTranslation();
@@ -43,13 +43,22 @@ const GetInvolvedForm = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke('contact-form', {
-        body: formData
-      });
-      if (error) throw error;
+      const gmailUrl = createGmailUrl(
+        "yogeshsharma8223803625@gmail.com",
+        `Get Involved - ${formData.subject}`,
+        formData.firstName,
+        formData.lastName,
+        formData.email,
+        formData.phone,
+        formData.message
+      );
+
+      // Open Gmail in new tab
+      window.open(gmailUrl, '_blank');
+
       toast({
-        title: t("contact.successTitle"),
-        description: t("contact.successDesc")
+        title: t("contact.gmailSuccess"),
+        description: t("contact.gmailSuccessDesc")
       });
 
       setFormData({
@@ -61,10 +70,10 @@ const GetInvolvedForm = () => {
         message: ""
       });
     } catch (error) {
-      console.error('Get Involved form error:', error);
+      console.error('Gmail redirect error:', error);
       toast({
         title: t("contact.errorTitle"),
-        description: t("contact.errorDesc"),
+        description: t("contact.gmailErrorDesc"),
         variant: "destructive"
       });
     } finally {
