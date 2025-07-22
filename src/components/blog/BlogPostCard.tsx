@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 export interface BlogPost {
@@ -27,6 +27,11 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   formatDate,
 }) => {
   const { t } = useTranslation();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleReadMore = () => {
+    setIsExpanded(!isExpanded);
+  };
   
   return (
     <article className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
@@ -64,7 +69,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         >
           {post.title}
         </h2>
-        <p
+        <div
           className="text-gray-600 mb-4 leading-relaxed"
           style={
             lang === "hi"
@@ -72,21 +77,26 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
               : {}
           }
         >
-          {post.excerpt}
-        </p>
+          {isExpanded ? (
+            <div dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br>') }} />
+          ) : (
+            <p>{post.excerpt}</p>
+          )}
+        </div>
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-500">
             {formatDate(post.created_at)}
           </span>
           <button
-            className="text-green-600 hover:text-green-700 font-medium"
+            onClick={handleReadMore}
+            className="text-green-600 hover:text-green-700 font-medium transition-colors"
             style={
               lang === "hi"
                 ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" }
                 : {}
             }
           >
-            {t("blog.readMore")}
+            {isExpanded ? "Show Less ←" : t("blog.readMore")}
           </button>
         </div>
       </div>
