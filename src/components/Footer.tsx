@@ -12,7 +12,7 @@ const Footer = () => {
           {/* Organization Info */}
           <div className="md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <img src="/lovable-uploads/da4b2fb3-1e46-41c3-a9bd-6504bde7a5d0.png" alt={t("footer.org") + " Logo"} className="h-10 w-10 rounded-full object-cover" />
+              <img src="/assets/logo.png" alt={t("footer.org") + " Logo"} className="h-10 w-10 rounded-full object-cover" />
               <div>
                 <h3 className="font-lato font-bold text-lg">{t("footer.org")}</h3>
                 <p className="text-sm text-gray-400">{t("footer.society")}</p>

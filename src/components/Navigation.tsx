@@ -43,7 +43,7 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-3 group" onClick={handleLogoClick} title="SatyaKarma">
-              <img src="/lovable-uploads/da4b2fb3-1e46-41c3-a9bd-6504bde7a5d0.png" alt="SatyaKarma Logo" className="h-10 w-10 rounded-full object-cover" />
+              <img src="/assets/logo.png" alt="SatyaKarma Logo" className="h-10 w-10 rounded-full object-cover" />
               <div>
                 <span className="font-lato font-bold text-xl text-gray-800">
                   SatyaKarma
