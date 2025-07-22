@@ -1,6 +1,7 @@
 
 import React from "react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { Button } from "@/components/ui/button";
 
 interface BlogCategoryFilterProps {
   categories: string[];
@@ -19,14 +20,12 @@ const BlogCategoryFilter: React.FC<BlogCategoryFilterProps> = ({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap gap-4 justify-center">
           {categories.map((category) => (
-            <button
+            <Button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                category === selectedCategory
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-green-100 hover:text-green-600"
-              }`}
+              variant={category === selectedCategory ? "default" : "outline"}
+              size="sm"
+              className="rounded-full"
               style={
                 lang === "hi"
                   ? { fontFamily: "'Noto Sans Devanagari', Arial, sans-serif" }
@@ -34,7 +33,7 @@ const BlogCategoryFilter: React.FC<BlogCategoryFilterProps> = ({
               }
             >
               {category}
-            </button>
+            </Button>
           ))}
         </div>
       </div>
