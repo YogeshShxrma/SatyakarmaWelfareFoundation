@@ -49,16 +49,12 @@ const Blog = () => {
 
   const resolveCategory = (post: BlogPost) => {
     switch (post.category.toLowerCase()) {
-      case "tree":
-        return t("focusAreas.tree.title");
-      case "children":
-        return t("focusAreas.children.title");
-      case "plastic":
-        return t("focusAreas.plastic.title");
-      case "community":
-        return t("focusAreas.community.title");
+      case "environmental":
+        return t("focusAreas.tree.title"); // Map Environmental to Tree Plantation
+      case "children's health":
+        return t("focusAreas.children.title"); // Map Children's Health to Children's Physical Health
       default:
-        return post.category;
+        return post.category; // Return as-is for any other categories
     }
   };
 
