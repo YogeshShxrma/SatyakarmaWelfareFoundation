@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "@/hooks/useTranslation";
 import { createGmailUrl } from "@/lib/emailUtils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const { t, lang } = useTranslation();
+  const isMobile = useIsMobile();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -49,8 +51,12 @@ const ContactForm = () => {
         formData.message
       );
 
-      // Open Gmail in new tab
-      window.open(gmailUrl, '_blank');
+      // Open Gmail (mobile-friendly approach)
+      if (isMobile) {
+        window.location.href = gmailUrl;
+      } else {
+        window.open(gmailUrl, '_blank');
+      }
 
       toast({
         title: t("contact.gmailSuccess"),
