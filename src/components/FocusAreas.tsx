@@ -1,30 +1,35 @@
 
 import { useTranslation } from "@/hooks/useTranslation";
+import plasticWasteImage from "@/assets/plastic-waste.jpg";
+import childrenEducationImage from "@/assets/children-education.jpg";
+import treePlantingImage from "@/assets/tree-planting.jpg";
+import communityDevelopmentImage from "@/assets/community-development.jpg";
+
 const FocusAreas = () => {
   const { t, lang } = useTranslation();
   const areas = [
     {
       title: t("focusAreas.plastic.title"),
       description: t("focusAreas.plastic.desc"),
-      image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: plasticWasteImage,
       stats: t("focusAreas.plastic.stats")
     },
     {
       title: t("focusAreas.children.title"),
       description: t("focusAreas.children.desc"),
-      image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: childrenEducationImage,
       stats: t("focusAreas.children.stats")
     },
     {
       title: t("focusAreas.tree.title"),
       description: t("focusAreas.tree.desc"),
-      image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: treePlantingImage,
       stats: t("focusAreas.tree.stats")
     },
     {
       title: t("focusAreas.community.title"),
       description: t("focusAreas.community.desc"),
-      image: "https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: communityDevelopmentImage,
       stats: t("focusAreas.community.stats")
     }
   ];
