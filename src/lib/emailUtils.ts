@@ -15,7 +15,8 @@ Subject: ${subject}
 Message:
 ${message}`;
 
-  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  // Use mailto: scheme for better mobile app compatibility
+  const gmailUrl = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   
   return gmailUrl;
 };
