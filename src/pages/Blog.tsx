@@ -15,8 +15,6 @@ const Blog = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [error, setError] = useState<string | null>(null);
-  const [email, setEmail] = useState("");
-  const [isSubscribing, setIsSubscribing] = useState(false);
   const { t, lang } = useTranslation();
 
   const categories = [
@@ -114,12 +112,7 @@ const Blog = () => {
           />
         </div>
       </section>
-      <NewsletterSignup
-        email={email}
-        setEmail={setEmail}
-        isSubscribing={isSubscribing}
-        setIsSubscribing={setIsSubscribing}
-      />
+      <NewsletterSignup />
       <Footer />
     </div>
   );
