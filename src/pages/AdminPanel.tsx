@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import AdminPanelLayout from "@/components/admin/AdminPanelLayout";
 import AdminTabs from "@/components/admin/AdminTabs";
 import AdminBlogManager from "@/components/admin/AdminBlogManager";
@@ -14,14 +15,34 @@ const AdminPanel = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
-    // Check if user is authenticated
-    const isAuthenticated = localStorage.getItem("adminAuth");
-    if (!isAuthenticated) {
-      navigate("/admin-login");
-    }
+    const checkAdminAuth = async () => {
+      // Check if user is authenticated with Supabase
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        navigate("/admin-login");
+        return;
+      }
+
+      // Verify user is an admin
+      const { data: adminData, error } = await supabase
+        .from('admin_users')
+        .select('id')
+        .eq('email', session.user.email)
+        .single();
+
+      if (error || !adminData) {
+        await supabase.auth.signOut();
+        localStorage.removeItem("adminAuth");
+        navigate("/admin-login");
+      }
+    };
+
+    checkAdminAuth();
   }, [navigate]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     localStorage.removeItem("adminAuth");
     navigate("/admin-login");
   };
