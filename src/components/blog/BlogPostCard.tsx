@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
+import ShareButton from "@/components/ui/ShareButton";
 
 export interface BlogPost {
   id: string;
@@ -83,7 +84,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
             <p>{post.excerpt}</p>
           )}
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <span className="text-sm text-gray-500">
             {formatDate(post.created_at)}
           </span>
@@ -98,6 +99,15 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           >
             {isExpanded ? "Show Less ←" : t("blog.readMore")}
           </button>
+        </div>
+        
+        {/* Share Button */}
+        <div className="flex justify-end pt-2 border-t border-gray-100">
+          <ShareButton
+            title={post.title}
+            excerpt={post.excerpt}
+            url={`${window.location.origin}/blog#${post.id}`}
+          />
         </div>
       </div>
     </article>
