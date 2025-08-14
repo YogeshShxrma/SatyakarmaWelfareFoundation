@@ -1,7 +1,8 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 import ShareButton from "@/components/ui/ShareButton";
+import DynamicMeta from "@/components/ui/DynamicMeta";
 
 export interface BlogPost {
   id: string;
@@ -33,9 +34,34 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   const handleReadMore = () => {
     setIsExpanded(!isExpanded);
   };
+
+  // Update meta tags when post is expanded (viewed)
+  useEffect(() => {
+    if (isExpanded) {
+      // This will update the meta tags for better sharing
+      const metaEvent = new CustomEvent('updateBlogMeta', {
+        detail: {
+          title: post.title,
+          description: post.excerpt,
+          image: post.image_url || "https://lovable.dev/opengraph-image-p98pqg.png",
+          url: `${window.location.origin}/blog#${post.id}`
+        }
+      });
+      window.dispatchEvent(metaEvent);
+    }
+  }, [isExpanded, post]);
   
   return (
-    <article className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+    <>
+      {isExpanded && (
+        <DynamicMeta
+          title={post.title}
+          description={post.excerpt}
+          image={post.image_url || "https://lovable.dev/opengraph-image-p98pqg.png"}
+          url={`${window.location.origin}/blog#${post.id}`}
+        />
+      )}
+      <article className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
       {post.image_url && (
         <div className="h-48 overflow-hidden">
           <img
@@ -111,6 +137,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         </div>
       </div>
     </article>
+    </>
   );
 };
 
