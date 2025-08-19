@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_audit_log: {
+        Row: {
+          action: string
+          admin_email: string
+          id: string
+          record_id: string | null
+          table_name: string
+          timestamp: string | null
+        }
+        Insert: {
+          action: string
+          admin_email: string
+          id?: string
+          record_id?: string | null
+          table_name: string
+          timestamp?: string | null
+        }
+        Update: {
+          action?: string
+          admin_email?: string
+          id?: string
+          record_id?: string | null
+          table_name?: string
+          timestamp?: string | null
+        }
+        Relationships: []
+      }
       admin_users: {
         Row: {
           created_at: string
@@ -166,7 +193,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
