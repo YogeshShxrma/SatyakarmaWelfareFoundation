@@ -32,22 +32,17 @@ const AdminLogin = () => {
       }
 
       if (authData.user) {
-        // Check if the user exists in admin_users table
-        const { data: adminData, error: adminError } = await supabase
-          .from('admin_users')
-          .select('id')
-          .eq('email', credentials.email)
-          .single();
+        // Use the secure is_admin function to verify admin status
+        const { data: isAdminResult, error: adminError } = await supabase
+          .rpc('is_admin');
 
-        if (adminError || !adminData) {
+        if (adminError || !isAdminResult) {
           // Sign out if not an admin
           await supabase.auth.signOut();
           setError("Access denied. Admin privileges required.");
           return;
         }
 
-        // Store admin session
-        localStorage.setItem("adminAuth", "true");
         toast({
           title: "Login successful",
           description: "Welcome to the admin panel",

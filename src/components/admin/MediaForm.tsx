@@ -37,8 +37,20 @@ const MediaForm = ({ media, onSave, onCancel }: MediaFormProps) => {
   }, [media]);
 
   const uploadFile = async (file: File): Promise<string> => {
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random()}.${fileExt}`;
+    // Enhanced file validation
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/webm'];
+    const maxSize = 10 * 1024 * 1024; // 10MB limit
+    
+    if (!allowedTypes.includes(file.type)) {
+      throw new Error('Invalid file type. Only JPEG, PNG, GIF, WebP, MP4, and WebM files are allowed.');
+    }
+    
+    if (file.size > maxSize) {
+      throw new Error('File size too large. Maximum size is 10MB.');
+    }
+
+    const fileExt = file.name.split('.').pop()?.toLowerCase();
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
     const filePath = `${fileName}`;
 
     const { error: uploadError } = await supabase.storage

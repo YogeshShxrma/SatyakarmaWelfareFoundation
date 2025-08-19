@@ -24,26 +24,39 @@ const AdminPanel = () => {
         return;
       }
 
-      // Verify user is an admin
-      const { data: adminData, error } = await supabase
-        .from('admin_users')
-        .select('id')
-        .eq('email', session.user.email)
-        .single();
+      // Use the secure is_admin function to verify admin status
+      const { data: isAdminResult, error } = await supabase
+        .rpc('is_admin');
 
-      if (error || !adminData) {
+      if (error || !isAdminResult) {
         await supabase.auth.signOut();
-        localStorage.removeItem("adminAuth");
         navigate("/admin-login");
       }
     };
 
     checkAdminAuth();
+    
+    // Set up auth state listener for real-time auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === 'SIGNED_OUT' || !session) {
+          navigate("/admin-login");
+        } else if (event === 'SIGNED_IN') {
+          // Verify admin status on sign in
+          const { data: isAdminResult, error } = await supabase.rpc('is_admin');
+          if (error || !isAdminResult) {
+            await supabase.auth.signOut();
+            navigate("/admin-login");
+          }
+        }
+      }
+    );
+
+    return () => subscription.unsubscribe();
   }, [navigate]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    localStorage.removeItem("adminAuth");
     navigate("/admin-login");
   };
 

@@ -77,8 +77,20 @@ const MemberForm = ({ member, onSuccess, onCancel }: MemberFormProps) => {
 
   const uploadImage = async (file: File): Promise<string | null> => {
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+      // Enhanced file validation
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+      const maxSize = 3 * 1024 * 1024; // 3MB limit for profile photos
+      
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error('Invalid file type. Only JPEG, PNG, GIF, and WebP images are allowed.');
+      }
+      
+      if (file.size > maxSize) {
+        throw new Error('Image size too large. Maximum size is 3MB.');
+      }
+
+      const fileExt = file.name.split('.').pop()?.toLowerCase();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
       const filePath = `members/${fileName}`;
 
       const { error: uploadError } = await supabase.storage
@@ -86,7 +98,6 @@ const MemberForm = ({ member, onSuccess, onCancel }: MemberFormProps) => {
         .upload(filePath, file);
 
       if (uploadError) {
-        console.error("Upload error:", uploadError);
         throw uploadError;
       }
 
@@ -96,7 +107,6 @@ const MemberForm = ({ member, onSuccess, onCancel }: MemberFormProps) => {
 
       return publicUrl;
     } catch (error) {
-      console.error("Error uploading image:", error);
       return null;
     }
   };

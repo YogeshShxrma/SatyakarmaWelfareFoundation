@@ -79,11 +79,21 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
   const uploadImage = async (file: File): Promise<string | null> => {
     setUploading(true);
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-      const filePath = `${fileName}`;
+      // Enhanced file validation
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+      const maxSize = 5 * 1024 * 1024; // 5MB limit for images
+      
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error('Invalid file type. Only JPEG, PNG, GIF, and WebP images are allowed.');
+      }
+      
+      if (file.size > maxSize) {
+        throw new Error('Image size too large. Maximum size is 5MB.');
+      }
 
-      console.log('Starting upload for file:', fileName);
+      const fileExt = file.name.split('.').pop()?.toLowerCase();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `${fileName}`;
 
       const { data, error: uploadError } = await supabase.storage
         .from('blog-images')
@@ -93,21 +103,16 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
         });
 
       if (uploadError) {
-        console.error('Upload error:', uploadError);
         throw uploadError;
       }
-
-      console.log('Upload successful:', data);
 
       // Get the public URL
       const { data: urlData } = supabase.storage
         .from('blog-images')
         .getPublicUrl(filePath);
 
-      console.log('Public URL generated:', urlData.publicUrl);
       return urlData.publicUrl;
     } catch (error) {
-      console.error('Error uploading image:', error);
       toast({
         title: "Upload Failed",
         description: `Failed to upload image: ${error.message || 'Unknown error'}`,
