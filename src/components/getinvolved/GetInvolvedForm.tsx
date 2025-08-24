@@ -76,7 +76,6 @@ const GetInvolvedForm = () => {
         message: ""
       });
     } catch (error) {
-      console.error('Gmail redirect error:', error);
       toast({
         title: t("contact.errorTitle"),
         description: t("contact.gmailErrorDesc"),

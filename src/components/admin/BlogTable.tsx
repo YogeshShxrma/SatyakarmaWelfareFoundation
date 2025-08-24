@@ -41,7 +41,6 @@ const BlogTable = ({ onEdit, onAdd, refreshTrigger }: BlogTableProps) => {
       if (error) throw error;
       setBlogs(data || []);
     } catch (error) {
-      console.error('Error fetching blogs:', error);
       toast({
         title: "Error",
         description: "Failed to fetch blogs",
@@ -69,7 +68,6 @@ const BlogTable = ({ onEdit, onAdd, refreshTrigger }: BlogTableProps) => {
       });
       fetchBlogs();
     } catch (error) {
-      console.error('Error deleting blog:', error);
       toast({
         title: "Error",
         description: "Failed to delete blog post",

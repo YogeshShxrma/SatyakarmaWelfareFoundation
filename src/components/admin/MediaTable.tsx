@@ -40,7 +40,6 @@ const MediaTable = ({ onEdit, onAdd, refreshTrigger }: MediaTableProps) => {
       if (error) throw error;
       setMedia(data || []);
     } catch (error) {
-      console.error('Error fetching media:', error);
       toast({
         title: "Error",
         description: "Failed to fetch media",
@@ -68,7 +67,6 @@ const MediaTable = ({ onEdit, onAdd, refreshTrigger }: MediaTableProps) => {
       });
       fetchMedia();
     } catch (error) {
-      console.error('Error deleting media:', error);
       toast({
         title: "Error",
         description: "Failed to delete media item",

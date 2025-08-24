@@ -37,16 +37,13 @@ const ShareButton: React.FC<ShareButtonProps> = ({
   };
 
   const handleShare = (platform: string) => {
-    console.log('Share button clicked for platform:', platform);
     const link = shareLinks[platform as keyof typeof shareLinks];
-    console.log('Generated share link:', link);
     if (link) {
       window.open(link, '_blank', 'width=600,height=400');
     }
   };
 
   const handleCopyLink = async () => {
-    console.log('Copy link clicked, URL:', url);
     try {
       if (!navigator.clipboard) {
         // Fallback for browsers that don't support clipboard API
@@ -73,7 +70,6 @@ const ShareButton: React.FC<ShareButtonProps> = ({
       });
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Copy failed:', err);
       toast({
         title: "Copy failed",
         description: "Could not copy link to clipboard.",
@@ -83,7 +79,6 @@ const ShareButton: React.FC<ShareButtonProps> = ({
   };
 
   const handleNativeShare = async () => {
-    console.log('Native share clicked');
     if (navigator.share) {
       try {
         await navigator.share({
@@ -91,12 +86,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           text: excerpt,
           url,
         });
-        console.log('Native share successful');
       } catch (err) {
-        console.log('Native sharing cancelled or failed:', err);
+        // Native sharing cancelled or failed - ignore silently
       }
-    } else {
-      console.log('Native share not supported');
     }
   };
 

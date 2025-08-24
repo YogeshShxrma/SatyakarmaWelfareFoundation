@@ -112,7 +112,6 @@ const MediaForm = ({ media, onSave, onCancel }: MediaFormProps) => {
 
       onSave();
     } catch (error) {
-      console.error('Error saving media:', error);
       toast({
         title: "Error",
         description: "Failed to save media",

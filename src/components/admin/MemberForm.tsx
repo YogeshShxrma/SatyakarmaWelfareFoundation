@@ -171,7 +171,6 @@ const MemberForm = ({ member, onSuccess, onCancel }: MemberFormProps) => {
       }
 
       if (error) {
-        console.error("Database error:", error);
         toast({
           title: "Error",
           description: `Failed to ${member ? "update" : "create"} member`,
@@ -187,7 +186,6 @@ const MemberForm = ({ member, onSuccess, onCancel }: MemberFormProps) => {
 
       onSuccess();
     } catch (error) {
-      console.error("Error saving member:", error);
       toast({
         title: "Error",
         description: `Failed to ${member ? "update" : "create"} member`,

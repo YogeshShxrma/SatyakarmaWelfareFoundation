@@ -40,7 +40,6 @@ const NewsTable = ({ onEdit, onAdd, refreshTrigger }: NewsTableProps) => {
       if (error) throw error;
       setNews(data || []);
     } catch (error) {
-      console.error('Error fetching news:', error);
       toast({
         title: "Error",
         description: "Failed to fetch news",
@@ -68,7 +67,6 @@ const NewsTable = ({ onEdit, onAdd, refreshTrigger }: NewsTableProps) => {
       });
       fetchNews();
     } catch (error) {
-      console.error('Error deleting news:', error);
       toast({
         title: "Error",
         description: "Failed to delete news item",

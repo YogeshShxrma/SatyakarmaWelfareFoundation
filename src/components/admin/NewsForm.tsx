@@ -73,7 +73,6 @@ const NewsForm = ({ news, onSave, onCancel }: NewsFormProps) => {
 
       onSave();
     } catch (error) {
-      console.error('Error saving news:', error);
       toast({
         title: "Error",
         description: "Failed to save news update",

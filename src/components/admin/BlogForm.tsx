@@ -162,7 +162,6 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
         image_url: finalImageUrl || null,
       };
 
-      console.log('Saving blog data:', blogData);
 
       if (blog?.id) {
         // Update existing blog
@@ -194,7 +193,6 @@ const BlogForm = ({ blog, onSave, onCancel }: BlogFormProps) => {
 
       onSave();
     } catch (error) {
-      console.error('Error saving blog:', error);
       toast({
         title: "Error",
         description: `Failed to save blog post: ${error.message || 'Unknown error'}`,

@@ -33,7 +33,7 @@ const MediaGallery = () => {
       if (error) throw error;
       setMedia(data || []);
     } catch (error) {
-      console.error('Error fetching media:', error);
+      // Error handled silently - media will show empty state
     } finally {
       setLoading(false);
     }

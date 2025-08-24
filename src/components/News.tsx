@@ -28,7 +28,7 @@ const News = () => {
       if (error) throw error;
       setNews(data || []);
     } catch (error) {
-      console.error('Error fetching news:', error);
+      // Error handled silently - news will show empty state
     } finally {
       setLoading(false);
     }

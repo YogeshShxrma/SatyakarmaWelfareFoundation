@@ -53,7 +53,6 @@ const AdminMembersManager = ({ refreshTrigger, onRefresh }: AdminMembersManagerP
 
       setMembers(data || []);
     } catch (error) {
-      console.error("Error fetching members:", error);
       toast({
         title: "Error",
         description: "Failed to fetch members",
@@ -99,7 +98,6 @@ const AdminMembersManager = ({ refreshTrigger, onRefresh }: AdminMembersManagerP
       fetchMembers();
       onRefresh();
     } catch (error) {
-      console.error("Error deleting member:", error);
       toast({
         title: "Error",
         description: "Failed to delete member",

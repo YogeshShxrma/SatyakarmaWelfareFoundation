@@ -30,13 +30,13 @@ const MembersSection = () => {
         .order("display_order", { ascending: true });
 
       if (error) {
-        console.error("Error fetching members:", error);
+        // Error handled silently - members will show empty state
         return;
       }
 
       setMembers(data || []);
     } catch (error) {
-      console.error("Error fetching members:", error);
+      // Error handled silently - members will show empty state
     } finally {
       setLoading(false);
     }
