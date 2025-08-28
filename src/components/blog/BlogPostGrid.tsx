@@ -8,6 +8,7 @@ interface BlogPostGridProps {
   resolveCategory: (post: BlogPost) => string;
   lang: string;
   formatDate: (dateString: string) => string;
+  onReadMore: (post: BlogPost) => void;
 }
 
 const BlogPostGrid: React.FC<BlogPostGridProps> = ({
@@ -15,6 +16,7 @@ const BlogPostGrid: React.FC<BlogPostGridProps> = ({
   resolveCategory,
   lang,
   formatDate,
+  onReadMore,
 }) => {
   const { t } = useTranslation();
   if (posts.length === 0) {
@@ -36,15 +38,16 @@ const BlogPostGrid: React.FC<BlogPostGridProps> = ({
 
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {posts.map((post) => (
-        <BlogPostCard
-          key={post.id}
-          post={post}
-          resolveCategory={resolveCategory}
-          lang={lang}
-          formatDate={formatDate}
-        />
-      ))}
+        {posts.map((post) => (
+          <BlogPostCard
+            key={post.id}
+            post={post}
+            resolveCategory={resolveCategory}
+            lang={lang}
+            formatDate={formatDate}
+            onReadMore={onReadMore}
+          />
+        ))}
     </div>
   );
 };

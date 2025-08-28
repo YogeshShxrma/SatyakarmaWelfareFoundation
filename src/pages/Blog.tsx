@@ -7,6 +7,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import BlogHero from "@/components/blog/BlogHero";
 import BlogCategoryFilter from "@/components/blog/BlogCategoryFilter";
 import BlogPostGrid from "@/components/blog/BlogPostGrid";
+import BlogPostModal from "@/components/blog/BlogPostModal";
 import NewsletterSignup from "@/components/blog/NewsletterSignup";
 import type { BlogPost } from "@/components/blog/BlogPostCard";
 
@@ -14,6 +15,8 @@ const Blog = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { t, lang } = useTranslation();
 
@@ -60,6 +63,16 @@ const Blog = () => {
     selectedCategory === t("blog.categoryAll")
       ? blogPosts
       : blogPosts.filter((post) => resolveCategory(post) === selectedCategory);
+
+  const handleReadMore = (post: BlogPost) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedPost(null);
+  };
 
   const formatDate = (dateString: string) =>
     new Date(dateString).toLocaleDateString(
@@ -109,9 +122,20 @@ const Blog = () => {
             resolveCategory={resolveCategory}
             lang={lang}
             formatDate={formatDate}
+            onReadMore={handleReadMore}
           />
         </div>
       </section>
+      
+      {/* Blog Post Modal */}
+      <BlogPostModal
+        post={selectedPost}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        resolveCategory={resolveCategory}
+        lang={lang}
+        formatDate={formatDate}
+      />
       <NewsletterSignup />
       <Footer />
     </div>
