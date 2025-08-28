@@ -19,15 +19,18 @@ interface ShareButtonProps {
 const ShareButton: React.FC<ShareButtonProps> = ({ 
   title, 
   excerpt, 
-  url = window.location.href,
+  url,
   className = ""
 }) => {
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
 
+  // Ensure we have a valid URL
+  const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
+
   const encodedTitle = encodeURIComponent(title);
   const encodedText = encodeURIComponent(excerpt);
-  const encodedUrl = encodeURIComponent(url);
+  const encodedUrl = encodeURIComponent(shareUrl);
 
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`,
@@ -39,7 +42,20 @@ const ShareButton: React.FC<ShareButtonProps> = ({
   const handleShare = (platform: string) => {
     const link = shareLinks[platform as keyof typeof shareLinks];
     if (link) {
-      window.open(link, '_blank', 'width=600,height=400');
+      try {
+        const popup = window.open(link, '_blank', 'width=600,height=400,scrollbars=yes,resizable=yes');
+        if (!popup) {
+          // Fallback if popup is blocked - open in same tab
+          window.open(link, '_blank');
+        }
+      } catch (error) {
+        console.error('Error opening share link:', error);
+        toast({
+          title: "Share failed",
+          description: "Could not open sharing window. Please check your popup blocker settings.",
+          variant: "destructive"
+        });
+      }
     }
   };
 
@@ -48,8 +64,12 @@ const ShareButton: React.FC<ShareButtonProps> = ({
       if (!navigator.clipboard) {
         // Fallback for browsers that don't support clipboard API
         const textArea = document.createElement('textarea');
-        textArea.value = url;
+        textArea.value = shareUrl;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
         document.body.appendChild(textArea);
+        textArea.focus();
         textArea.select();
         document.execCommand('copy');
         document.body.removeChild(textArea);
@@ -62,7 +82,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
         return;
       }
       
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       toast({
         title: "Link copied!",
@@ -84,10 +104,13 @@ const ShareButton: React.FC<ShareButtonProps> = ({
         await navigator.share({
           title,
           text: excerpt,
-          url,
+          url: shareUrl,
         });
       } catch (err) {
-        // Native sharing cancelled or failed - ignore silently
+        if (err instanceof Error && err.name !== 'AbortError') {
+          console.error('Native sharing failed:', err);
+        }
+        // Native sharing cancelled or failed - ignore silently for AbortError
       }
     }
   };
@@ -98,7 +121,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
         <Button
           variant="outline"
           size="sm"
-          className={`flex items-center gap-2 hover:bg-green-50 hover:border-green-300 ${className}`}
+          className={`flex items-center gap-2 hover:bg-sage-50 hover:border-sage-300 ${className}`}
         >
           <Share className="h-4 w-4" />
           Share
@@ -116,7 +139,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           onClick={() => handleShare('facebook')} 
           className="flex items-center gap-2"
         >
-          <Facebook className="h-4 w-4 text-blue-600" />
+          <Facebook className="h-4 w-4 text-ocean-600" />
           Facebook
         </DropdownMenuItem>
         
@@ -124,7 +147,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           onClick={() => handleShare('twitter')} 
           className="flex items-center gap-2"
         >
-          <Twitter className="h-4 w-4 text-blue-400" />
+          <Twitter className="h-4 w-4 text-ocean-400" />
           Twitter / X
         </DropdownMenuItem>
         
@@ -132,7 +155,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           onClick={() => handleShare('whatsapp')} 
           className="flex items-center gap-2"
         >
-          <MessageCircle className="h-4 w-4 text-green-600" />
+          <MessageCircle className="h-4 w-4 text-sage-600" />
           WhatsApp
         </DropdownMenuItem>
         
@@ -140,7 +163,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           onClick={() => handleShare('whatsappStatus')} 
           className="flex items-center gap-2"
         >
-          <MessageCircle className="h-4 w-4 text-green-500" />
+          <MessageCircle className="h-4 w-4 text-sage-500" />
           WhatsApp Status
         </DropdownMenuItem>
         
@@ -149,7 +172,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           className="flex items-center gap-2"
         >
           {copied ? (
-            <Check className="h-4 w-4 text-green-600" />
+            <Check className="h-4 w-4 text-sage-600" />
           ) : (
             <Link className="h-4 w-4" />
           )}
