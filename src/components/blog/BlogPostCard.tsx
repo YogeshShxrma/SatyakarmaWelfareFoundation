@@ -98,7 +98,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
                 : {}
             }
           >
-            {t("blog.readMore")} →
+            {t("blog.readMore")}
           </button>
         </div>
         
