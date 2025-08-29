@@ -193,6 +193,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_admin_user_secure: {
+        Args: { admin_email: string; admin_password_hash: string }
+        Returns: string
+      }
       get_admin_profiles: {
         Args: Record<PropertyKey, never>
         Returns: {
