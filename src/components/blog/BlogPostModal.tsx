@@ -48,10 +48,13 @@ const BlogPostModal: React.FC<BlogPostModalProps> = ({
   return (
     <>
       <DynamicMeta
-        title={post.title}
+        title={`${post.title} - Satyakarma Welfare Foundation`}
         description={post.excerpt}
         image={post.image_url || "https://lovable.dev/opengraph-image-p98pqg.png"}
         url={`${window.location.origin}/blog#${post.id}`}
+        type="article"
+        publishedDate={post.created_at}
+        author="Satyakarma Welfare Foundation"
       />
       
       {/* Backdrop with blur */}
@@ -146,13 +149,19 @@ const BlogPostModal: React.FC<BlogPostModalProps> = ({
             {/* Footer with share button */}
             <div className="border-t border-border p-6 bg-muted/30">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">
-                  5 min read
-                </span>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-muted-foreground">
+                    5 min read
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    Published: {formatDate(post.created_at)}
+                  </span>
+                </div>
                 <ShareButton
                   title={post.title}
                   excerpt={post.excerpt}
                   url={`${window.location.origin}/blog#${post.id}`}
+                  className="bg-background"
                 />
               </div>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Share, Facebook, Twitter, MessageCircle, Link, Check } from "lucide-react";
+import { Share, Facebook, Twitter, MessageCircle, Link, Check, Linkedin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -32,11 +32,14 @@ const ShareButton: React.FC<ShareButtonProps> = ({
   const encodedText = encodeURIComponent(excerpt);
   const encodedUrl = encodeURIComponent(shareUrl);
 
+  // Create rich sharing content for different platforms
   const shareLinks = {
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`,
-    twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
-    whatsapp: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,
-    whatsappStatus: `https://wa.me/?text=${encodedTitle}%20-%20${encodedText}%20${encodedUrl}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+    twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}%0A%0A${encodedText}%0A%0A${encodedUrl}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+    whatsapp: `https://wa.me/?text=${encodedTitle}%0A%0A${encodedText}%0A%0A${encodedUrl}`,
+    whatsappStatus: `https://wa.me/?text=${encodedTitle}%0A%0A${encodedText}%0A%0A${encodedUrl}`,
+    telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}%0A%0A${encodedText}`,
   };
 
   const handleShare = (platform: string) => {
@@ -152,6 +155,14 @@ const ShareButton: React.FC<ShareButtonProps> = ({
         </DropdownMenuItem>
         
         <DropdownMenuItem 
+          onClick={() => handleShare('linkedin')} 
+          className="flex items-center gap-2"
+        >
+          <Linkedin className="h-4 w-4 text-ocean-600" />
+          LinkedIn
+        </DropdownMenuItem>
+        
+        <DropdownMenuItem 
           onClick={() => handleShare('whatsapp')} 
           className="flex items-center gap-2"
         >
@@ -160,11 +171,11 @@ const ShareButton: React.FC<ShareButtonProps> = ({
         </DropdownMenuItem>
         
         <DropdownMenuItem 
-          onClick={() => handleShare('whatsappStatus')} 
+          onClick={() => handleShare('telegram')} 
           className="flex items-center gap-2"
         >
-          <MessageCircle className="h-4 w-4 text-sage-500" />
-          WhatsApp Status
+          <Send className="h-4 w-4 text-ocean-500" />
+          Telegram
         </DropdownMenuItem>
         
         <DropdownMenuItem 

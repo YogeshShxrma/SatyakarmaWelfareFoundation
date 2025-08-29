@@ -5,13 +5,19 @@ interface DynamicMetaProps {
   description?: string;
   image?: string;
   url?: string;
+  type?: 'article' | 'website';
+  publishedDate?: string;
+  author?: string;
 }
 
 const DynamicMeta: React.FC<DynamicMetaProps> = ({
   title = "Satyakarma Welfare Foundation",
   description = "Working towards a better future through environmental protection, children's health, and community development.",
   image = "https://lovable.dev/opengraph-image-p98pqg.png",
-  url = window.location.href
+  url = window.location.href,
+  type = 'website',
+  publishedDate,
+  author = 'Satyakarma Welfare Foundation'
 }) => {
   useEffect(() => {
     // Update document title
@@ -40,16 +46,83 @@ const DynamicMeta: React.FC<DynamicMetaProps> = ({
     updateMetaTag('og:description', description);
     updateMetaTag('og:image', image);
     updateMetaTag('og:url', url);
-    updateMetaTag('og:type', 'article');
+    updateMetaTag('og:type', type);
+    updateMetaTag('og:site_name', 'Satyakarma Welfare Foundation');
+    updateMetaTag('og:locale', 'en_US');
+    
+    if (type === 'article' && publishedDate) {
+      updateMetaTag('og:article:published_time', publishedDate);
+      updateMetaTag('og:article:author', author);
+      updateMetaTag('og:article:section', 'Blog');
+    }
 
     // Update Twitter Card tags
     updateMetaTag('twitter:card', 'summary_large_image', true);
     updateMetaTag('twitter:title', title, true);
     updateMetaTag('twitter:description', description, true);
     updateMetaTag('twitter:image', image, true);
+    updateMetaTag('twitter:site', '@SatyakarmaFoundation', true);
+    updateMetaTag('twitter:creator', '@SatyakarmaFoundation', true);
+
+    // Update LinkedIn specific tags
+    updateMetaTag('linkedin:title', title);
+    updateMetaTag('linkedin:description', description);
+    updateMetaTag('linkedin:image', image);
+
+    // Update WhatsApp/Telegram specific tags (use Open Graph)
+    updateMetaTag('og:image:width', '1200');
+    updateMetaTag('og:image:height', '630');
+    updateMetaTag('og:image:alt', title);
 
     // Update standard meta tags
     updateMetaTag('description', description, true);
+    updateMetaTag('keywords', 'satyakarma, welfare, foundation, environment, children, community development, NGO', true);
+    
+    if (type === 'article') {
+      updateMetaTag('article:author', author, true);
+      if (publishedDate) {
+        updateMetaTag('article:published_time', publishedDate, true);
+      }
+    }
+
+    // Add JSON-LD structured data for better SEO
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const structuredData = type === 'article' ? {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "image": image,
+      "url": url,
+      "datePublished": publishedDate,
+      "author": {
+        "@type": "Organization",
+        "name": author
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Satyakarma Welfare Foundation",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://lovable.dev/opengraph-image-p98pqg.png"
+        }
+      }
+    } : {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": title,
+      "description": description,
+      "url": url
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
 
     // Cleanup function to reset to default values when component unmounts
     return () => {
