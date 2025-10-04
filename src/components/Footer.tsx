@@ -46,6 +46,10 @@ const Footer = () => {
                 <Mail className="h-4 w-4 text-gray-400" />
                 <span className="text-gray-300 text-sm">{t("footer.email")}</span>
               </div>
+               <div className="flex items-center space-x-2">
+                <Mail className="h-4 w-4 text-gray-400" />
+                <span className="text-gray-300 text-sm">{t("footer.email")}</span>
+              </div>
               <div className="flex space-x-4 mt-4">
                 <a href="https://m.facebook.com/61557486574874/" className="text-gray-400 hover:text-white transition-colors">
                   <Facebook className="h-5 w-5" />
