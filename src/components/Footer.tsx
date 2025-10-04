@@ -47,13 +47,13 @@ const Footer = () => {
                 <span className="text-gray-300 text-sm">{t("footer.email")}</span>
               </div>
               <div className="flex space-x-4 mt-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://m.facebook.com/61557486574874/" className="text-gray-400 hover:text-white transition-colors">
                   <Facebook className="h-5 w-5" />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://x.com/Satyakarmango" className="text-gray-400 hover:text-white transition-colors">
                   <Twitter className="h-5 w-5" />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://www.instagram.com/satyakarmango?igsh=amJtaXBycHVmcm1u" className="text-gray-400 hover:text-white transition-colors">
                   <Instagram className="h-5 w-5" />
                 </a>
               </div>
