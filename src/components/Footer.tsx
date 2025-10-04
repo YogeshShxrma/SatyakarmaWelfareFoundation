@@ -44,7 +44,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-300 text-sm">{t("footer.email")}</span>
+                <span className="text-gray-300 text-sm">{t("laxmi.sharma@satyakarma.com")}</span>
               </div>
                <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-gray-400" />
