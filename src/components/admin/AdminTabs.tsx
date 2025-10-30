@@ -1,5 +1,5 @@
 
-import { FileText, Upload, Image, Users, Settings } from "lucide-react";
+import { FileText, Upload, Image, Users } from "lucide-react";
 
 interface AdminTabsProps {
   activeTab: string;
@@ -27,11 +27,6 @@ const tabButtons = [
     key: "members",
     label: "Members",
     icon: <Users className="inline h-5 w-5 mr-2" />,
-  },
-  {
-    key: "site-assets",
-    label: "Site Assets",
-    icon: <Settings className="inline h-5 w-5 mr-2" />,
   },
 ];
 
