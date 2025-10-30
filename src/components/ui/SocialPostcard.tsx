@@ -18,7 +18,7 @@ const SocialPostcard = ({
       <div className="flex items-center gap-3 p-4 bg-background">
         <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-sage-100 flex items-center justify-center">
           <img 
-            src="/assets/logo.png" 
+            src="/database/asset/logo.png" 
             alt="Satyakarma Earth Rise" 
             className="w-8 h-8 object-contain"
           />
