@@ -1,9 +1,8 @@
 import { useTranslation } from "@/hooks/useTranslation";
-
-const plasticWasteImage = "/database/asset/plastic-waste.jpg";
-const childrenEducationImage = "/database/asset/children-education.jpg";
-const treePlantingImage = "/database/asset/tree-planting.jpg";
-const communityDevelopmentImage = "/database/asset/community-development.jpg";
+import plasticWasteImage from "@/assets/plastic-waste.jpg";
+import childrenEducationImage from "@/assets/children-education.jpg";
+import treePlantingImage from "@/assets/tree-planting.jpg";
+import communityDevelopmentImage from "@/assets/community-development.jpg";
 const FocusAreas = () => {
   const {
     t,

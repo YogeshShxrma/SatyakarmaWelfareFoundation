@@ -8,6 +8,7 @@ import AdminBlogManager from "@/components/admin/AdminBlogManager";
 import AdminNewsManager from "@/components/admin/AdminNewsManager";
 import AdminMediaManager from "@/components/admin/AdminMediaManager";
 import AdminMembersManager from "@/components/admin/AdminMembersManager";
+import { AdminSiteAssetsManager } from "@/components/admin/AdminSiteAssetsManager";
 
 const AdminPanel = () => {
   const navigate = useNavigate();
@@ -89,6 +90,9 @@ const AdminPanel = () => {
         )}
         {activeTab === "members" && (
           <AdminMembersManager refreshTrigger={refreshTrigger} onRefresh={refreshData} />
+        )}
+        {activeTab === "site-assets" && (
+          <AdminSiteAssetsManager />
         )}
       </div>
     </AdminPanelLayout>

@@ -30,7 +30,7 @@ const AnimatedLogo: React.FC = () => {
       aria-label="SatyaKarma Logo"
     >
       <img
-        src="/database/asset/logo.png"
+        src="/assets/logo.png"
         alt="SatyaKarma Logo"
         className="w-28 h-28 md:w-36 md:h-36 rounded-full shadow-xl object-cover bg-white"
         draggable={false}
