@@ -1,34 +1,60 @@
 import { useTranslation } from "@/hooks/useTranslation";
-import plasticWasteImage from "@/assets/plastic-waste.jpg";
-import childrenEducationImage from "@/assets/children-education.jpg";
-import treePlantingImage from "@/assets/tree-planting.jpg";
-import communityDevelopmentImage from "@/assets/community-development.jpg";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface SiteAsset {
+  id: string;
+  name: string;
+  file_url: string;
+  category: string;
+}
+
 const FocusAreas = () => {
-  const {
-    t,
-    lang
-  } = useTranslation();
-  const areas = [{
-    title: t("focusAreas.plastic.title"),
-    description: t("focusAreas.plastic.desc"),
-    image: plasticWasteImage,
-    stats: t("focusAreas.plastic.stats")
-  }, {
-    title: t("focusAreas.children.title"),
-    description: t("focusAreas.children.desc"),
-    image: childrenEducationImage,
-    stats: t("focusAreas.children.stats")
-  }, {
-    title: t("focusAreas.tree.title"),
-    description: t("focusAreas.tree.desc"),
-    image: treePlantingImage,
-    stats: t("focusAreas.tree.stats")
-  }, {
-    title: t("focusAreas.community.title"),
-    description: t("focusAreas.community.desc"),
-    image: communityDevelopmentImage,
-    stats: t("focusAreas.community.stats")
-  }];
+  const { t, lang } = useTranslation();
+  const [assets, setAssets] = useState<SiteAsset[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAssets = async () => {
+      const { data } = await supabase
+        .from("site_assets")
+        .select("*")
+        .eq("category", "focus-area")
+        .order("created_at", { ascending: true });
+      
+      if (data) setAssets(data);
+      setLoading(false);
+    };
+    
+    fetchAssets();
+  }, []);
+
+  const areas = [
+    {
+      title: t("focusAreas.plastic.title"),
+      description: t("focusAreas.plastic.desc"),
+      imageName: "plastic-waste",
+      stats: t("focusAreas.plastic.stats")
+    },
+    {
+      title: t("focusAreas.children.title"),
+      description: t("focusAreas.children.desc"),
+      imageName: "children-education",
+      stats: t("focusAreas.children.stats")
+    },
+    {
+      title: t("focusAreas.tree.title"),
+      description: t("focusAreas.tree.desc"),
+      imageName: "tree-planting",
+      stats: t("focusAreas.tree.stats")
+    },
+    {
+      title: t("focusAreas.community.title"),
+      description: t("focusAreas.community.desc"),
+      imageName: "community-development",
+      stats: t("focusAreas.community.stats")
+    }
+  ];
   return <section className="py-20 bg-white">
       <div className="max-w-max mx-auto px-4 sm:px-6 lg:px-8 py-[32px] bg-green-50">
         <div className="text-center mb-16">
@@ -42,16 +68,28 @@ const FocusAreas = () => {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {areas.map((area, index) => <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-video overflow-hidden">
-                <img src={area.image} alt={area.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">{area.title}</h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">{area.description}</p>
-                
-              </div>
-            </div>)}
+          {loading ? (
+            <p className="text-gray-600">Loading...</p>
+          ) : (
+            areas.map((area, index) => {
+              const assetImage = assets.find(a => a.name.toLowerCase().includes(area.imageName));
+              return (
+                <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                  <div className="aspect-video overflow-hidden">
+                    <img 
+                      src={assetImage?.file_url || "/placeholder.svg"} 
+                      alt={area.title} 
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-3">{area.title}</h3>
+                    <p className="text-gray-600 mb-4 leading-relaxed">{area.description}</p>
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
     </section>;
