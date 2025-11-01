@@ -1,11 +1,21 @@
-
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Leaf, TreeDeciduous, Users } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
-
+import environment1 from "@/assets/environment-1.jpg";
+import environment2 from "@/assets/environment-2.jpg";
+import community1 from "@/assets/community-1.jpg";
+import community2 from "@/assets/community-2.jpg";
+import education1 from "@/assets/education-1.jpg";
+import education2 from "@/assets/education-2.jpg";
 const WhatWeDo = () => {
   const { t, lang } = useTranslation();
+  
+  const programImages = [
+    [environment1, environment2],
+    [community1, community2],
+    [education1, education2]
+  ];
   
   const programs = [
     {
@@ -95,12 +105,12 @@ const WhatWeDo = () => {
               <div className="lg:w-1/2">
                 <div className="grid grid-cols-2 gap-4">
                   <img 
-                    src={`https://images.unsplash.com/photo-${index === 0 ? '1581090464777-f3220bbe1b8b' : index === 1 ? '1535268647677-300dbf3d78d1' : '1509316975850-ff9c5deb0cd9'}?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80`}
+                    src={programImages[index][0]}
                     alt={program.title}
                     className="rounded-lg shadow-lg"
                   />
                   <img 
-                    src={`https://images.unsplash.com/photo-${index === 0 ? '1518495973542-4542c06a5843' : index === 1 ? '1472396961693-142e6e269027' : '1513836279014-a89f7a76ae86'}?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80`}
+                    src={programImages[index][1]}
                     alt={program.title}
                     className="rounded-lg shadow-lg"
                   />
