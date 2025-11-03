@@ -39,14 +39,19 @@ const MediaForm = ({ media, onSave, onCancel }: MediaFormProps) => {
   const uploadFile = async (file: File): Promise<string> => {
     // Enhanced file validation
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/webm'];
-    const maxSize = 10 * 1024 * 1024; // 10MB limit
+    const maxImageSize = 10 * 1024 * 1024; // 10MB for images
+    const maxVideoSize = 100 * 1024 * 1024; // 100MB for videos
     
     if (!allowedTypes.includes(file.type)) {
       throw new Error('Invalid file type. Only JPEG, PNG, GIF, WebP, MP4, and WebM files are allowed.');
     }
     
+    const isVideo = file.type.startsWith('video/');
+    const maxSize = isVideo ? maxVideoSize : maxImageSize;
+    
     if (file.size > maxSize) {
-      throw new Error('File size too large. Maximum size is 10MB.');
+      const maxSizeMB = Math.floor(maxSize / (1024 * 1024));
+      throw new Error(`File size too large. Maximum size for ${isVideo ? 'videos' : 'images'} is ${maxSizeMB}MB.`);
     }
 
     const fileExt = file.name.split('.').pop()?.toLowerCase();
@@ -111,10 +116,11 @@ const MediaForm = ({ media, onSave, onCancel }: MediaFormProps) => {
       }
 
       onSave();
-    } catch (error) {
+    } catch (error: any) {
+      console.error('Media upload error:', error);
       toast({
         title: "Error",
-        description: "Failed to save media",
+        description: error.message || "Failed to save media",
         variant: "destructive",
       });
     } finally {
