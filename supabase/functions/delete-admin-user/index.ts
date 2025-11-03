@@ -39,7 +39,7 @@ serve(async (req) => {
       )
     }
 
-    const { data: isAdmin, error: adminCheckError } = await supabaseAdmin.rpc('is_admin')
+    const { data: isAdmin, error: adminCheckError } = await supabaseUser.rpc('is_admin')
     if (adminCheckError || !isAdmin) {
       return new Response(
         JSON.stringify({ error: 'Admin privileges required' }),
