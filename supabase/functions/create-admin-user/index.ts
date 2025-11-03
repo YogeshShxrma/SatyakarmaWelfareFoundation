@@ -82,8 +82,8 @@ serve(async (req) => {
       )
     }
 
-    // Check if requesting user is admin
-    const { data: isAdmin, error: adminCheckError } = await supabaseAdmin.rpc('is_admin')
+    // Check if requesting user is admin using their session
+    const { data: isAdmin, error: adminCheckError } = await supabaseUser.rpc('is_admin')
     if (adminCheckError || !isAdmin) {
       await supabaseAdmin
         .from('admin_audit_log')
