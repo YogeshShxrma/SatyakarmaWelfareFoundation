@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Key, Trash2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useState } from "react";
 
 interface AdminUser {
   id: string;
@@ -20,6 +22,17 @@ const AdminUserTable = ({
   onChangePassword,
   onDelete,
 }: AdminUserTableProps) => {
+  const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.email) {
+        setCurrentUserEmail(user.email);
+      }
+    };
+    getCurrentUser();
+  }, []);
   if (loading) {
     return (
       <div className="overflow-x-auto">
@@ -82,38 +95,46 @@ const AdminUserTable = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {admins.map((admin) => (
-            <tr key={admin.id}>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm font-medium text-gray-900">
-                  {admin.email}
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-500">
-                  {new Date(admin.created_at).toLocaleDateString()}
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => onChangePassword(admin)}
-                >
-                  <Key className="h-4 w-4 mr-1" />
-                  Change Password
-                </Button>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => onDelete(admin.id)}
-                >
-                  <Trash2 className="h-4 w-4 mr-1" />
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          ))}
+          {admins.map((admin) => {
+            const isCurrentUser = admin.email === currentUserEmail;
+            return (
+              <tr key={admin.id}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">
+                    {admin.email}
+                    {isCurrentUser && (
+                      <span className="ml-2 text-xs text-primary font-semibold">(You)</span>
+                    )}
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-500">
+                    {new Date(admin.created_at).toLocaleDateString()}
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onChangePassword(admin)}
+                  >
+                    <Key className="h-4 w-4 mr-1" />
+                    Change Password
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => onDelete(admin.id)}
+                    disabled={isCurrentUser}
+                    title={isCurrentUser ? "Cannot delete your own account" : "Delete admin"}
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
