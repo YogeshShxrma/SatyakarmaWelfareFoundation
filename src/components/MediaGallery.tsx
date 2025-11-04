@@ -38,17 +38,18 @@ const MediaGallery = () => {
       setLoading(false);
     }
   };
-  const filteredMedia = selectedType === "all" ? media : media.filter(item => item.file_type === selectedType);
+  const filteredMedia = selectedType === "all" 
+    ? media 
+    : media.filter(item => item.file_type.startsWith(selectedType));
 
   // Helper for translated media type label (for card badges, etc)
   const getFileTypeLabel = (type: string) => {
-    switch (type) {
-      case "image":
-        return t("mediaGallery.images");
-      case "video":
-        return t("mediaGallery.videos");
-      default:
-        return t("mediaGallery.allMedia");
+    if (type.startsWith("image")) {
+      return t("mediaGallery.images");
+    } else if (type.startsWith("video")) {
+      return t("mediaGallery.videos");
+    } else {
+      return t("mediaGallery.allMedia");
     }
   };
 
@@ -92,10 +93,18 @@ const MediaGallery = () => {
         {filteredMedia.length === 0 ? <div className="text-center text-gray-600">{t("mediaGallery.noItems")}</div> : <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredMedia.map(item => <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="aspect-video bg-gray-100 relative">
-                  {item.file_type === 'image' ? <img src={item.file_url} alt={getTitle(item)} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                      <Play className="h-12 w-12 text-gray-400" />
-                      <video src={item.file_url} className="absolute inset-0 w-full h-full object-cover" poster="" />
-                    </div>}
+                  {item.file_type.startsWith('image') ? (
+                    <img src={item.file_url} alt={getTitle(item)} className="w-full h-full object-cover" />
+                  ) : (
+                    <video 
+                      src={item.file_url} 
+                      controls 
+                      className="w-full h-full object-cover"
+                      preload="metadata"
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-gray-800 mb-2">{getTitle(item)}</h3>
