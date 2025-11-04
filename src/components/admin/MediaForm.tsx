@@ -79,15 +79,19 @@ const MediaForm = ({ media, onSave, onCancel }: MediaFormProps) => {
 
     try {
       let fileUrl = formData.file_url;
+      let fileType = formData.file_type;
 
       // Upload new file if selected
       if (file) {
         fileUrl = await uploadFile(file);
+        // Store the actual MIME type instead of generic "image" or "video"
+        fileType = file.type;
       }
 
       const mediaData = {
         ...formData,
-        file_url: fileUrl
+        file_url: fileUrl,
+        file_type: fileType
       };
 
       if (media?.id) {
